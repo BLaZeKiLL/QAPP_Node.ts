@@ -1,0 +1,17 @@
+type Target {
+  branch: String!
+  semester: Int!
+  section: String!
+}
+
+type Message {
+  subject: String!
+  content: String!
+  target: Target!
+}
+
+type AuthData {
+  id: ID!
+  email: String!
+  token: String!
+}

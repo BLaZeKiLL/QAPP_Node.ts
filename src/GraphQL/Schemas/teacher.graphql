@@ -1,0 +1,12 @@
+input TeacherInput {
+  name: String!
+  email: String!
+  admin: Boolean!
+}
+
+type Teacher {
+  _id: ID!
+  name: String!
+  email: String!
+  admin: Boolean!
+}

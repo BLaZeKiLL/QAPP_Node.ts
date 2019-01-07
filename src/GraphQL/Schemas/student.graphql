@@ -1,0 +1,19 @@
+# import Target from 'misc.graphql'
+# import Result from 'result.graphql'
+
+input StudentInput {
+  name: String!
+  email: String!
+  rollno: String!
+  target: Target!
+}
+
+type Student {
+  _id: ID!
+  name: String!
+  email: String!
+  deviceID: String
+  rollno: String!
+  target: Target!
+  results: [Result!]
+}

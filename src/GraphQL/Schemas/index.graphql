@@ -1,0 +1,32 @@
+# import Question, QuestionInput from 'question.graphql'
+# import Quiz, QuizInput from 'quiz.graphql'
+# import Result, ResultInput from 'result.graphql'
+# import StudentInput from 'student.graphql'
+# import TeacherInput from 'teacher.graphql'
+# import Message, AuthData from 'misc.graphql'
+
+type RootQuery {
+  questions(courseCode: String!): [Question!]! #
+  quizResults(quizID: ID!): [Reslut!]!
+  studentResults(studentID: ID!): [Result!]!
+  studentLogin(email: String!, password: String!): AuthData! #
+  teacherlogin(email: String!, password: String!): AuthData! #
+}
+
+type RootMutations {
+  # ADDITIONS
+  addQuestion(question: QuestionInput!): Question! #
+  addQuestions(questions: [QuestionInput!]!): [Question!]! #
+  addQuiz(quiz: QuizInput!): Boolean! #
+  addResult(result: ResultInput!): Boolean!
+  addStudent(student: StudentInput!): Boolean! #
+  addTeacher(teacher: TeacherInput!): Boolean! #
+
+  # UPDATIONS
+  updateQuestion(question: QuestionUpdate!): Question!
+  updateQuiz(quiz: QuizUpdate!): Quiz!
+
+  # DELETIONS
+  deleteQuestion(questionID: ID!): Boolean! #
+  deleteQuiz(quizID: ID!): Boolean!
+}
