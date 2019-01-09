@@ -3,14 +3,14 @@
 # import Result, ResultInput from 'result.graphql'
 # import StudentInput from 'student.graphql'
 # import TeacherInput from 'teacher.graphql'
-# import Message, AuthData from 'misc.graphql'
+# import Message, TeacherAuthData, StudentAuthData from 'misc.graphql'
 
 type RootQuery {
   questions(courseCode: String!): [Question!]! #
   quizResults(quizID: ID!): [Result!]!
   studentResults(studentID: ID!): [Result!]!
-  studentLogin(email: String!, password: String!): AuthData! #
-  teacherlogin(email: String!, password: String!): AuthData! #
+  studentLogin(email: String!, password: String!): StudentAuthData! #
+  teacherLogin(email: String!, password: String!): TeacherAuthData! #
 }
 
 type RootMutations {

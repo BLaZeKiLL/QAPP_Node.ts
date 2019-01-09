@@ -18,9 +18,16 @@ interface IToken {
   power?: Power;
 }
 
-interface IAuthData {
+interface IStudentAuthData {
   id: Schema.Types.ObjectId;
   email: string;
+  token: string;
+}
+
+interface ITeacherAuthData {
+  id: Schema.Types.ObjectId;
+  email: string;
+  admin: boolean;
   token: string;
 }
 
@@ -28,5 +35,6 @@ export {
   ITarget,
   Power,
   IToken,
-  IAuthData
+  IStudentAuthData,
+  ITeacherAuthData
 };

@@ -1,6 +1,7 @@
 import graphqlHttp, { Middleware } from 'express-graphql';
 import { buildSchema, GraphQLSchema } from 'graphql';
 import { importSchema } from 'graphql-import';
+import { Log } from '../Modules/logger';
 
 import RootResolver from './Resolvers/index.resolver';
 
@@ -12,7 +13,8 @@ export class GraphBuilder {
     return graphqlHttp({
       schema: this.buildGraphQLSchema(),
       rootValue: RootResolver,
-      graphiql: this.graphiql
+      graphiql: this.graphiql,
+      formatError: error => { Log.main.error(error); return error; }
     });
   }
 

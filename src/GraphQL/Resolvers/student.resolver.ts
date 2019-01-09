@@ -1,12 +1,12 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { IAuthData, IToken } from '../../Models/misc.model';
+import { IStudentAuthData, IToken } from '../../Models/misc.model';
 import { Student } from '../../Models/student.model';
 import { APP_SECRET } from '../../Modules/authentication';
 
 export = {
-  studentLogin: async (args: any): Promise<IAuthData> => {
+  studentLogin: async (args: any): Promise<IStudentAuthData> => {
     try {
       const student = await Student.getOne({ email: args.email });
       if (!student) {

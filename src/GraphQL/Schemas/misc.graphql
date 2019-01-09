@@ -16,8 +16,15 @@ type Message {
   target: Target!
 }
 
-type AuthData {
+type StudentAuthData {
   id: ID!
   email: String!
+  token: String!
+}
+
+type TeacherAuthData {
+  id: ID!
+  email: String!
+  admin: Boolean!
   token: String!
 }
