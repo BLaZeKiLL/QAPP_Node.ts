@@ -1,7 +1,7 @@
 # import Question, IMGQuestion, IMGQuestionInput from 'question.graphql'
 # import Teacher from 'teacher.graphql'
 # import Result from 'result.graphql'
-# import Target from 'misc.graphql'
+# import Target, TargetInput from 'misc.graphql'
 
 input QuizInput {
   courseCode: String!
@@ -11,23 +11,21 @@ input QuizInput {
   setQuestions: Int!
   date: String!
   duration: Int!
-  target: Target!
+  target: TargetInput!
   questions: [IMGQuestionInput!]!
 }
 
-type QuizUpdate {
+input QuizUpdate {
   _id: ID!
   courseCode: String
   No: Int
-  creator: Teacher!
   totalQuestions: Int
   setQuestions: Int
   date: String
   duration: Int
-  target: Target
-  questions: [IMGQuestion!]
+  target: TargetInput
+  questions: [IMGQuestionInput!]
   active: Boolean
-  results: [Result!]
 }
 
 type Quiz {

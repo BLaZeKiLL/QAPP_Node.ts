@@ -1,11 +1,11 @@
-# import Target from 'misc.graphql'
+# import Target, TargetInput from 'misc.graphql'
 # import Result from 'result.graphql'
 
 input StudentInput {
   name: String!
   email: String!
   rollno: String!
-  target: Target!
+  target: TargetInput!
 }
 
 type Student {
