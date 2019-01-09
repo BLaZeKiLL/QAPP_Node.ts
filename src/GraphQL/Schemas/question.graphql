@@ -32,7 +32,7 @@ input QuestionInput {
 
 input QuestionUpdate {
   _id: ID!
-  courseCode: courseCode
+  courseCode: String
   type: QuestionType
   statement: String
   options: [OptionInput!]

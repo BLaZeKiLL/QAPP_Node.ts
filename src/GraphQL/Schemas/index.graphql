@@ -7,7 +7,7 @@
 
 type RootQuery {
   questions(courseCode: String!): [Question!]! #
-  quizResults(quizID: ID!): [Reslut!]!
+  quizResults(quizID: ID!): [Result!]!
   studentResults(studentID: ID!): [Result!]!
   studentLogin(email: String!, password: String!): AuthData! #
   teacherlogin(email: String!, password: String!): AuthData! #
