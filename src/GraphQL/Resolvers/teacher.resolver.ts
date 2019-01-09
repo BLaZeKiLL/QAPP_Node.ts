@@ -7,6 +7,7 @@ import { APP_SECRET } from '../../Modules/authentication';
 
 export = {
   teacherLogin: async (args: any): Promise<IAuthData> => {
+    console.log('request recived');
     try {
       const teacher = await Teacher.getOne({ email: args.email });
       if (!teacher) {

@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
@@ -7,6 +8,7 @@ import { GraphBuilder } from '../GraphQL/graphql';
 import { Mongo } from '../Modules/mongo';
 import { Firebase } from '../Modules/firebase';
 import { Log } from '../Modules/logger';
+import { Teacher } from '../Models/teacher.model';
 
 /**
  * The Node-Express Application that will run on the server
@@ -34,6 +36,7 @@ class App {
     this.setupLoggers();
     this.setupFirebase();
     this.setupRoutes();
+    // this.ini(); // Uncomment this to add deafult admin account
   }
 
   /**
@@ -62,6 +65,7 @@ class App {
    * Body-Parser setup
    */
   private setupBodyParser(): void {
+    this.app.use(cors()); // remove in production
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.text());
     this.app.use(bodyParser.json({ type: 'application/json'}));
@@ -96,6 +100,15 @@ class App {
     } else {
       return `mongodb://localhost:27017/${this.MONGODB_NAME}`;
     }
+  }
+
+  private async ini(): Promise<void> {
+    await Teacher.add({
+      name: 'Admin',
+      email: 'admin@gmail.com',
+      admin: true,
+      password: 'admin'
+    });
   }
 
 }

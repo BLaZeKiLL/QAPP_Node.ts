@@ -54,10 +54,10 @@ class Teacher {
 
   private static DBmodel = model('Teacher', Teacher.schema);
 
-  public static async add(student: ITeacherInput): Promise<boolean> {
+  public static async add(teacher: ITeacherInput): Promise<boolean> {
     try {
-      student.password = await bcrypt.hash(student.password, 12);
-      await Mongo.add(this.DBmodel, student);
+      teacher.password = await bcrypt.hash(teacher.password, 12);
+      await Mongo.add(this.DBmodel, teacher);
       return true;
     } catch (error) {
       throw error;
