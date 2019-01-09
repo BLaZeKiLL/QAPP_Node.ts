@@ -1,3 +1,9 @@
+input TargetInput {
+  branch: String!
+  semester: Int!
+  section: String!
+}
+
 type Target {
   branch: String!
   semester: Int!
