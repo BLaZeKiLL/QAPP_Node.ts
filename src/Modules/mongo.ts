@@ -98,6 +98,15 @@ class Mongo {
     }
   }
 
+  public static async update<F>(model: Model<Document>, filter: F, id: Schema.Types.ObjectId): Promise<boolean> {
+    try {
+      await model.findByIdAndUpdate(id, filter);
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export {

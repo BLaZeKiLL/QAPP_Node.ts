@@ -101,7 +101,9 @@ class Student {
     return Mongo.getOne(Student.DBmodel, filter, id);
   }
 
-  public static async update() {}
+  public static async update(filter: IStudentFilter, id: Schema.Types.ObjectId): Promise<boolean> {
+    return Mongo.update(Student.DBmodel, filter, id);
+  }
 
 }
 

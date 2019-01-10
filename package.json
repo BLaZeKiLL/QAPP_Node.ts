@@ -7,7 +7,8 @@
     "test": "mocha --require ts-node/register test/**/*.ts",
     "start": "node ./dist/server.js",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc && ts-node copy.ts"
+    "build": "tsc && ts-node copy.ts",
+    "schema": "apollo service:download ./build/schema.json --endpoint=http://localhost:3000/graphql"
   },
   "author": "BLaZeKiLL",
   "license": "ISC",

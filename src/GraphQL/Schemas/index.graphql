@@ -9,7 +9,7 @@ type RootQuery {
   questions(courseCode: String!): [Question!]! #
   quizResults(quizID: ID!): [Result!]!
   studentResults(studentID: ID!): [Result!]!
-  studentLogin(email: String!, password: String!): StudentAuthData! #
+  studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthData! #
   teacherLogin(email: String!, password: String!): TeacherAuthData! #
 }
 

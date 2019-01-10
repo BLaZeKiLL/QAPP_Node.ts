@@ -16,6 +16,9 @@ export = {
       if (!valid) {
         throw new Error('Invalid credentials');
       }
+      if (!student.deviceID || student.deviceID !== args.deviceID) {
+        Student.update({deviceID: args.deviceID}, student._id);
+      }
       return {
         id: student._id,
         email: student.email,
