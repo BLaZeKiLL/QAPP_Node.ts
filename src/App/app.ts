@@ -9,6 +9,7 @@ import { Mongo } from '../Modules/mongo';
 import { Firebase } from '../Modules/firebase';
 import { Log } from '../Modules/logger';
 import { Teacher } from '../Models/teacher.model';
+import { Student } from '../Models/student.model';
 
 /**
  * The Node-Express Application that will run on the server
@@ -112,6 +113,18 @@ class App {
       email: 'admin@gmail.com',
       admin: true,
       password: 'admin'
+    });
+
+    await Student.add({
+      name: 'Admin',
+      email: 'admin@gmail.com',
+      password: 'admin',
+      rollno: '169105077',
+      target: {
+        branch: 'CSE',
+        semester: 6,
+        section: 'B'
+      }
     });
   }
 
