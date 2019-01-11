@@ -1,3 +1,5 @@
+# import Status from 'misc.graphql'
+
 input TeacherInput {
   name: String!
   email: String!
@@ -9,4 +11,12 @@ type Teacher {
   name: String!
   email: String!
   admin: Boolean!
+}
+
+type TeacherAuthData {
+  id: ID
+  email: String
+  admin: Boolean
+  token: String
+  status: Status!
 }

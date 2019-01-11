@@ -21,18 +21,4 @@ type Message {
   target: Target!
 }
 
-type StudentAuthData {
-  id: ID
-  email: String
-  token: String
-  rollno: String
-  status: Status!
-}
 
-type TeacherAuthData {
-  id: ID
-  email: String
-  admin: Boolean
-  token: String
-  error: Status!
-}

@@ -1,9 +1,9 @@
 # import Question, QuestionInput from 'question.graphql'
 # import Quiz, QuizInput from 'quiz.graphql'
 # import Result, ResultInput from 'result.graphql'
-# import StudentInput from 'student.graphql'
-# import TeacherInput from 'teacher.graphql'
-# import Message, TeacherAuthData, StudentAuthData from 'misc.graphql'
+# import StudentInput, StudentAuthData from 'student.graphql'
+# import TeacherInput, TeacherAuthData from 'teacher.graphql'
+# import Message from 'misc.graphql'
 
 type RootQuery {
   questions(courseCode: String!): [Question!]! #
