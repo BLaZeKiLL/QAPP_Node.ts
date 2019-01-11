@@ -12,6 +12,11 @@ enum Power {
   ADMIN
 }
 
+interface IStatus {
+  message: string;
+  code: number;
+}
+
 interface IToken {
   id: Schema.Types.ObjectId;
   email: string;
@@ -19,22 +24,25 @@ interface IToken {
 }
 
 interface IStudentAuthData {
-  id: Schema.Types.ObjectId;
-  email: string;
-  token: string;
+  id?: Schema.Types.ObjectId;
+  email?: string;
+  token?: string;
+  status: IStatus;
 }
 
 interface ITeacherAuthData {
-  id: Schema.Types.ObjectId;
-  email: string;
-  admin: boolean;
-  token: string;
+  id?: Schema.Types.ObjectId;
+  email?: string;
+  admin?: boolean;
+  token?: string;
+  status: IStatus;
 }
 
 export {
   ITarget,
   Power,
   IToken,
+  IStatus,
   IStudentAuthData,
   ITeacherAuthData
 };

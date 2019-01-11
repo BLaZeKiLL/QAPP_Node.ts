@@ -10,6 +10,11 @@ type Target {
   section: String!
 }
 
+type Status {
+  message: String!
+  code: Int!
+}
+
 type Message {
   subject: String!
   content: String!
@@ -17,14 +22,17 @@ type Message {
 }
 
 type StudentAuthData {
-  id: ID!
-  email: String!
-  token: String!
+  id: ID
+  email: String
+  token: String
+  rollno: String
+  status: Status!
 }
 
 type TeacherAuthData {
-  id: ID!
-  email: String!
-  admin: Boolean!
-  token: String!
+  id: ID
+  email: String
+  admin: Boolean
+  token: String
+  error: Status!
 }

@@ -14,7 +14,15 @@ export class GraphBuilder {
       schema: this.buildGraphQLSchema(),
       rootValue: RootResolver,
       graphiql: this.graphiql,
-      formatError: error => { Log.main.error(error); return error; }
+      formatError: error => {
+        Log.main.error(error);
+        return {
+          message: error.message,
+          code: 110,
+          locations: error.locations,
+          path: error.path
+        };
+      }
     });
   }
 
