@@ -23,4 +23,4 @@ function Handle(error: Error): IStatus {
 
 export {
   Handle
-}
+};
