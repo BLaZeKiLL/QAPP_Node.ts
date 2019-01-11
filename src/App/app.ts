@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import ip from 'ip';
 import morgan from 'morgan';
 
 import IndexRoutes from '../Routes/index';
@@ -45,7 +46,7 @@ class App {
    * @param callback called whern server is started
    */
   public listen(callback: () => any): void {
-    this.app.listen(this.PORT, callback());
+    this.app.listen(this.PORT, /*ip.address(),*/ callback());
   }
 
   /**
@@ -53,6 +54,10 @@ class App {
    */
   public getLocalUrl(): string {
     return `http://localhost:${this.PORT}/`;
+  }
+
+  public getIP(): string {
+    return `http://${ip.address()}:3000`;
   }
 
   /**
