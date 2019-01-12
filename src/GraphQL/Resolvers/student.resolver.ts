@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { IStudentAuthData, IToken } from '../../Models/misc.model';
-import { Student } from '../../Models/student.model';
+import { IToken } from '../../Models/misc.model';
+import { Student, IStudentAuthData } from '../../Models/student.model';
 import { APP_SECRET } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Log } from '../../Modules/logger';

@@ -18,5 +18,6 @@ type TeacherAuthData {
   email: String
   admin: Boolean
   token: String
+  name: String
   status: Status!
 }

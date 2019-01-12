@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 
 import { Mongo, Schema, model } from '../Modules/mongo';
+import { IStatus } from './misc.model';
 
 interface ITeacher {
   name: string;
@@ -23,6 +24,15 @@ interface ITeacherInput {
   email: string;
   admin: boolean;
   password: string;
+}
+
+interface ITeacherAuthData {
+  id?: Schema.Types.ObjectId;
+  email?: string;
+  admin?: boolean;
+  token?: string;
+  name?: string;
+  status: IStatus;
 }
 
 class Teacher {
@@ -73,5 +83,6 @@ export {
   Teacher,
   ITeacher,
   ITeacherFilter,
-  ITeacherInput
+  ITeacherInput,
+  ITeacherAuthData
 };

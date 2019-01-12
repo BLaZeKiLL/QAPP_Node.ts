@@ -2,8 +2,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import { Log } from '../../Modules/logger';
-import { ITeacherAuthData, IToken, Power } from '../../Models/misc.model';
-import { Teacher } from '../../Models/teacher.model';
+import { IToken, Power } from '../../Models/misc.model';
+import { Teacher, ITeacherAuthData } from '../../Models/teacher.model';
 import { APP_SECRET } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 
@@ -24,6 +24,7 @@ export = {
         id: teacher._id,
         email: teacher.email,
         admin: teacher.admin,
+        name: teacher.name,
         token: jwt.sign(<IToken>{
             id: teacher._id,
             email: teacher.email,
