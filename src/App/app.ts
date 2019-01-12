@@ -79,7 +79,7 @@ class App {
 
   private setupGrapQL(): void {
     this.app.use('/graphql', (req, res, next) => {
-      Log.main.info(JSON.stringify(req.body));
+      Log.main.verbose(JSON.stringify(req.body));
       next();
     });
     this.app.use('/graphql', new GraphBuilder(true).getMiddleWare());

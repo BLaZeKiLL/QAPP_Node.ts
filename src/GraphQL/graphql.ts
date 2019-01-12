@@ -16,12 +16,7 @@ export class GraphBuilder {
       graphiql: this.graphiql,
       formatError: error => {
         Log.main.error(error);
-        return {
-          message: error.message,
-          code: 110,
-          locations: error.locations,
-          path: error.path
-        };
+        return error;
       }
     });
   }
