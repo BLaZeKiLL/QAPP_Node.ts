@@ -15,7 +15,7 @@ interface IModel<T, F> {
 class Mongo {
 
   public static connectDB(url: string): void {
-    connect(url, { useNewUrlParser: true })
+    connect(url, { useNewUrlParser: true, useCreateIndex: true, })
     .catch((error) => {
       throw new Error('MONGODB');
     });
