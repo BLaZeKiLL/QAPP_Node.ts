@@ -1,23 +1,25 @@
 import * as jwt from 'jsonwebtoken';
 import { Response, NextFunction } from '../App/router';
 import { Power, IToken } from '../Models/misc.model';
+import { Log } from './logger';
 
 const APP_SECRET = 'iuwbviudqvtiuvtwd';
 
 function authenticate(req: any, res: Response, next: NextFunction) {
-  const authHeader = <string>req.get('Authorization');
-  if (!authHeader) {
+  const token = req.get('Authorization');
+  if (token == undefined) {
     req.isStudent = false;
     req.isTeacher = false;
     req.isAdmin = false;
     next();
+    return;
   }
-  const token = authHeader.split(' ')[1];
   if (!token) {
     req.isStudent = false;
     req.isTeacher = false;
     req.isAdmin = false;
     next();
+    return;
   }
   const decodedToken = <IToken>jwt.verify(token, APP_SECRET);
   if (!decodedToken) {
@@ -25,25 +27,30 @@ function authenticate(req: any, res: Response, next: NextFunction) {
     req.isTeacher = false;
     req.isAdmin = false;
     next();
+    return;
   }
+  Log.main.info(`DECODED TOKEN ${JSON.stringify(decodedToken)}`);
   switch (decodedToken.power) {
     case Power.STUDENT: {
       req.isStudent = true;
       req.isTeacher = false;
       req.isAdmin = false;
       next();
+      return;
     }
     case Power.TEACHER: {
       req.isStudent = false;
       req.isTeacher = true;
       req.isAdmin = false;
       next();
+      return;
     }
     case Power.ADMIN: {
       req.isStudent = false;
       req.isTeacher = true;
       req.isAdmin = true;
       next();
+      return;
     }
   }
 }

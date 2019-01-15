@@ -11,6 +11,7 @@ import { Firebase } from '../Modules/firebase';
 import { Log } from '../Modules/logger';
 import { Teacher } from '../Models/teacher.model';
 import { Student } from '../Models/student.model';
+import { authenticate } from '../Modules/authentication';
 
 /**
  * The Node-Express Application that will run on the server
@@ -82,6 +83,7 @@ class App {
       Log.main.verbose(JSON.stringify(req.body));
       next();
     });
+    this.app.use('/graphql', authenticate);
     this.app.use('/graphql', new GraphBuilder(true).getMiddleWare());
   }
 
