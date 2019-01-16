@@ -1,14 +1,15 @@
 import { IQuiz } from '../Models/quiz.model';
+import { ITarget } from '../Models/misc.model';
 
 class Dispatcher {
 
-  private static quizes: Map<string, IQuiz>;
+  private static quizes: Map<ITarget, IQuiz>;
 
-  public static distribute(target: string, quiz: IQuiz): void {
+  public static distribute(target: ITarget, quiz: IQuiz): void {
     this.quizes.set(target, quiz);
   }
 
-  public static get(target: string): IQuiz {
+  public static get(target: ITarget): IQuiz {
     return this.quizes.get(target);
   }
 
@@ -17,3 +18,7 @@ class Dispatcher {
   }
 
 }
+
+export {
+  Dispatcher
+};

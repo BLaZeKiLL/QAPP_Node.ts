@@ -3,6 +3,7 @@ import * as account from '../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb
 
 import { Log } from './logger';
 import { ITarget } from '../Models/misc.model';
+import { Quiz, IQuiz } from '../Models/quiz.model';
 
 class Firebase {
 
@@ -47,6 +48,32 @@ class Firebase {
       Log.main.info('ERROR UNSUBSCRIBING FROM TOPIC : ' + error);
       throw error;
     }
+  }
+
+  public static async quizCardBroadcast(quiz: IQuiz): Promise<boolean> {
+    try {
+      const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+      quiz.questions = undefined;
+      quiz.results = undefined;
+      quiz._id = undefined;
+      quiz.setQuestions = undefined;
+      const payload = JSON.stringify(quiz);
+      await admin.messaging().sendToTopic(this.getTopic(quiz.target), {
+        data: { quizData: payload },
+        notification: {
+          title: 'QAPP Quiz',
+          body: message
+        }
+      });
+      Log.main.info('QUIZ CARD DATA SENT');
+      return true;
+    } catch {
+
+    }
+  }
+
+  public static broadcast(message?: string, payload?: any) {
+
   }
 
   /**

@@ -2,6 +2,7 @@ import { Mongo, Schema, model } from '../Modules/mongo';
 import { IQuestionIMGInput, IQuestionIMG } from './question.model';
 import { IResult } from './result.model';
 import { ITarget } from './misc.model';
+import { Firebase } from '../Modules/firebase';
 
 interface IQuizInput {
   courseCode: string;
@@ -132,6 +133,7 @@ class Quiz {
   public static async add(quiz: IQuizInput): Promise<boolean> {
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
     if (doc) {
+      Firebase.quizCardBroadcast(<any>doc);
       return true;
     }
   }
