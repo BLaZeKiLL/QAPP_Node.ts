@@ -1,5 +1,6 @@
 import { Mongo, Schema, model } from '../Modules/mongo';
 import unique from 'mongoose-unique-validator';
+import { IStatus } from './misc.model';
 
 /**
  * Types of questions
@@ -48,6 +49,16 @@ interface IQuestionFilter {
   statement?: string;
   options?: IOption[];
   id?: Schema.Types.ObjectId;
+}
+
+interface IQuestionResponse {
+  question?: IQuestion;
+  status: IStatus;
+}
+
+interface IQuestionsResponse {
+  questions?: IQuestion[];
+  status: IStatus;
 }
 
 /**
@@ -118,6 +129,8 @@ class Question {
 export {
   QuestionType,
   IQuestion,
+  IQuestionResponse,
+  IQuestionsResponse,
   IQuestionFilter,
   IQuestionIMG,
   IQuestionIMGInput,

@@ -10,7 +10,11 @@ class Dispatcher {
   }
 
   public static get(target: ITarget): IQuiz {
-    return this.quizes.get(target);
+    const quiz = this.quizes.get(target);
+    if (quiz == undefined) {
+      throw new Error('Quiz Not Found');
+    }
+    return quiz;
   }
 
   public static clear(): void {

@@ -1,8 +1,9 @@
 import { Mongo, Schema, model } from '../Modules/mongo';
 import { IQuestionIMGInput, IQuestionIMG } from './question.model';
 import { IResult } from './result.model';
-import { ITarget } from './misc.model';
+import { ITarget, IStatus } from './misc.model';
 import { Firebase } from '../Modules/firebase';
+import { Scheduler } from '../Modules/scheduler';
 
 interface IQuizInput {
   courseCode: string;
@@ -12,7 +13,7 @@ interface IQuizInput {
   setQuestions: number;
   date: Date;
   duration: number;
-  target: ITarget;
+  target: ITarget[];
   questions: IQuestionIMGInput[];
   _id?: Schema.Types.ObjectId;
   results?: Schema.Types.ObjectId[];
@@ -26,7 +27,7 @@ interface IQuizFilter {
   setQuestions?: number;
   date?: Date;
   duration?: number;
-  target?: ITarget;
+  target?: ITarget[];
   questions?: IQuestionIMG[];
   _id?: Schema.Types.ObjectId;
   results?: IResult[];
@@ -40,11 +41,16 @@ interface IQuiz {
   setQuestions: number;
   date: Date;
   duration: number;
-  target: ITarget;
+  target: ITarget[];
   questions: IQuestionIMG[];
   _id: Schema.Types.ObjectId;
   id: string;
   results?: IResult[];
+}
+
+interface IQuizResponse {
+  quiz?: IQuiz;
+  status: IStatus;
 }
 
 class Quiz {
@@ -134,6 +140,7 @@ class Quiz {
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
     if (doc) {
       Firebase.quizCardBroadcast(<any>doc);
+      Scheduler.schedule(doc._id, doc.date);
       return true;
     }
   }
@@ -147,6 +154,7 @@ class Quiz {
 export {
   IQuizInput,
   IQuizFilter,
+  IQuizResponse,
   IQuiz,
   Quiz
 };

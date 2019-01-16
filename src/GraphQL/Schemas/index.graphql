@@ -1,12 +1,13 @@
-# import Question, QuestionInput from 'question.graphql'
-# import Quiz, QuizInput from 'quiz.graphql'
+# import Question, QuestionInput, QuestionResponse, QuestionsResponse from 'question.graphql'
+# import Quiz, QuizInput, QuizResponse from 'quiz.graphql'
 # import Result, ResultInput from 'result.graphql'
 # import StudentInput, StudentAuthData from 'student.graphql'
 # import TeacherInput, TeacherAuthData from 'teacher.graphql'
-# import Message from 'misc.graphql'
+# import Message, Target from 'misc.graphql'
 
 type RootQuery {
-  questions(courseCode: String!): [Question!]! #
+  questions(courseCode: String!): QuestionsResponse! #
+  quiz(target: Target!): QuizResponse!
   quizResults(quizID: ID!): [Result!]!
   studentResults(studentID: ID!): [Result!]!
   studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthData! #
@@ -15,16 +16,16 @@ type RootQuery {
 
 type RootMutations {
   # ADDITIONS
-  addQuestion(question: QuestionInput!): Question! #
-  addQuestions(questions: [QuestionInput!]!): [Question!]! #
+  addQuestion(question: QuestionInput!): QuestionResponse! #
+  addQuestions(questions: [QuestionInput!]!): QuestionsResponse! #
   addQuiz(quiz: QuizInput!): Boolean! #
   addResult(result: ResultInput!): Boolean!
   addStudent(student: StudentInput!): Boolean! #
   addTeacher(teacher: TeacherInput!): Boolean! #
 
   # UPDATIONS
-  updateQuestion(question: QuestionUpdate!): Question!
-  updateQuiz(quiz: QuizUpdate!): Quiz!
+  updateQuestion(question: QuestionUpdate!): QuestionResponse!
+  updateQuiz(quiz: QuizUpdate!): QuizResponse!
 
   # DELETIONS
   deleteQuestion(questionID: ID!): Boolean! #

@@ -58,12 +58,14 @@ class Firebase {
       quiz._id = undefined;
       quiz.setQuestions = undefined;
       const payload = JSON.stringify(quiz);
-      await admin.messaging().sendToTopic(this.getTopic(quiz.target), {
-        data: { quizData: payload },
-        notification: {
-          title: 'QAPP Quiz',
-          body: message
-        }
+      quiz.target.forEach(async (target: ITarget) => {
+        await admin.messaging().sendToTopic(this.getTopic(target), {
+          data: { quizData: payload },
+          notification: {
+            title: 'QAPP Quiz',
+            body: message
+          }
+        });
       });
       Log.main.info('QUIZ CARD DATA SENT');
       return true;
@@ -72,8 +74,13 @@ class Firebase {
     }
   }
 
-  public static broadcast(message?: string, payload?: any) {
-
+  public static async broadcast(target: ITarget) {
+    await admin.messaging().sendToTopic(this.getTopic(target), {
+      notification: {
+        title: 'QAPP Quiz',
+        body: 'Quiz Reminder'
+      }
+    });
   }
 
   /**

@@ -1,18 +1,67 @@
-import { Question, IQuestion, IQuestionFilter } from '../../Models/question.model';
+import { Question, IQuestionResponse, IQuestionsResponse, IQuestionFilter } from '../../Models/question.model';
 import { isTeacher } from '../../Modules/authentication';
+import { Log } from '../../Modules/logger';
 
 export = {
-  questions: async (args: IQuestionFilter, req: any): Promise<IQuestion[]> => {
+  questions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
     isTeacher(req);
-    return Question.get(args);
+    try {
+      return {
+        questions: await Question.get(args),
+        status: {
+          code: 0,
+          message: 'OK'
+        }
+      };
+    } catch {
+      Log.main.error('QUESTIONS ERROR');
+      return {
+        status: {
+          code: 2,
+          message: 'ERROR'
+        }
+      };
+    }
   },
-  addQuestion: async (args: any, req: any): Promise<IQuestion> => {
+  addQuestion: async (args: any, req: any): Promise<IQuestionResponse> => {
     isTeacher(req);
-    return Question.add(args.question);
+    try {
+      return {
+        question: await Question.add(args.question),
+        status: {
+          code: 0,
+          message: 'OK'
+        }
+      };
+    } catch {
+      Log.main.error('QUESTION ADD ERROR');
+      return {
+        status: {
+          code: 2,
+          message: 'ERROR'
+        }
+      };
+    }
   },
-  addQuestions: async (args: any, req: any): Promise<IQuestion[]> => {
+  addQuestions: async (args: any, req: any): Promise<IQuestionsResponse> => {
     isTeacher(req);
-    return Question.addMany(args.questions);
+    try {
+      return {
+        questions: await Question.addMany(args.questions),
+        status: {
+          code: 0,
+          message: 'OK'
+        }
+      };
+    } catch {
+      Log.main.error('QUESTIONS ADD ERROR');
+      return {
+        status: {
+          code: 2,
+          message: 'ERROR'
+        }
+      };
+    }
   },
   deleteQuestion: async (args: any, req: any): Promise<boolean> => {
     isTeacher(req);
