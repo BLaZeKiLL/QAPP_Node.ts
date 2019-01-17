@@ -12,6 +12,7 @@ import { Log } from '../Modules/logger';
 import { Teacher } from '../Models/teacher.model';
 import { Student } from '../Models/student.model';
 import { authenticate } from '../Modules/authentication';
+import { Question, QuestionType } from '../Models/question.model';
 
 /**
  * The Node-Express Application that will run on the server
@@ -40,6 +41,7 @@ class App {
     this.setupFirebase();
     this.setupRoutes();
     // this.ini(); // Uncomment this to add deafult admin account
+    // this.iniQuestions(); // Uncomment this to seed question bank
   }
 
   /**
@@ -133,6 +135,122 @@ class App {
         section: 'B'
       }
     });
+  }
+
+  private async iniQuestions(): Promise<void> {
+    await Question.addMany([
+      {
+        courseCode: 'CS1501',
+        statement: 'What is the essentials of dynamic programing ?',
+        type: QuestionType.MCQ_MULTIPLE,
+        options: [
+          {
+            statement: 'Dividing',
+            isAns: false
+          },
+          {
+            statement: 'Memoization',
+            isAns: true
+          },
+          {
+            statement: 'Brute Force',
+            isAns: false
+          },
+          {
+            statement: 'Bottom Up',
+            isAns: true
+          }
+        ]
+      }, {
+        courseCode: 'CS1501',
+        statement: 'In a max-heap, element with the greatest key is always in the which node ?',
+        type: QuestionType.MCQ_SINGLE,
+        options: [
+          {
+            statement: 'Leaf node',
+            isAns: false
+          },
+          {
+            statement: 'First node of left sub tree',
+            isAns: false
+          },
+          {
+            statement: 'root node',
+            isAns: true
+          },
+          {
+            statement: 'First node of right sub tree',
+            isAns: false
+          }
+        ]
+      }, {
+        courseCode: 'CS1501',
+        statement: 'Which of the follwing have N complexity ?',
+        type: QuestionType.MCQ_MULTIPLE,
+        options: [
+          {
+            statement: 'Merge Sort',
+            isAns: false
+          },
+          {
+            statement: 'Counting Sort',
+            isAns: true
+          },
+          {
+            statement: 'Radix Sort',
+            isAns: true
+          },
+          {
+            statement: 'Quick Sort',
+            isAns: false
+          }
+        ]
+      }, {
+        courseCode: 'CS1501',
+        statement: 'Which of the following problems can be solved using recursion ?',
+        type: QuestionType.MCQ_SINGLE,
+        options: [
+          {
+            statement: 'Factorial of a number',
+            isAns: false
+          },
+          {
+            statement: 'Nth fibonacci number',
+            isAns: false
+          },
+          {
+            statement: 'Length of a string',
+            isAns: false
+          },
+          {
+            statement: 'All of the mentioned',
+            isAns: true
+          }
+        ]
+      }, {
+        courseCode: 'CS1501',
+        statement: 'What are the types of complexity analysis ?',
+        type: QuestionType.MCQ_MULTIPLE,
+        options: [
+          {
+            statement: 'Space',
+            isAns: true
+          },
+          {
+            statement: 'Size',
+            isAns: false
+          },
+          {
+            statement: 'Line',
+            isAns: false
+          },
+          {
+            statement: 'Time',
+            isAns: true
+          }
+        ]
+      }
+    ]);
   }
 
 }

@@ -80,6 +80,7 @@ class Question {
     },
     type: {
       type: String,
+      enum: ['MCQ_SINGLE', 'MCQ_MULTIPLE'],
       required: true
     },
     statement: {
@@ -105,10 +106,14 @@ class Question {
   private static DBmodel = model('Question', Question.schema);
 
   public static async add(question: IQuestion): Promise<IQuestion> {
+    question.type = <any>QuestionType[question.type];
     return Mongo.add(Question.DBmodel, question);
   }
 
   public static async addMany(questions: IQuestion[]): Promise<IQuestion[]> {
+    questions.forEach((question: IQuestion) => {
+      question.type = <any>QuestionType[question.type];
+    });
     return Mongo.addMany(Question.DBmodel, questions);
   }
 
