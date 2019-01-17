@@ -4,8 +4,9 @@ import { Log } from '../../Modules/logger';
 
 export = {
   questions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
-    isTeacher(req);
     try {
+      isTeacher(req);
+      Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
       return {
         questions: await Question.get(args),
         status: {
@@ -24,8 +25,8 @@ export = {
     }
   },
   addQuestion: async (args: any, req: any): Promise<IQuestionResponse> => {
-    isTeacher(req);
     try {
+      isTeacher(req);
       return {
         question: await Question.add(args.question),
         status: {
@@ -44,8 +45,8 @@ export = {
     }
   },
   addQuestions: async (args: any, req: any): Promise<IQuestionsResponse> => {
-    isTeacher(req);
     try {
+      isTeacher(req);
       return {
         questions: await Question.addMany(args.questions),
         status: {

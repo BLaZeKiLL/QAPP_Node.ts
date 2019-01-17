@@ -35,6 +35,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
       req.isStudent = true;
       req.isTeacher = false;
       req.isAdmin = false;
+      Log.main.info('STUDENT REQUEST');
       next();
       return;
     }
@@ -42,6 +43,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
       req.isStudent = false;
       req.isTeacher = true;
       req.isAdmin = false;
+      Log.main.info('TEACHER REQUEST');
       next();
       return;
     }
@@ -49,6 +51,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
       req.isStudent = false;
       req.isTeacher = true;
       req.isAdmin = true;
+      Log.main.info('ADMIN REQUEST');
       next();
       return;
     }

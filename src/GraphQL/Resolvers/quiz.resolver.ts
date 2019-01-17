@@ -1,11 +1,12 @@
 import { Quiz, IQuizResponse } from '../../Models/quiz.model';
-import { isTeacher } from '../../Modules/authentication';
+import { isTeacher, isStudent } from '../../Modules/authentication';
 import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
 
 export = {
   quiz: (args: any, req: any): IQuizResponse => {
     try {
+      isStudent(req);
       return {
         quiz: Dispatcher.get(args.target),
         status: {
