@@ -34,10 +34,14 @@ interface IStudentInput {
   target: ITarget;
 }
 
-interface IStudentAuthData {
-  id?: Schema.Types.ObjectId;
-  email?: string;
-  token?: string;
+interface IStudentAuthResponse {
+  auth?: {
+    id: Schema.Types.ObjectId;
+    name: string;
+    email: string;
+    rollno: string;
+    token: string;
+  };
   status: IStatus;
 }
 
@@ -119,5 +123,5 @@ export {
   IStudent,
   IStudentFilter,
   IStudentInput,
-  IStudentAuthData
+  IStudentAuthResponse
 };

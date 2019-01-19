@@ -26,12 +26,14 @@ interface ITeacherInput {
   password: string;
 }
 
-interface ITeacherAuthData {
-  id?: Schema.Types.ObjectId;
-  email?: string;
-  admin?: boolean;
-  token?: string;
-  name?: string;
+interface ITeacherAuthResponse {
+  auth?: {
+    id: Schema.Types.ObjectId;
+    email: string;
+    admin: boolean;
+    token: string;
+    name: string;
+  };
   status: IStatus;
 }
 
@@ -84,5 +86,5 @@ export {
   ITeacher,
   ITeacherFilter,
   ITeacherInput,
-  ITeacherAuthData
+  ITeacherAuthResponse
 };

@@ -3,7 +3,7 @@ import { isTeacher } from '../../Modules/authentication';
 import { Log } from '../../Modules/logger';
 
 export = {
-  questions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
+  getQuestions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
       Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);

@@ -19,9 +19,14 @@ type Student {
 }
 
 type StudentAuthData {
-  id: ID
-  email: String
-  token: String
-  rollno: String
+  id: ID!
+  name: String!
+  email: String!
+  rollno: String!
+  token: String!
+}
+
+type StudentAuthResponse {
+  auth: StudentAuthData
   status: Status!
 }

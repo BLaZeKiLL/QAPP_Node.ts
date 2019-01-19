@@ -14,10 +14,14 @@ type Teacher {
 }
 
 type TeacherAuthData {
-  id: ID
-  email: String
-  admin: Boolean
-  token: String
-  name: String
+  id: ID!
+  name: String!
+  email: String!
+  admin: Boolean!
+  token: String!
+}
+
+type TeacherAuthResponse {
+  auth: TeacherAuthData
   status: Status!
 }

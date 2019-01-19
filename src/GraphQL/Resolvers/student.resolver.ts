@@ -2,13 +2,13 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import { IToken } from '../../Models/misc.model';
-import { Student, IStudentAuthData } from '../../Models/student.model';
+import { Student, IStudentAuthResponse } from '../../Models/student.model';
 import { APP_SECRET } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Log } from '../../Modules/logger';
 
 export = {
-  studentLogin: async (args: any): Promise<IStudentAuthData> => {
+  studentLogin: async (args: any): Promise<IStudentAuthResponse> => {
     try {
       const student = await Student.getOne({ email: args.email });
       if (!student) {
@@ -24,14 +24,18 @@ export = {
         Log.main.info('DEVICE ID UPDATED');
       }
       return {
-        id: student._id,
-        email: student.email,
-        token: jwt.sign(<IToken>{
-            id: student._id,
-            email: student.email,
-          }, APP_SECRET, {
-            expiresIn: '365 days'
-          }),
+        auth: {
+          id: student._id,
+          name: student.name,
+          email: student.email,
+          rollno: student.rollno,
+          token: jwt.sign(<IToken>{
+              id: student._id,
+              email: student.email,
+            }, APP_SECRET, {
+              expiresIn: '365 days'
+            }),
+        },
         status: {
           message: 'OK',
           code: 0
