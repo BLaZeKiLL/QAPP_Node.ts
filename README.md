@@ -1,4 +1,7 @@
 # Node.ts
-A simple starter project for Node + Typescript
+GraphQL Backend for QAPP - Platform
 
-based on Express and MongoDB
+## Scripts
+npm start => starts the server
+npm run build => Compiles the TypeScript code
+npm run schema => HAVE THE SERVER RUNNING, builds the graphql schema.json

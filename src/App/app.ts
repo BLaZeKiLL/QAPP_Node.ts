@@ -135,6 +135,7 @@ class App {
         section: 'B'
       }
     });
+    Log.main.info('ACCOUNTS SEEDED');
   }
 
   private async iniQuestions(): Promise<void> {
@@ -251,6 +252,7 @@ class App {
         ]
       }
     ]);
+    Log.main.info('QUESTION BANK SEEDED');
   }
 
 }
