@@ -1,6 +1,7 @@
 import * as cron from 'cron';
 import { Schema } from './mongo';
 import { Dispatcher } from './dispatcher';
+import { Log } from './logger';
 import { Quiz } from '../Models/quiz.model';
 import { Firebase } from './firebase';
 
@@ -18,6 +19,7 @@ class Scheduler {
 
       }
     }, undefined, true, 'Asia/Kolkata');
+    Log.main.info('QUIZ SCHEDULED');
   }
 
 }

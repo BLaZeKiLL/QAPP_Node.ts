@@ -4,6 +4,7 @@ import { IResult } from './result.model';
 import { IStatus } from './misc.model';
 import { Firebase } from '../Modules/firebase';
 import { Scheduler } from '../Modules/scheduler';
+import { Log } from '../Modules/logger';
 
 interface IQuizInput {
   courseCode: string;
@@ -128,6 +129,7 @@ class Quiz {
   public static async add(quiz: IQuizInput): Promise<boolean> {
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
     if (doc) {
+      Log.main.info('QUIZ ADDED TO DB');
       Firebase.quizCardBroadcast(<any>doc);
       Scheduler.schedule(doc._id, doc.date);
       return true;
