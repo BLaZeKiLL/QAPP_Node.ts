@@ -129,11 +129,7 @@ class App {
       email: 'admin@gmail.com',
       password: 'admin',
       rollno: '169105077',
-      target: {
-        branch: 'CSE',
-        semester: 6,
-        section: 'B'
-      }
+      target: 'CSE6B'
     });
     Log.main.info('ACCOUNTS SEEDED');
   }

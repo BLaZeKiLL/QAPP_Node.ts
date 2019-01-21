@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 
 import { Mongo, Schema, model } from '../Modules/mongo';
-import { ITarget, IStatus } from './misc.model';
+import { IStatus } from './misc.model';
 import { IResult } from './result.model';
 
 interface IStudent {
@@ -12,7 +12,7 @@ interface IStudent {
   password?: string;
   deviceID?: string;
   rollno: string;
-  target: ITarget;
+  target: string;
   resluts?: IResult[];
 }
 
@@ -22,7 +22,7 @@ interface IStudentFilter {
   email?: string;
   deviceID?: string;
   rollno?: string;
-  target?: ITarget;
+  target?: string;
   resluts?: IResult[];
 }
 
@@ -31,7 +31,7 @@ interface IStudentInput {
   email: string;
   password: string;
   rollno: string;
-  target: ITarget;
+  target: string;
 }
 
 interface IStudentAuthResponse {
@@ -40,6 +40,7 @@ interface IStudentAuthResponse {
     name: string;
     email: string;
     rollno: string;
+    target: string;
     token: string;
   };
   status: IStatus;
@@ -54,7 +55,7 @@ class Student {
    * @property {String} password password credential stored as HASH
    * @property {String} deviceID Firebase device ID
    * @property {Number} rollNo University Roll number
-   * @property {target} target brancg/sem/section of the student
+   * @property {string} target brancg/sem/section of the student
    * @property {ref[]} result references to results of the student
    */
   private static schema = new Schema({
@@ -76,19 +77,8 @@ class Student {
       required: true
     },
     target: {
-      _id: false,
-      branch: {
-        type: String,
-        required: true
-      },
-      semester: {
-        type: Number,
-        required: true
-      },
-      section: {
-        type: String,
-        required: true
-      }
+      type: String,
+      required: true
     },
     results: [{
       type: Schema.Types.ObjectId,

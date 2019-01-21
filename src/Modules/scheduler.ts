@@ -3,7 +3,6 @@ import { Schema } from './mongo';
 import { Dispatcher } from './dispatcher';
 import { Quiz } from '../Models/quiz.model';
 import { Firebase } from './firebase';
-import { ITarget } from '../Models/misc.model';
 
 class Scheduler {
 
@@ -11,7 +10,7 @@ class Scheduler {
     new cron.CronJob(date, async () => {
       try {
         const quiz = await Quiz.getOne(undefined, quizID);
-        quiz.target.forEach((target: ITarget) => {
+        quiz.targets.forEach((target: string) => {
           Dispatcher.distribute(target, quiz);
           Firebase.broadcast(target);
         });

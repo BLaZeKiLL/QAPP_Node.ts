@@ -1,11 +1,11 @@
-# import Target, TargetInput, Status from 'misc.graphql'
+# import Status from 'misc.graphql'
 # import Result from 'result.graphql'
 
 input StudentInput {
   name: String!
   email: String!
   rollno: String!
-  target: TargetInput!
+  target: String!
 }
 
 type Student {
@@ -14,7 +14,7 @@ type Student {
   email: String!
   deviceID: String
   rollno: String!
-  target: Target!
+  target: String!
   results: [Result!]
 }
 
@@ -23,6 +23,7 @@ type StudentAuthData {
   name: String!
   email: String!
   rollno: String!
+  target: String!
   token: String!
 }
 

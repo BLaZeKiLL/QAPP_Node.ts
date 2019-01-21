@@ -21,7 +21,7 @@ type IMGQuestion {
 }
 
 input IMGQuestionInput {
-  question: ID!
+  questionID: ID!
   imageURL: String
 }
 
@@ -50,7 +50,7 @@ type Question {
 
 type QuestionResponse {
   question: Question
-  status: Status
+  status: Status!
 }
 
 type QuestionsResponse {

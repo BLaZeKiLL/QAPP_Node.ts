@@ -3,11 +3,11 @@
 # import Result, ResultInput from 'result.graphql'
 # import StudentInput, StudentAuthResponse from 'student.graphql'
 # import TeacherInput, TeacherAuthResponse from 'teacher.graphql'
-# import Message, TargetInput from 'misc.graphql'
+# import Message from 'misc.graphql'
 
 type RootQuery {
   getQuestions(courseCode: String!): QuestionsResponse! #
-  quiz(target: TargetInput!): QuizResponse!
+  quiz(target: String!): QuizResponse!
   quizResults(quizID: ID!): [Result!]!
   studentResults(studentID: ID!): [Result!]!
   studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthResponse! #

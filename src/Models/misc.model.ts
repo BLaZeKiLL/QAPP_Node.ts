@@ -1,11 +1,5 @@
 import { Schema } from '../Modules/mongo';
 
-interface ITarget {
-  branch: string;
-  semester: number;
-  section: string;
-}
-
 enum Power {
   STUDENT,
   TEACHER,
@@ -24,7 +18,6 @@ interface IToken {
 }
 
 export {
-  ITarget,
   Power,
   IToken,
   IStatus,

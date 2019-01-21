@@ -29,6 +29,7 @@ export = {
           name: student.name,
           email: student.email,
           rollno: student.rollno,
+          target: student.target,
           token: jwt.sign(<IToken>{
               id: student._id,
               email: student.email,

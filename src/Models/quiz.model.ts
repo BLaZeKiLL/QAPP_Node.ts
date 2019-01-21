@@ -1,7 +1,7 @@
 import { Mongo, Schema, model } from '../Modules/mongo';
 import { IQuestionIMGInput, IQuestionIMG } from './question.model';
 import { IResult } from './result.model';
-import { ITarget, IStatus } from './misc.model';
+import { IStatus } from './misc.model';
 import { Firebase } from '../Modules/firebase';
 import { Scheduler } from '../Modules/scheduler';
 
@@ -13,7 +13,7 @@ interface IQuizInput {
   setQuestions: number;
   date: Date;
   duration: number;
-  target: ITarget[];
+  targets: string[];
   questions: IQuestionIMGInput[];
   _id?: Schema.Types.ObjectId;
   results?: Schema.Types.ObjectId[];
@@ -27,7 +27,7 @@ interface IQuizFilter {
   setQuestions?: number;
   date?: Date;
   duration?: number;
-  target?: ITarget[];
+  targets?: string[];
   questions?: IQuestionIMG[];
   _id?: Schema.Types.ObjectId;
   results?: IResult[];
@@ -41,7 +41,7 @@ interface IQuiz {
   setQuestions: number;
   date: Date;
   duration: number;
-  target: ITarget[];
+  targets: string[];
   questions: IQuestionIMG[];
   _id: Schema.Types.ObjectId;
   id: string;
@@ -65,7 +65,7 @@ class Quiz {
    * @property {String} date scheduled date of the quiz
    * @property {String} time scheduled time of the quiz
    * @property {Number} duration time duaration of the quiz
-   * @property {target[]} target array of targets of the quiz
+   * @property {string[]} targets array of targets of the quiz
    * @property {question[]} questions questions for the quiz with image URL's if any
    * @property {Boolean} active status of the quiz
    * @property {ref} result reference to quiz result
@@ -100,20 +100,9 @@ class Quiz {
       type: Number,
       required: true
     },
-    target: [{
-      _id: false,
-      branch: {
-        type: String,
-        required: true
-      },
-      semester: {
-        type: Number,
-        required: true
-      },
-      section: {
-        type: String,
-        required: true
-      }
+    targets: [{
+      type: String,
+      required: true
     }],
     questions: [{
       _id: false,

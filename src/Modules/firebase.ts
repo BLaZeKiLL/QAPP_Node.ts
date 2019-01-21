@@ -2,8 +2,7 @@ import * as admin from 'firebase-admin';
 import * as account from '../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json';
 
 import { Log } from './logger';
-import { ITarget } from '../Models/misc.model';
-import { Quiz, IQuiz } from '../Models/quiz.model';
+import { IQuiz } from '../Models/quiz.model';
 
 class Firebase {
 
@@ -21,10 +20,10 @@ class Firebase {
    * @param {Object} target target object
    * @param {string} token device ID
    */
-  public static async subscribe(target: ITarget, token: string): Promise<boolean> {
+  public static async subscribe(target: string, token: string): Promise<boolean> {
     Log.main.info('SUBSCRIBING');
     try {
-      const response = await admin.messaging().subscribeToTopic(token, Firebase.getTopic(target));
+      const response = await admin.messaging().subscribeToTopic(token, target);
       Log.main.info('SUCCESSFULLY SUBSCRIBED TO TOPIC : ' + response.successCount);
       return true;
     } catch (error) {
@@ -38,10 +37,10 @@ class Firebase {
    * @param {Object} target target object
    * @param {string} token device ID
    */
-  public static async unsubscribe(target: ITarget, token: string): Promise<boolean> {
+  public static async unsubscribe(target: string, token: string): Promise<boolean> {
     Log.main.info('UNSUBSCRIBING');
     try {
-      const response = await admin.messaging().unsubscribeFromTopic(token, Firebase.getTopic(target));
+      const response = await admin.messaging().unsubscribeFromTopic(token, target);
       Log.main.info('SUCCESSFULLY UNSUBSCRIBED FROM TOPIC : ' + response.successCount);
       return true;
     } catch (error) {
@@ -58,8 +57,8 @@ class Firebase {
       quiz._id = undefined;
       quiz.setQuestions = undefined;
       const payload = JSON.stringify(quiz);
-      quiz.target.forEach(async (target: ITarget) => {
-        await admin.messaging().sendToTopic(this.getTopic(target), {
+      quiz.targets.forEach(async (target: string) => {
+        await admin.messaging().sendToTopic(target, {
           data: { quizData: payload },
           notification: {
             title: 'QAPP Quiz',
@@ -74,22 +73,13 @@ class Firebase {
     }
   }
 
-  public static async broadcast(target: ITarget) {
-    await admin.messaging().sendToTopic(this.getTopic(target), {
+  public static async broadcast(target: string) {
+    await admin.messaging().sendToTopic(target, {
       notification: {
         title: 'QAPP Quiz',
         body: 'Quiz Reminder'
       }
     });
-  }
-
-  /**
-   * return a topic string of specified target
-   * @param {Object} target targte object
-   * @returns {string} topic string
-   */
-  private static getTopic(target: ITarget): string {
-    return target.branch + target.semester + target.section;
   }
 
 }
