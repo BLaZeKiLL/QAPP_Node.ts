@@ -1,10 +1,12 @@
 import { IQuiz } from '../Models/quiz.model';
+import { Log } from './logger';
 
 class Dispatcher {
 
   private static quizes: Map<string, IQuiz>;
 
   public static distribute(target: string, quiz: IQuiz): void {
+    Log.main.info('QUIZ READY FOR DISPATCHING');
     this.quizes.set(target, quiz);
   }
 
@@ -13,6 +15,7 @@ class Dispatcher {
     if (quiz == undefined) {
       throw new Error('Quiz Not Found');
     }
+    Log.main.info('QUIZ DISPATCHED');
     return quiz;
   }
 
