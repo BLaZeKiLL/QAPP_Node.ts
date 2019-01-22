@@ -2,7 +2,7 @@
   "name": "qapp",
   "version": "0.3.0",
   "description": "",
-  "main": "server.js",
+  "main": "./dist/server.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.ts",
     "local": "cross-env NODE_ENV=local node ./dist/server.js",
