@@ -133,7 +133,7 @@ class Quiz {
     if (doc) {
       Log.main.info('QUIZ ADDED TO DB');
       Firebase.quizCardBroadcast(<any>doc);
-      Scheduler.schedule(doc._id, doc.date);
+      Scheduler.schedule(doc._id, quiz.date);
       return true;
     }
   }

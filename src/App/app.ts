@@ -34,6 +34,7 @@ class App {
     private MONGODB_NAME: string
   ) {
     this.app = express();
+    process.env.TZ = 'Asia/Kolkata';
     this.setupMongoDB();
     this.setupBodyParser();
     this.setupGrapQL();

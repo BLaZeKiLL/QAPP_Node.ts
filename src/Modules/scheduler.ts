@@ -19,7 +19,7 @@ class Scheduler {
 
       }
     }, undefined, true, 'Asia/Kolkata');
-    Log.main.info('QUIZ SCHEDULED');
+    Log.main.info(`QUIZ SCHEDULED FOR ${date}`);
   }
 
 }
