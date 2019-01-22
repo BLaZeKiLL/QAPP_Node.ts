@@ -111,9 +111,14 @@ class App {
    */
   private getLocalMongoDBUrl(): string {
     if (process.env.NODE_ENV === 'test') {
+      Log.main.info('CONNNECTING TO LOCAL TEST DB');
       return `mongodb://localhost:27017/${this.MONGODB_NAME + '_TEST'}`;
-    } else {
+    } else if (process.env.NODE_ENV === 'local') {
+      Log.main.info('CONNECTING TO LOCAL DB');
       return `mongodb://localhost:27017/${this.MONGODB_NAME}`;
+    } else {
+      Log.main.info('CONNECTING TO CLUSTER');
+      return `mongodb+srv://QAPP_DEV:qappdev@devcluster-3kbft.mongodb.net/${this.MONGODB_NAME}?retryWrites=true`;
     }
   }
 
@@ -130,7 +135,7 @@ class App {
       email: 'admin@gmail.com',
       password: 'admin',
       rollno: '169105077',
-      target: 'CS6B'
+      target: 'CS5B'
     });
     Log.main.info('ACCOUNTS SEEDED');
   }

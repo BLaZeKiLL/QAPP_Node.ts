@@ -12,7 +12,7 @@ type Course {
   targets: [String!]!
 }
 
-type TargetResponse {
+type TargetsResponse {
   targets: [String!]
   status: Status
 }

@@ -25,6 +25,13 @@ function Handle(error: Error): IStatus {
         code: 6
       };
     }
+    default: {
+      log('ERROR' + error.stack);
+      return {
+        message: 'Error',
+        code: 99
+      };
+    }
   }
 }
 

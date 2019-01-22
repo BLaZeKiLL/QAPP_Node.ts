@@ -16,7 +16,7 @@ class Course {
 
   private static readonly FILE_NAME: string = 'course.json';
 
-  public static async addCourse(): Promise<boolean> {
+  public static async addCourse(course: ICourse): Promise<boolean> {
     return false;
   }
 

@@ -3,7 +3,7 @@
 # import Result, ResultInput from 'result.graphql'
 # import StudentInput, StudentAuthResponse from 'student.graphql'
 # import TeacherInput, TeacherAuthResponse from 'teacher.graphql'
-# import TargetResponse from 'course.graphql'
+# import TargetsResponse from 'course.graphql'
 # import Message from 'misc.graphql'
 
 type RootQuery {
@@ -22,7 +22,7 @@ type RootMutations {
   addQuestions(questions: [QuestionInput!]!): QuestionsResponse! #
   addQuiz(quiz: QuizInput!): Boolean! #
   addResult(result: ResultInput!): Boolean!
-  # addCourse(course: CourseInput!): Boolean!
+  addCourse(course: CourseInput!): Boolean!
   addStudent(student: StudentInput!): Boolean! #
   addTeacher(teacher: TeacherInput!): Boolean! #
 
