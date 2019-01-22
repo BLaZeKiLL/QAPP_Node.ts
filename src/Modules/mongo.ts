@@ -1,3 +1,4 @@
+import { Log } from '../Modules/logger';
 import { Model,
          Document,
          Error,
@@ -29,6 +30,7 @@ class Mongo {
         _id: doc.id
       };
     } catch (error) {
+      Log.main.error(error);
       throw new Error('MONGODB');
     }
   }
@@ -48,6 +50,7 @@ class Mongo {
       const ids = errorData.result.insertedIds.map((a: any) => a._id);
       model.find({ _id: { $in: ids } }, (err, docs) => {
         if (err) {
+          Log.main.error(err);
           throw new Error('MONGODB');
         } else {
           return docs;
@@ -66,6 +69,7 @@ class Mongo {
         };
       });
     } catch (error) {
+      Log.main.error(error);
       throw new Error('MONGODB');
     }
   }
@@ -85,6 +89,7 @@ class Mongo {
         _id: doc.id
       };
     } catch (error) {
+      Log.main.error(error);
       throw new Error('MONGODB');
     }
   }
@@ -94,6 +99,7 @@ class Mongo {
       await model.deleteOne({ _id: id});
       return true;
     } catch (error) {
+      Log.main.error(error);
       throw new Error('MONGODB');
     }
   }
@@ -103,6 +109,7 @@ class Mongo {
       await model.findByIdAndUpdate(id, filter);
       return true;
     } catch (error) {
+      Log.main.error(error);
       throw new Error('MONGODB');
     }
   }

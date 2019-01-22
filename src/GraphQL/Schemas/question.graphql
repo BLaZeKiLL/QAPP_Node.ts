@@ -21,7 +21,7 @@ type IMGQuestion {
 }
 
 input IMGQuestionInput {
-  questionID: ID!
+  question: ID!
   imageURL: String
 }
 
