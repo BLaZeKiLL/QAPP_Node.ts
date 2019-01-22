@@ -18,6 +18,7 @@ interface IQuizInput {
   questions: IQuestionIMGInput[];
   _id?: Schema.Types.ObjectId;
   results?: Schema.Types.ObjectId[];
+  active?: boolean;
 }
 
 interface IQuizFilter {
@@ -127,6 +128,7 @@ class Quiz {
   private static DBmodel = model('Quiz', Quiz.schema);
 
   public static async add(quiz: IQuizInput): Promise<boolean> {
+    quiz.active = false;
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
     if (doc) {
       Log.main.info('QUIZ ADDED TO DB');
