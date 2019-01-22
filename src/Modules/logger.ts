@@ -1,10 +1,12 @@
+import * as moment from 'moment-timezone';
 import { createLogger, format, transports } from 'winston';
 const { combine, timestamp, label, printf, colorize } = format;
 
 export class Log {
 
   private static Format = printf(info => {
-    return `[${info.timestamp}][${info.label}][${info.level}]: ${info.message}`;
+    info.timestamp = moment.tz('Asia/Kolkata').format('YYYY-MM-DD|HH:mm:ss');
+    return `[${info.timestamp}] [${info.label}] [${info.level}]: ${info.message}`;
   });
 
   public static main = createLogger({
