@@ -6,7 +6,7 @@ class Dispatcher {
   private static quizes: Map<string, IQuiz>;
 
   public static distribute(target: string, quiz: IQuiz): void {
-    Log.main.info('QUIZ READY FOR DISPATCHING');
+    Log.main.info('QUIZ READY FOR DISPATCHING: ' + target);
     this.quizes.set(target, quiz);
   }
 

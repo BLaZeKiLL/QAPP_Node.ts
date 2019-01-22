@@ -131,9 +131,10 @@ class Quiz {
     quiz.active = false;
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
     if (doc) {
-      Log.main.info('QUIZ ADDED TO DB');
+      const id = doc._id;
       Firebase.quizCardBroadcast(<any>doc);
-      Scheduler.schedule(doc._id, doc.date);
+      Scheduler.schedule(id, doc.date);
+      Log.main.info(`QUIZ ${id} ADDED TO DB`);
       return true;
     }
   }

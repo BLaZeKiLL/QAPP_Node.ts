@@ -75,11 +75,13 @@ class Firebase {
 
   public static async broadcast(target: string) {
     await admin.messaging().sendToTopic(target, {
+      data: { request: 'true' },
       notification: {
         title: 'QAPP Quiz',
         body: 'Quiz Reminder'
       }
     });
+    Log.main.info('QUIZ REMINDER SENT');
   }
 
 }
