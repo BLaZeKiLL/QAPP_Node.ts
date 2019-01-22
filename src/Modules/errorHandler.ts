@@ -18,6 +18,13 @@ function Handle(error: Error): IStatus {
         code: 5
       };
     }
+    case 'JSON SERIALIZATION': {
+      log('JSON SERIALIZATION ERROR');
+      return {
+        message: 'JSON Serialization error',
+        code: 6
+      };
+    }
   }
 }
 

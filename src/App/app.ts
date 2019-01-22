@@ -130,7 +130,7 @@ class App {
       email: 'admin@gmail.com',
       password: 'admin',
       rollno: '169105077',
-      target: 'CSE6B'
+      target: 'CS6B'
     });
     Log.main.info('ACCOUNTS SEEDED');
   }
