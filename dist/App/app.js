@@ -34,8 +34,7 @@ class App {
      * @param PORT Port on which the server is to be run
      * @param MONGODB_NAME Database name to be used
      */
-    constructor(PORT, MONGODB_NAME) {
-        this.PORT = PORT;
+    constructor(MONGODB_NAME) {
         this.MONGODB_NAME = MONGODB_NAME;
         this.app = express_1.default();
         process.env.TZ = 'Asia/Kolkata';
@@ -53,16 +52,16 @@ class App {
      * @param callback called whern server is started
      */
     listen(callback) {
-        this.app.listen(this.PORT, ip_1.default.address(), callback());
+        this.app.listen(process.env.PORT || 3000, /*ip.address(),*/ callback());
     }
     /**
      * @returns local URL of the server
      */
     getLocalUrl() {
-        return `http://localhost:${this.PORT}/`;
+        return `http://localhost:${process.env.PORT || 3000}/`;
     }
     getIP() {
-        return `http://${ip_1.default.address()}:3000`;
+        return `http://${ip_1.default.address()}:${process.env.PORT || 3000}/`;
     }
     /**
      * MongoDB setup

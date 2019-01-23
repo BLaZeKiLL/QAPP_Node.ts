@@ -30,7 +30,6 @@ class App {
    * @param MONGODB_NAME Database name to be used
    */
   constructor(
-    private PORT: number,
     private MONGODB_NAME: string
   ) {
     this.app = express();
@@ -50,18 +49,18 @@ class App {
    * @param callback called whern server is started
    */
   public listen(callback: () => any): void {
-    this.app.listen(this.PORT, ip.address(), callback());
+    this.app.listen(process.env.PORT || 3000, /*ip.address(),*/ callback());
   }
 
   /**
    * @returns local URL of the server
    */
   public getLocalUrl(): string {
-    return `http://localhost:${this.PORT}/`;
+    return `http://localhost:${process.env.PORT || 3000}/`;
   }
 
   public getIP(): string {
-    return `http://${ip.address()}:3000`;
+    return `http://${ip.address()}:${process.env.PORT || 3000}/`;
   }
 
   /**
