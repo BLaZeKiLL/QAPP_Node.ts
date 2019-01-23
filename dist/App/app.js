@@ -53,7 +53,7 @@ class App {
      * @param callback called whern server is started
      */
     listen(callback) {
-        this.app.listen(this.PORT, /*ip.address(),*/ callback());
+        this.app.listen(this.PORT, ip_1.default.address(), callback());
     }
     /**
      * @returns local URL of the server

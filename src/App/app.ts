@@ -50,7 +50,7 @@ class App {
    * @param callback called whern server is started
    */
   public listen(callback: () => any): void {
-    this.app.listen(this.PORT, /*ip.address(),*/ callback());
+    this.app.listen(this.PORT, ip.address(), callback());
   }
 
   /**
