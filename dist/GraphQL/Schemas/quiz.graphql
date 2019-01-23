@@ -1,0 +1,49 @@
+# import Question, IMGQuestion, IMGQuestionInput from 'question.graphql'
+# import Teacher from 'teacher.graphql'
+# import Result from 'result.graphql'
+# import Status from 'misc.graphql'
+
+input QuizInput {
+  courseCode: String!
+  No: Int!
+  creator: ID!
+  totalQuestions: Int!
+  setQuestions: Int!
+  date: String!
+  duration: Int!
+  targets: [String!]!
+  questions: [IMGQuestionInput!]!
+}
+
+input QuizUpdate {
+  _id: ID!
+  courseCode: String
+  No: Int
+  totalQuestions: Int
+  setQuestions: Int
+  date: String
+  duration: Int
+  targets: [String!]
+  questions: [IMGQuestionInput!]
+  active: Boolean
+}
+
+type Quiz {
+  _id: ID!
+  courseCode: String!
+  No: Int!
+  creator: Teacher!
+  totalQuestions: Int!
+  setQuestions: Int!
+  date: String!
+  duration: Int!
+  targets: [String!]!
+  questions: [IMGQuestion!]!
+  active: Boolean!
+  results: [Result!]
+}
+
+type QuizResponse {
+  quiz: Quiz
+  status: Status!
+}

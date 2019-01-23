@@ -1,0 +1,59 @@
+# import Status from 'misc.graphql'
+
+enum QuestionType {
+  MCQ_SINGLE,
+  MCQ_MULTIPLE
+}
+
+input OptionInput {
+  statement: String!
+  isAns: Boolean!
+}
+
+type Option {
+  statement: String!
+  isAns: Boolean!
+}
+
+type IMGQuestion {
+  question: Question!
+  imageURL: String
+}
+
+input IMGQuestionInput {
+  question: ID!
+  imageURL: String
+}
+
+input QuestionInput {
+  courseCode: String!
+  type: QuestionType!
+  statement: String!
+  options: [OptionInput!]!
+}
+
+input QuestionUpdate {
+  _id: ID!
+  courseCode: String
+  type: QuestionType
+  statement: String
+  options: [OptionInput!]
+}
+
+type Question {
+  _id: ID!
+  courseCode: String!
+  type: QuestionType!
+  statement: String!
+  options: [Option!]!
+}
+
+type QuestionResponse {
+  question: Question
+  status: Status!
+}
+
+type QuestionsResponse {
+  questions: [Question!]
+  status: Status!
+}
