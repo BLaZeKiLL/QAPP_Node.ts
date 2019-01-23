@@ -16,6 +16,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer = __importStar(require("nodemailer"));
+const logger_1 = require("./logger");
 class Postman {
     static accountMail(reciver, type, password) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,9 +28,11 @@ class Postman {
             };
             try {
                 yield Postman.mailer.sendMail(mail);
+                logger_1.Log.main.info('MAIL SENT');
                 return true;
             }
             catch (error) {
+                logger_1.Log.main.error('MAIL ERROR :' + error);
                 throw error;
             }
         });

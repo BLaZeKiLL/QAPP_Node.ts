@@ -1,4 +1,5 @@
 import * as nodemailer from 'nodemailer';
+import { Log } from './logger';
 
 class Postman {
 
@@ -19,8 +20,10 @@ class Postman {
     };
     try {
       await Postman.mailer.sendMail(mail);
+      Log.main.info('MAIL SENT');
       return true;
     } catch (error) {
+      Log.main.error('MAIL ERROR :' + error);
       throw error;
     }
   }

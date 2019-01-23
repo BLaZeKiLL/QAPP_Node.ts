@@ -20,7 +20,7 @@ Log.main = winston_1.createLogger({
     transports: [
         new winston_1.transports.File({
             level: 'verbose',
-            filename: './dist/Logs/main.log',
+            filename: `${__dirname}/../Logs/main.log`,
             handleExceptions: true,
             maxsize: 5242880,
             maxFiles: 5,
@@ -38,7 +38,7 @@ Log.request = winston_1.createLogger({
     transports: [
         new winston_1.transports.File({
             level: 'info',
-            filename: './dist/Logs/request.log',
+            filename: '${__dirname}/../Logs/morgan.log',
             handleExceptions: true,
             maxsize: 5242880,
             maxFiles: 5,
