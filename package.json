@@ -3,6 +3,13 @@
   "version": "0.3.0",
   "description": "",
   "main": "./dist/server.js",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/BLaZeKiLL/QAPP_Node.ts.git"
+  },
+  "engines": {
+    "node": ">=10.10.0"
+  },
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.ts",
     "local": "cross-env NODE_ENV=local node ./dist/server.js",
