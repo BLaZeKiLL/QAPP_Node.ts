@@ -8,7 +8,7 @@
     "url": "https://github.com/BLaZeKiLL/QAPP_Node.ts.git"
   },
   "engines": {
-    "node": ">=10.10.0"
+    "node": ">=10.14.1"
   },
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.ts",
