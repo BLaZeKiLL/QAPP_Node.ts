@@ -1,0 +1,18 @@
+# import Status from 'misc.graphql'
+
+input CourseInput {
+  name: String!
+  code: String!
+  targets: [String!]!
+}
+
+type Course {
+  name: String!
+  code: String!
+  targets: [String!]!
+}
+
+type TargetsResponse {
+  targets: [String!]
+  status: Status
+}

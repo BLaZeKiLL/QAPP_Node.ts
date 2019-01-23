@@ -1,0 +1,33 @@
+# import Status from 'misc.graphql'
+# import Result from 'result.graphql'
+
+input StudentInput {
+  name: String!
+  email: String!
+  rollno: String!
+  target: String!
+}
+
+type Student {
+  _id: ID!
+  name: String!
+  email: String!
+  deviceID: String
+  rollno: String!
+  target: String!
+  results: [Result!]
+}
+
+type StudentAuthData {
+  id: ID!
+  name: String!
+  email: String!
+  rollno: String!
+  target: String!
+  token: String!
+}
+
+type StudentAuthResponse {
+  auth: StudentAuthData
+  status: Status!
+}

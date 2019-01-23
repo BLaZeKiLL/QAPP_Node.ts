@@ -13,10 +13,9 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.ts",
     "local": "cross-env NODE_ENV=local node ./dist/server.js",
-    "prestart": "npm run build",
     "start": "node ./dist/server.js",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc && ts-node post-build.ts",
+    "build": "tsc && ts-node copy.ts",
     "schema": "apollo service:download ./build/schema.json --endpoint=http://localhost:3000/graphql"
   },
   "author": "BLaZeKiLL",
