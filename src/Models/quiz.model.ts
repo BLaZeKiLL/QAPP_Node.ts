@@ -123,11 +123,14 @@ class Quiz {
 
   public static async add(quiz: IQuizInput): Promise<boolean> {
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
+
     if (doc) {
       const id = doc._id;
       const date = doc.date;
-      Firebase.quizCardBroadcast(<any>doc);
+
+      Firebase.quizCard(<any>doc);
       Scheduler.schedule(id, date);
+
       Log.main.info(`QUIZ ${id} ADDED TO DB`);
       return true;
     }

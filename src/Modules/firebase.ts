@@ -27,8 +27,8 @@ class Firebase {
       Log.main.info('SUCCESSFULLY SUBSCRIBED TO TOPIC : ' + response.successCount);
       return true;
     } catch (error) {
-      Log.main.info('ERROR SUBSCRIBING TO TOPIC : ' + error);
-      throw error;
+      Log.main.error('FIREBASE');
+      Log.main.error(error);
     }
   }
 
@@ -44,46 +44,68 @@ class Firebase {
       Log.main.info('SUCCESSFULLY UNSUBSCRIBED FROM TOPIC : ' + response.successCount);
       return true;
     } catch (error) {
-      Log.main.info('ERROR UNSUBSCRIBING FROM TOPIC : ' + error);
-      throw error;
+      Log.main.error('FIREBASE');
+      Log.main.error(error);
     }
   }
 
-  public static async quizCardBroadcast(quiz: IQuiz): Promise<boolean> {
+  public static async quizCard(quiz: IQuiz): Promise<boolean> {
     try {
-      const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
-      quiz.targets = undefined;
+      const targets = quiz.targets;
       quiz.date.setTime(quiz.date.getTime() + quiz.date.getTimezoneOffset());
+      const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+
+      quiz.targets = undefined;
       quiz.questions = undefined;
       quiz.results = undefined;
       quiz._id = undefined;
       quiz.setQuestions = undefined;
+
       const payload = JSON.stringify(quiz);
-      quiz.targets.forEach(async (target: string) => {
-        await admin.messaging().sendToTopic(target, {
-          data: { quizData: payload },
-          notification: {
-            title: 'QAPP Quiz',
-            body: message
-          }
-        });
+
+      targets.forEach(async (target: string) => {
+        await this.broadcast(
+          target,
+          { quizData: payload },
+          message,
+          'QAPP'
+        );
       });
+
       Log.main.info('QUIZ CARD DATA SENT');
       return true;
-    } catch {
-
+    } catch (error) {
+      Log.main.error(error);
     }
   }
 
-  public static async broadcast(target: string) {
-    await admin.messaging().sendToTopic(target, {
-      data: { request: 'true' },
-      notification: {
-        title: 'QAPP Quiz',
-        body: 'Quiz Reminder'
-      }
-    });
-    Log.main.info('QUIZ REMINDER SENT');
+  public static async reminder(target: string) {
+    try {
+      await this.broadcast(
+        target,
+        { request: 'true' },
+        'Quiz Reminder',
+        'QAPP'
+      );
+      Log.main.info('QUIZ REMINDER SENT');
+    } catch (error) {
+      Log.main.error(error);
+    }
+  }
+
+  private static async broadcast(topic: string, payload: any, message: string, title: string): Promise<void> {
+    try {
+      await admin.messaging().sendToTopic(topic, {
+        data: payload,
+        notification: {
+          title: title,
+          body: message
+        },
+      });
+    } catch (error) {
+      Log.main.error('FIREBASE');
+      Log.main.error(error);
+    }
   }
 
 }

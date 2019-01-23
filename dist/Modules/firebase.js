@@ -39,8 +39,8 @@ class Firebase {
                 return true;
             }
             catch (error) {
-                logger_1.Log.main.info('ERROR SUBSCRIBING TO TOPIC : ' + error);
-                throw error;
+                logger_1.Log.main.error('FIREBASE');
+                logger_1.Log.main.error(error);
             }
         });
     }
@@ -58,48 +58,60 @@ class Firebase {
                 return true;
             }
             catch (error) {
-                logger_1.Log.main.info('ERROR UNSUBSCRIBING FROM TOPIC : ' + error);
-                throw error;
+                logger_1.Log.main.error('FIREBASE');
+                logger_1.Log.main.error(error);
             }
         });
     }
-    static quizCardBroadcast(quiz) {
+    static quizCard(quiz) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const targets = quiz.targets;
+                quiz.date.setTime(quiz.date.getTime() + quiz.date.getTimezoneOffset());
                 const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
                 quiz.targets = undefined;
-                quiz.date.setTime(quiz.date.getTime() + quiz.date.getTimezoneOffset());
                 quiz.questions = undefined;
                 quiz.results = undefined;
                 quiz._id = undefined;
                 quiz.setQuestions = undefined;
                 const payload = JSON.stringify(quiz);
-                quiz.targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
-                    yield admin.messaging().sendToTopic(target, {
-                        data: { quizData: payload },
-                        notification: {
-                            title: 'QAPP Quiz',
-                            body: message
-                        }
-                    });
+                targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
+                    yield this.broadcast(target, { quizData: payload }, message, 'QAPP');
                 }));
                 logger_1.Log.main.info('QUIZ CARD DATA SENT');
                 return true;
             }
-            catch (_a) {
+            catch (error) {
+                logger_1.Log.main.error(error);
             }
         });
     }
-    static broadcast(target) {
+    static reminder(target) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield admin.messaging().sendToTopic(target, {
-                data: { request: 'true' },
-                notification: {
-                    title: 'QAPP Quiz',
-                    body: 'Quiz Reminder'
-                }
-            });
-            logger_1.Log.main.info('QUIZ REMINDER SENT');
+            try {
+                yield this.broadcast(target, { request: 'true' }, 'Quiz Reminder', 'QAPP');
+                logger_1.Log.main.info('QUIZ REMINDER SENT');
+            }
+            catch (error) {
+                logger_1.Log.main.error(error);
+            }
+        });
+    }
+    static broadcast(topic, payload, message, title) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield admin.messaging().sendToTopic(topic, {
+                    data: payload,
+                    notification: {
+                        title: title,
+                        body: message
+                    },
+                });
+            }
+            catch (error) {
+                logger_1.Log.main.error('FIREBASE');
+                logger_1.Log.main.error(error);
+            }
         });
     }
 }

@@ -14,7 +14,7 @@ class Scheduler {
       try {
         const quiz = await Quiz.getOne(undefined, quizID);
         quiz.targets.forEach((target: string) => {
-          Firebase.broadcast(target);
+          Firebase.reminder(target);
           Dispatcher.distribute(target, quiz);
         });
       } catch {
