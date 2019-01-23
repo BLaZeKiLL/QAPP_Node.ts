@@ -67,6 +67,8 @@ class Firebase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+                quiz.targets = undefined;
+                quiz.date.setTime(quiz.date.getTime() + quiz.date.getTimezoneOffset());
                 quiz.questions = undefined;
                 quiz.results = undefined;
                 quiz._id = undefined;

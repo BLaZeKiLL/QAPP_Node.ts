@@ -18,7 +18,6 @@ interface IQuizInput {
   questions: IQuestionIMGInput[];
   _id?: Schema.Types.ObjectId;
   results?: Schema.Types.ObjectId[];
-  active?: boolean;
 }
 
 interface IQuizFilter {
@@ -69,7 +68,6 @@ class Quiz {
    * @property {Number} duration time duaration of the quiz
    * @property {string[]} targets array of targets of the quiz
    * @property {question[]} questions questions for the quiz with image URL's if any
-   * @property {Boolean} active status of the quiz
    * @property {ref} result reference to quiz result
    */
   private static schema = new Schema({
@@ -115,10 +113,6 @@ class Quiz {
       },
       imageURL: String,
     }],
-    active: {
-      type: Boolean,
-      required: true
-    },
     results: [{
       type: Schema.Types.ObjectId,
       ref: 'Result'
@@ -128,12 +122,12 @@ class Quiz {
   private static DBmodel = model('Quiz', Quiz.schema);
 
   public static async add(quiz: IQuizInput): Promise<boolean> {
-    quiz.active = false;
     const doc = await Mongo.add(Quiz.DBmodel, quiz);
     if (doc) {
       const id = doc._id;
+      const date = doc.date;
       Firebase.quizCardBroadcast(<any>doc);
-      Scheduler.schedule(id, doc.date);
+      Scheduler.schedule(id, date);
       Log.main.info(`QUIZ ${id} ADDED TO DB`);
       return true;
     }

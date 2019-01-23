@@ -52,6 +52,8 @@ class Firebase {
   public static async quizCardBroadcast(quiz: IQuiz): Promise<boolean> {
     try {
       const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+      quiz.targets = undefined;
+      quiz.date.setTime(quiz.date.getTime() + quiz.date.getTimezoneOffset());
       quiz.questions = undefined;
       quiz.results = undefined;
       quiz._id = undefined;

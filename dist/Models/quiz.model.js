@@ -15,12 +15,12 @@ const logger_1 = require("../Modules/logger");
 class Quiz {
     static add(quiz) {
         return __awaiter(this, void 0, void 0, function* () {
-            quiz.active = false;
             const doc = yield mongo_1.Mongo.add(Quiz.DBmodel, quiz);
             if (doc) {
                 const id = doc._id;
+                const date = doc.date;
                 firebase_1.Firebase.quizCardBroadcast(doc);
-                scheduler_1.Scheduler.schedule(id, doc.date);
+                scheduler_1.Scheduler.schedule(id, date);
                 logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                 return true;
             }
@@ -44,7 +44,6 @@ class Quiz {
  * @property {Number} duration time duaration of the quiz
  * @property {string[]} targets array of targets of the quiz
  * @property {question[]} questions questions for the quiz with image URL's if any
- * @property {Boolean} active status of the quiz
  * @property {ref} result reference to quiz result
  */
 Quiz.schema = new mongo_1.Schema({
@@ -90,10 +89,6 @@ Quiz.schema = new mongo_1.Schema({
             },
             imageURL: String,
         }],
-    active: {
-        type: Boolean,
-        required: true
-    },
     results: [{
             type: mongo_1.Schema.Types.ObjectId,
             ref: 'Result'
