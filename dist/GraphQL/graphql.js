@@ -24,7 +24,7 @@ class GraphBuilder {
         });
     }
     buildGraphQLSchema() {
-        const schema = graphql_import_1.importSchema('./dist/GraphQL/Schemas/index.graphql');
+        const schema = graphql_import_1.importSchema(`${__dirname}/Schemas/index.graphql`);
         return graphql_1.buildSchema(`
       ${schema}
 

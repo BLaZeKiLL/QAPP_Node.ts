@@ -22,7 +22,7 @@ export class GraphBuilder {
   }
 
   private buildGraphQLSchema(): GraphQLSchema {
-    const schema = importSchema('./dist/GraphQL/Schemas/index.graphql');
+    const schema = importSchema(`${__dirname}/Schemas/index.graphql`);
     return buildSchema(`
       ${schema}
 
