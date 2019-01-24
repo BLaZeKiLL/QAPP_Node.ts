@@ -14,8 +14,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = __importStar(require("firebase-admin"));
+const moment_1 = __importDefault(require("moment"));
 const account = __importStar(require("../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json"));
 const logger_1 = require("./logger");
 class Firebase {
@@ -67,9 +71,9 @@ class Firebase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const targets = quiz.targets;
-                const date = quiz.date;
-                date.setTime(date.getTime() + date.getTimezoneOffset());
-                quiz.date = date.toISOString();
+                const date = moment_1.default.utc(quiz.date.toUTCString()).local().toDate();
+                // date.setTime(date.getTime() + date.getTimezoneOffset());
+                quiz.date = date;
                 quiz.targets = undefined;
                 quiz.questions = undefined;
                 quiz.results = undefined;
@@ -80,7 +84,7 @@ class Firebase {
                 targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
                     yield this.broadcast(target, { quizData: payload }, message, 'QAPP');
                 }));
-                logger_1.Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date.toISOString()}`);
+                logger_1.Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date}`);
                 return true;
             }
             catch (error) {

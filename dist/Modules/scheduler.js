@@ -14,17 +14,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const cron = __importStar(require("cron"));
+const moment_1 = __importDefault(require("moment"));
 const dispatcher_1 = require("./dispatcher");
 const logger_1 = require("./logger");
 const quiz_model_1 = require("../Models/quiz.model");
 const firebase_1 = require("./firebase");
 class Scheduler {
     static schedule(quizID, date) {
-        date.setTime(date.getTime() + date.getTimezoneOffset());
-        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${date.toISOString()}`);
-        new cron.CronJob(date, () => __awaiter(this, void 0, void 0, function* () {
+        const istdate = moment_1.default.utc(date.toUTCString()).local().toDate();
+        // date.setTime(date.getTime() + date.getTimezoneOffset());
+        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.toISOString()}`);
+        new cron.CronJob(istdate, () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID);
                 quiz.targets.forEach((target) => {

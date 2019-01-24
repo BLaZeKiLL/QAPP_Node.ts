@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import moment from 'moment';
 import * as account from '../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json';
 
 import { Log } from './logger';
@@ -52,9 +53,9 @@ class Firebase {
   public static async quizCard(quiz: IQuiz): Promise<boolean> {
     try {
       const targets: string[] = quiz.targets;
-      const date: Date = quiz.date;
-      date.setTime(date.getTime() + date.getTimezoneOffset());
-      quiz.date = <any>date.toISOString();
+      const date: Date = moment.utc(quiz.date.toUTCString()).local().toDate();
+      // date.setTime(date.getTime() + date.getTimezoneOffset());
+      quiz.date = date;
 
       quiz.targets = undefined;
       quiz.questions = undefined;
@@ -74,7 +75,7 @@ class Firebase {
         );
       });
 
-      Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date.toISOString()}`);
+      Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date}`);
       return true;
     } catch (error) {
       Log.main.error(error);
