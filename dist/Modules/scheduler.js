@@ -23,7 +23,7 @@ const firebase_1 = require("./firebase");
 class Scheduler {
     static schedule(quizID, date) {
         date.setTime(date.getTime() + date.getTimezoneOffset());
-        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${date}`);
+        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${date.toISOString()}`);
         new cron.CronJob(date, () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID);

@@ -67,18 +67,20 @@ class Firebase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const targets = quiz.targets;
-                quiz.date.setTime(quiz.date.getTime() + quiz.date.getTimezoneOffset());
-                const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+                const date = quiz.date;
+                date.setTime(date.getTime() + date.getTimezoneOffset());
+                quiz.date = date.toISOString();
                 quiz.targets = undefined;
                 quiz.questions = undefined;
                 quiz.results = undefined;
                 quiz._id = undefined;
                 quiz.setQuestions = undefined;
+                const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
                 const payload = JSON.stringify(quiz);
                 targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
                     yield this.broadcast(target, { quizData: payload }, message, 'QAPP');
                 }));
-                logger_1.Log.main.info('QUIZ CARD DATA SENT');
+                logger_1.Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date.toISOString()}`);
                 return true;
             }
             catch (error) {
