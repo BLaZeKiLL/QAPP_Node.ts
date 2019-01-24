@@ -28,7 +28,7 @@ class Scheduler {
     static schedule(quizID, date) {
         const istdate = moment_1.default.utc(date.toUTCString()).local().toDate();
         // date.setTime(date.getTime() + date.getTimezoneOffset());
-        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.toISOString()}`);
+        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.toLocaleString()}`);
         new cron.CronJob(istdate, () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID);

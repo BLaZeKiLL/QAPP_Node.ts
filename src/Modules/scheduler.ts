@@ -11,7 +11,7 @@ class Scheduler {
   public static schedule(quizID: Schema.Types.ObjectId, date: Date): void {
     const istdate = moment.utc(date.toUTCString()).local().toDate();
     // date.setTime(date.getTime() + date.getTimezoneOffset());
-    Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.toISOString()}`);
+    Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.toLocaleString()}`);
     new cron.CronJob(istdate, async () => {
       try {
         const quiz = await Quiz.getOne(undefined, quizID);

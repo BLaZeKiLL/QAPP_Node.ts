@@ -73,7 +73,7 @@ class Firebase {
                 const targets = quiz.targets;
                 const date = moment_1.default.utc(quiz.date.toUTCString()).local().toDate();
                 // date.setTime(date.getTime() + date.getTimezoneOffset());
-                quiz.date = date;
+                quiz.date = date.toLocaleString();
                 quiz.targets = undefined;
                 quiz.questions = undefined;
                 quiz.results = undefined;
@@ -84,7 +84,7 @@ class Firebase {
                 targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
                     yield this.broadcast(target, { quizData: payload }, message, 'QAPP');
                 }));
-                logger_1.Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date}`);
+                logger_1.Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date.toLocaleString()}`);
                 return true;
             }
             catch (error) {
