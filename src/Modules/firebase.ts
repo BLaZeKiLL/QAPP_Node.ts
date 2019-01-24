@@ -53,9 +53,9 @@ class Firebase {
   public static async quizCard(quiz: IQuiz): Promise<boolean> {
     try {
       const targets: string[] = quiz.targets;
-      const date: Date = moment.utc(quiz.date.toUTCString()).local().toDate();
+      const date = moment.utc(quiz.date.toUTCString()).local();
       // date.setTime(date.getTime() + date.getTimezoneOffset());
-      quiz.date = <any>date.toLocaleString();
+      quiz.date = <any>date.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
 
       quiz.targets = undefined;
       quiz.questions = undefined;
@@ -75,7 +75,7 @@ class Firebase {
         );
       });
 
-      Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date} COMPUTED ${date.toLocaleString()}`);
+      Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date}`);
       return true;
     } catch (error) {
       Log.main.error(error);

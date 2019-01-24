@@ -9,10 +9,10 @@ import { Firebase } from './firebase';
 class Scheduler {
 
   public static schedule(quizID: Schema.Types.ObjectId, date: Date): void {
-    const istdate = moment.utc(date.toUTCString()).local().toDate();
+    const istdate = moment.utc(date.toUTCString()).local();
     // date.setTime(date.getTime() + date.getTimezoneOffset());
-    Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.toLocaleString()}`);
-    new cron.CronJob(istdate, async () => {
+    Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
+    new cron.CronJob(istdate.toDate(), async () => {
       try {
         const quiz = await Quiz.getOne(undefined, quizID);
         quiz.targets.forEach((target: string) => {
