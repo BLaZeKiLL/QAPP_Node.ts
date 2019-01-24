@@ -9,7 +9,7 @@ class Scheduler {
 
   public static schedule(quizID: Schema.Types.ObjectId, date: Date): void {
     date.setTime(date.getTime() + date.getTimezoneOffset());
-    Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${date}`);
+    Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${date.toISOString()}`);
     new cron.CronJob(date, async () => {
       try {
         const quiz = await Quiz.getOne(undefined, quizID);
