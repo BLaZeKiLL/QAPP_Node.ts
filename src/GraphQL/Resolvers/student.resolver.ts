@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { IToken } from '../../Models/misc.model';
 import { Student, IStudentAuthResponse } from '../../Models/student.model';
-import { APP_SECRET } from '../../Modules/authentication';
+import { APP_SECRET, isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Log } from '../../Modules/logger';
 import { Firebase } from '../../Modules/firebase';
@@ -50,7 +50,25 @@ export = {
       };
     }
   },
-  studentResults: (args: any) => {
+  studentResults: async (args: any, req: any) => {
 
+  },
+  updateStudent: async (args: any, req: any): Promise<boolean> => {
+    try {
+      isStudent(req);
+      return await Student.update(
+        {
+          name: args.student.name,
+          email: args.student.email,
+          password: args.student.password,
+          rollno: args.student.rollno,
+          target: args.student.target
+        },
+        args.student._id
+      );
+    } catch (error) {
+      Log.main.error('ACCOUNT UPDATE ERROR');
+      return false;
+    }
   }
 };

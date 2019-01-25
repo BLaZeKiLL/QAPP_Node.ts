@@ -55,6 +55,21 @@ module.exports = {
                 status: errorHandler_1.Handle(error)
             };
         }
+    }),
+    updateTeacher: (args, req) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            authentication_1.isTeacher(req);
+            return yield teacher_model_1.Teacher.update({
+                name: args.teacher.name,
+                email: args.teacher.email,
+                password: args.teacher.password,
+                admin: args.teacher.admin
+            }, args.teacher._id);
+        }
+        catch (error) {
+            logger_1.Log.main.error('ACCOUNT UPDATE ERROR');
+            return false;
+        }
     })
 };
 //# sourceMappingURL=teacher.resolver.js.map

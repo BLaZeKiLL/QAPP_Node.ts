@@ -50,6 +50,16 @@ class Question {
             return mongo_1.Mongo.getOne(Question.DBmodel, filter, id);
         });
     }
+    static update(filter, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield mongo_1.Mongo.update(Question.DBmodel, filter, id);
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
     static delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return mongo_1.Mongo.delete(Question.DBmodel, id);

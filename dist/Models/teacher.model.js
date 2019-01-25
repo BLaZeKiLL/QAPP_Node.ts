@@ -35,6 +35,17 @@ class Teacher {
             return mongo_1.Mongo.getOne(Teacher.DBmodel, filter, id);
         });
     }
+    static update(filter, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield mongo_1.Mongo.update(Teacher.DBmodel, filter, id);
+                return true;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
 }
 /**
  * Teacher profile schema

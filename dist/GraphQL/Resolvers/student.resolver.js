@@ -60,7 +60,23 @@ module.exports = {
             };
         }
     }),
-    studentResults: (args) => {
-    }
+    studentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    }),
+    updateStudent: (args, req) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            authentication_1.isStudent(req);
+            return yield student_model_1.Student.update({
+                name: args.student.name,
+                email: args.student.email,
+                password: args.student.password,
+                rollno: args.student.rollno,
+                target: args.student.target
+            }, args.student._id);
+        }
+        catch (error) {
+            logger_1.Log.main.error('ACCOUNT UPDATE ERROR');
+            return false;
+        }
+    })
 };
 //# sourceMappingURL=student.resolver.js.map

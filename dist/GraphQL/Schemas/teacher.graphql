@@ -6,6 +6,14 @@ input TeacherInput {
   admin: Boolean!
 }
 
+input TeacherUpdate {
+  _id: ID!
+  name: String
+  email: String
+  password: String
+  admin: Boolean
+}
+
 type Teacher {
   _id: ID!
   name: String!

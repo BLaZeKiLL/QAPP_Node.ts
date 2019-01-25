@@ -16,6 +16,7 @@ interface ITeacherFilter {
   name?: string;
   email?: string;
   admin?: boolean;
+  password?: boolean;
   _id?: Schema.Types.ObjectId;
 }
 
@@ -78,6 +79,15 @@ class Teacher {
 
   public static async getOne(filter?: ITeacherFilter, id?: Schema.Types.ObjectId): Promise<ITeacher> {
     return Mongo.getOne(Teacher.DBmodel, filter, id);
+  }
+
+  public static async update(filter: ITeacherFilter, id: Schema.Types.ObjectId): Promise<boolean> {
+    try {
+      await Mongo.update<ITeacher, ITeacherFilter>(Teacher.DBmodel, filter, id);
+      return true;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

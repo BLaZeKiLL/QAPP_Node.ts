@@ -23,6 +23,7 @@ interface IStudentFilter {
   deviceID?: string;
   rollno?: string;
   target?: string;
+  password?: boolean;
   resluts?: IResult[];
 }
 
@@ -103,7 +104,12 @@ class Student {
   }
 
   public static async update(filter: IStudentFilter, id: Schema.Types.ObjectId): Promise<boolean> {
-    return Mongo.update(Student.DBmodel, filter, id);
+    try {
+      await Mongo.update<IStudent, IStudentFilter>(Student.DBmodel, filter, id);
+      return true;
+    } catch (error) {
+      throw error;
+    }
   }
 
 }

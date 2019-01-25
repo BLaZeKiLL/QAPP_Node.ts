@@ -105,8 +105,7 @@ class Mongo {
     static update(model, filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield model.findByIdAndUpdate(id, filter);
-                return true;
+                return yield model.findByIdAndUpdate(id, filter);
             }
             catch (error) {
                 logger_1.Log.main.error(error);

@@ -37,7 +37,13 @@ class Student {
     }
     static update(filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.update(Student.DBmodel, filter, id);
+            try {
+                yield mongo_1.Mongo.update(Student.DBmodel, filter, id);
+                return true;
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
 }

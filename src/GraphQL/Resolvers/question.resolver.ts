@@ -1,6 +1,7 @@
 import { Question, IQuestionResponse, IQuestionsResponse, IQuestionFilter } from '../../Models/question.model';
 import { isTeacher } from '../../Modules/authentication';
 import { Log } from '../../Modules/logger';
+import { Handle } from '../../Modules/errorHandler';
 
 export = {
   getQuestions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
@@ -14,13 +15,9 @@ export = {
           message: 'OK'
         }
       };
-    } catch {
-      Log.main.error('QUESTIONS ERROR');
+    } catch (error) {
       return {
-        status: {
-          code: 2,
-          message: 'ERROR'
-        }
+        status: Handle(error)
       };
     }
   },
@@ -34,13 +31,9 @@ export = {
           message: 'OK'
         }
       };
-    } catch {
-      Log.main.error('QUESTION ADD ERROR');
+    } catch (error) {
       return {
-        status: {
-          code: 2,
-          message: 'ERROR'
-        }
+        status: Handle(error)
       };
     }
   },
@@ -54,13 +47,33 @@ export = {
           message: 'OK'
         }
       };
-    } catch {
-      Log.main.error('QUESTIONS ADD ERROR');
+    } catch (error) {
       return {
+        status: Handle(error)
+      };
+    }
+  },
+  updateQuestion: async (args: any, req: any): Promise<IQuestionResponse> => {
+    try {
+      isTeacher(req);
+      return {
+        question: await Question.update(
+          {
+            courseCode: args.question.courseCode,
+            statement: args.question.statement,
+            type: args.question.type,
+            options: args.question.options
+          },
+          args.question._id
+        ),
         status: {
-          code: 2,
-          message: 'ERROR'
+          code: 0,
+          message: 'OK'
         }
+      };
+    } catch (error) {
+      return {
+        status: Handle(error)
       };
     }
   },

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const question_model_1 = require("../../Models/question.model");
 const authentication_1 = require("../../Modules/authentication");
 const logger_1 = require("../../Modules/logger");
+const errorHandler_1 = require("../../Modules/errorHandler");
 module.exports = {
     getQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
@@ -23,13 +24,9 @@ module.exports = {
                 }
             };
         }
-        catch (_a) {
-            logger_1.Log.main.error('QUESTIONS ERROR');
+        catch (error) {
             return {
-                status: {
-                    code: 2,
-                    message: 'ERROR'
-                }
+                status: errorHandler_1.Handle(error)
             };
         }
     }),
@@ -44,13 +41,9 @@ module.exports = {
                 }
             };
         }
-        catch (_b) {
-            logger_1.Log.main.error('QUESTION ADD ERROR');
+        catch (error) {
             return {
-                status: {
-                    code: 2,
-                    message: 'ERROR'
-                }
+                status: errorHandler_1.Handle(error)
             };
         }
     }),
@@ -65,13 +58,31 @@ module.exports = {
                 }
             };
         }
-        catch (_c) {
-            logger_1.Log.main.error('QUESTIONS ADD ERROR');
+        catch (error) {
             return {
+                status: errorHandler_1.Handle(error)
+            };
+        }
+    }),
+    updateQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            authentication_1.isTeacher(req);
+            return {
+                question: yield question_model_1.Question.update({
+                    courseCode: args.question.courseCode,
+                    statement: args.question.statement,
+                    type: args.question.type,
+                    options: args.question.options
+                }, args.question._id),
                 status: {
-                    code: 2,
-                    message: 'ERROR'
+                    code: 0,
+                    message: 'OK'
                 }
+            };
+        }
+        catch (error) {
+            return {
+                status: errorHandler_1.Handle(error)
             };
         }
     }),

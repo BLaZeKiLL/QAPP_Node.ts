@@ -8,6 +8,15 @@ input StudentInput {
   target: String!
 }
 
+input StudentUpdate {
+  _id: ID!
+  name: String
+  password: String
+  email: String
+  rollno: String
+  target: String
+}
+
 type Student {
   _id: ID!
   name: String!

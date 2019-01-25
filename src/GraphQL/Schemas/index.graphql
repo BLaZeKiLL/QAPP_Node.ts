@@ -1,8 +1,8 @@
-# import Question, QuestionInput, QuestionResponse, QuestionsResponse from 'question.graphql'
+# import Question, QuestionInput, QuestionUpdate, QuestionResponse, QuestionsResponse from 'question.graphql'
 # import Quiz, QuizInput, QuizResponse from 'quiz.graphql'
 # import Result, ResultInput from 'result.graphql'
-# import StudentInput, StudentAuthResponse from 'student.graphql'
-# import TeacherInput, TeacherAuthResponse from 'teacher.graphql'
+# import StudentInput, StudentUpdate, StudentAuthResponse from 'student.graphql'
+# import TeacherInput, TeacherUpdate, TeacherAuthResponse from 'teacher.graphql'
 # import TargetsResponse from 'course.graphql'
 # import Message from 'misc.graphql'
 
@@ -29,6 +29,8 @@ type RootMutations {
   # UPDATIONS
   updateQuestion(question: QuestionUpdate!): QuestionResponse!
   updateQuiz(quiz: QuizUpdate!): QuizResponse!
+  updateStudent(student: StudentUpdate!): Boolean!
+  updateTeacher(teacher: TeacherUpdate!): Boolean!
 
   # DELETIONS
   deleteQuestion(questionID: ID!): Boolean! #
