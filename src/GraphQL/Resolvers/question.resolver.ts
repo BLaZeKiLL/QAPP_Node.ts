@@ -53,28 +53,22 @@ export = {
       };
     }
   },
-  updateQuestion: async (args: any, req: any): Promise<IQuestionResponse> => {
+  updateQuestion: async (args: any, req: any): Promise<boolean> => {
     try {
       isTeacher(req);
-      return {
-        question: await Question.update(
-          {
-            courseCode: args.question.courseCode,
-            statement: args.question.statement,
-            type: args.question.type,
-            options: args.question.options
-          },
-          args.question._id
-        ),
-        status: {
-          code: 0,
-          message: 'OK'
-        }
-      };
+      await Question.update(
+        {
+          courseCode: args.question.courseCode,
+          statement: args.question.statement,
+          type: args.question.type,
+          options: args.question.options
+        },
+        args.question._id
+      );
+      return true;
     } catch (error) {
-      return {
-        status: Handle(error)
-      };
+      Handle(error);
+      return false;
     }
   },
   deleteQuestion: async (args: any, req: any): Promise<boolean> => {

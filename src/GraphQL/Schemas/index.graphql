@@ -1,4 +1,4 @@
-# import Question, QuestionInput, QuestionUpdate, QuestionResponse, QuestionsResponse from 'question.graphql'
+# import Question, QuestionInput, QuestionUpdate, QuestionsResponse from 'question.graphql'
 # import Quiz, QuizInput, QuizResponse from 'quiz.graphql'
 # import Result, ResultInput from 'result.graphql'
 # import StudentInput, StudentUpdate, StudentAuthResponse from 'student.graphql'
@@ -18,8 +18,8 @@ type RootQuery {
 
 type RootMutations {
   # ADDITIONS
-  addQuestion(question: QuestionInput!): QuestionResponse! #
-  addQuestions(questions: [QuestionInput!]!): QuestionsResponse! #
+  addQuestion(question: QuestionInput!): Boolean! #
+  addQuestions(questions: [QuestionInput!]!): Boolean! #
   addQuiz(quiz: QuizInput!): Boolean! #
   addResult(result: ResultInput!): Boolean!
   addCourse(course: CourseInput!): Boolean!
@@ -27,8 +27,8 @@ type RootMutations {
   addTeacher(teacher: TeacherInput!): Boolean! #
 
   # UPDATIONS
-  updateQuestion(question: QuestionUpdate!): QuestionResponse!
-  updateQuiz(quiz: QuizUpdate!): QuizResponse!
+  updateQuestion(question: QuestionUpdate!): Boolean!
+  updateQuiz(quiz: QuizUpdate!): Boolean!
   updateStudent(student: StudentUpdate!): Boolean!
   updateTeacher(teacher: TeacherUpdate!): Boolean!
 
