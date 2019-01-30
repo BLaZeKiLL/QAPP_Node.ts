@@ -67,23 +67,17 @@ module.exports = {
     updateQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
-            return {
-                question: yield question_model_1.Question.update({
-                    courseCode: args.question.courseCode,
-                    statement: args.question.statement,
-                    type: args.question.type,
-                    options: args.question.options
-                }, args.question._id),
-                status: {
-                    code: 0,
-                    message: 'OK'
-                }
-            };
+            yield question_model_1.Question.update({
+                courseCode: args.question.courseCode,
+                statement: args.question.statement,
+                type: args.question.type,
+                options: args.question.options
+            }, args.question._id);
+            return true;
         }
         catch (error) {
-            return {
-                status: errorHandler_1.Handle(error)
-            };
+            errorHandler_1.Handle(error);
+            return false;
         }
     }),
     deleteQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
