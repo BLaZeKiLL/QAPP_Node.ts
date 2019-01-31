@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { IToken } from '../../Models/misc.model';
+import { IToken, Power } from '../../Models/misc.model';
 import { Student, IStudentAuthResponse } from '../../Models/student.model';
 import { APP_SECRET, isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
@@ -35,6 +35,7 @@ export = {
           token: jwt.sign(<IToken>{
               id: student._id,
               email: student.email,
+              power: Power.STUDENT
             }, APP_SECRET, {
               expiresIn: '365 days'
             }),
