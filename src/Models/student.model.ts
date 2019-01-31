@@ -5,8 +5,7 @@ import { IStatus } from './misc.model';
 import { IResult } from './result.model';
 
 interface IStudent {
-  _id?: Schema.Types.ObjectId;
-  id?: string;
+  _id?: string;
   name: string;
   email: string;
   password?: string;
@@ -17,7 +16,7 @@ interface IStudent {
 }
 
 interface IStudentFilter {
-  _id?: Schema.Types.ObjectId;
+  _id?: string;
   name?: string;
   email?: string;
   deviceID?: string;
@@ -37,7 +36,7 @@ interface IStudentInput {
 
 interface IStudentAuthResponse {
   auth?: {
-    id: Schema.Types.ObjectId;
+    id: string;
     name: string;
     email: string;
     rollno: string;
@@ -99,11 +98,11 @@ class Student {
     }
   }
 
-  public static async getOne(filter?: IStudentFilter, id?: Schema.Types.ObjectId): Promise<IStudent> {
+  public static async getOne(filter?: IStudentFilter, id?: string): Promise<IStudent> {
     return Mongo.getOne(Student.DBmodel, filter, id);
   }
 
-  public static async update(filter: IStudentFilter, id: Schema.Types.ObjectId): Promise<boolean> {
+  public static async update(filter: IStudentFilter, id: string): Promise<boolean> {
     try {
       await Mongo.update<IStudent, IStudentFilter>(Student.DBmodel, filter, id);
       return true;

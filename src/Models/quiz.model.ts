@@ -16,7 +16,7 @@ interface IQuizInput {
   duration: number;
   targets: string[];
   questions: IQuestionIMGInput[];
-  _id?: Schema.Types.ObjectId;
+  _id?: string;
   results?: Schema.Types.ObjectId[];
 }
 
@@ -30,7 +30,7 @@ interface IQuizFilter {
   duration?: number;
   targets?: string[];
   questions?: IQuestionIMG[];
-  _id?: Schema.Types.ObjectId;
+  _id?: string;
   results?: IResult[];
 }
 
@@ -44,8 +44,7 @@ interface IQuiz {
   duration: number;
   targets: string[];
   questions: IQuestionIMG[];
-  _id: Schema.Types.ObjectId;
-  id: string;
+  _id: string;
   results?: IResult[];
 }
 
@@ -136,7 +135,7 @@ class Quiz {
     }
   }
 
-  public static async getOne(filter?: IQuizFilter, id?: Schema.Types.ObjectId, populate: boolean = false): Promise<IQuiz> {
+  public static async getOne(filter?: IQuizFilter, id?: string, populate: boolean = false): Promise<IQuiz> {
     return Mongo.getOne(Quiz.DBmodel, filter, id, populate);
   }
 

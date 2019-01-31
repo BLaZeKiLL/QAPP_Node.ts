@@ -8,8 +8,7 @@ interface ITeacher {
   email: string;
   admin: boolean;
   password?: string;
-  _id?: Schema.Types.ObjectId;
-  id?: string;
+  _id?: string;
 }
 
 interface ITeacherFilter {
@@ -17,7 +16,7 @@ interface ITeacherFilter {
   email?: string;
   admin?: boolean;
   password?: boolean;
-  _id?: Schema.Types.ObjectId;
+  _id?: string;
 }
 
 interface ITeacherInput {
@@ -29,7 +28,7 @@ interface ITeacherInput {
 
 interface ITeacherAuthResponse {
   auth?: {
-    id: Schema.Types.ObjectId;
+    id: string;
     email: string;
     admin: boolean;
     token: string;
@@ -77,11 +76,11 @@ class Teacher {
     }
   }
 
-  public static async getOne(filter?: ITeacherFilter, id?: Schema.Types.ObjectId): Promise<ITeacher> {
+  public static async getOne(filter?: ITeacherFilter, id?: string): Promise<ITeacher> {
     return Mongo.getOne(Teacher.DBmodel, filter, id);
   }
 
-  public static async update(filter: ITeacherFilter, id: Schema.Types.ObjectId): Promise<boolean> {
+  public static async update(filter: ITeacherFilter, id: string): Promise<boolean> {
     try {
       await Mongo.update<ITeacher, ITeacherFilter>(Teacher.DBmodel, filter, id);
       return true;
