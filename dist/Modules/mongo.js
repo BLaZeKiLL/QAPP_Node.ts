@@ -84,7 +84,7 @@ class Mongo {
                 }
                 if (populate) {
                     logger_1.Log.main.info('populating');
-                    doc.questions = yield doc.populate('questions.question');
+                    doc = yield doc.populate('questions.question').execPopulate();
                 }
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }

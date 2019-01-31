@@ -15,6 +15,7 @@ exports.APP_SECRET = APP_SECRET;
 function authenticate(req, res, next) {
     const token = req.get('Authorization');
     if (token == undefined) {
+        logger_1.Log.main.info('NO TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
         req.isAdmin = false;
@@ -22,6 +23,7 @@ function authenticate(req, res, next) {
         return;
     }
     if (!token) {
+        logger_1.Log.main.info('NO TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
         req.isAdmin = false;
@@ -30,6 +32,7 @@ function authenticate(req, res, next) {
     }
     const decodedToken = jwt.verify(token, APP_SECRET);
     if (!decodedToken) {
+        logger_1.Log.main.info('INVALID TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
         req.isAdmin = false;
