@@ -19,6 +19,7 @@ class JSONHandler {
                 return true;
             }
             catch (error) {
+                logger_1.Log.main.error('JSON SERIALIZATION');
                 logger_1.Log.main.error(error);
                 throw new Error('JSON SERIALIZATION');
             }
