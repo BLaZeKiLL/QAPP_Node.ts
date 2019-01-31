@@ -6,7 +6,7 @@ export class JSONHandler {
 
   public static async saveData<T>(fileName: string, data: T): Promise<boolean> {
     try {
-      await fs_writeFile(this.PATH + fileName, JSON.stringify(data));
+      await fs_writeFile(this.PATH + fileName, JSON.stringify(data), { mode: 0o777 });
       return true;
     } catch (error) {
       throw new Error('JSON SERIALIZATION');

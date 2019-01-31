@@ -85,6 +85,7 @@ class Mongo {
                 if (populate) {
                     logger_1.Log.main.info('populating');
                     doc = yield doc.populate('questions.question').execPopulate();
+                    doc.questions = doc.questions.map((question_doc) => question_doc._id = question_doc.id);
                 }
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }

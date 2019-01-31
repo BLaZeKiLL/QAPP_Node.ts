@@ -87,6 +87,7 @@ class Mongo {
       if (populate) {
         Log.main.info('populating');
         doc = await (<Document>doc).populate('questions.question').execPopulate();
+        doc.questions = (<any[]>doc.questions).map((question_doc) => question_doc._id = question_doc.id);
       }
       return {
         ...doc._doc,
