@@ -85,7 +85,8 @@ class Mongo {
         throw new Error('Invalid Arguments');
       }
       if (populate) {
-        doc = await doc.populate('questions');
+        Log.main.info('populating');
+        doc.questions = await doc.populate('questions.question');
       }
       return {
         ...doc._doc,

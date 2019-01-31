@@ -27,7 +27,6 @@ const firebase_1 = require("./firebase");
 class Scheduler {
     static schedule(quizID, date) {
         const istdate = moment_1.default.utc(date.toUTCString()).local();
-        // date.setTime(date.getTime() + date.getTimezoneOffset());
         logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
         new cron.CronJob(istdate.toDate(), () => __awaiter(this, void 0, void 0, function* () {
             try {

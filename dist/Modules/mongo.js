@@ -83,7 +83,8 @@ class Mongo {
                     throw new mongoose_1.Error('Invalid Arguments');
                 }
                 if (populate) {
-                    doc = yield doc.populate('questions');
+                    logger_1.Log.main.info('populating');
+                    doc.questions = yield doc.populate('questions.question');
                 }
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }
