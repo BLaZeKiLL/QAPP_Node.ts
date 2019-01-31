@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { IQuiz } from '../Models/quiz.model';
 import { Log } from './logger';
 
@@ -7,7 +8,9 @@ class Dispatcher {
 
   public static distribute(target: string, quiz: IQuiz): void {
     Log.main.info('QUIZ READY FOR DISPATCHING: ' + target);
-    Log.main.info(JSON.stringify(quiz));
+    fs.writeFile('./quiz.json', quiz, () => {
+      Log.main.info('QUIZ SERIALIZED');
+    });
     this.quizes.set(target, quiz);
   }
 
