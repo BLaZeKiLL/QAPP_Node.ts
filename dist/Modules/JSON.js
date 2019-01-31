@@ -9,14 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Promise_1 = require("./Promise");
+const logger_1 = require("./logger");
 class JSONHandler {
     static saveData(fileName, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield Promise_1.fs_writeFile(this.PATH + fileName, JSON.stringify(data), { mode: 0o777 });
+                logger_1.Log.main.info('DATA SAVED');
                 return true;
             }
             catch (error) {
+                logger_1.Log.main.error(error);
                 throw new Error('JSON SERIALIZATION');
             }
         });

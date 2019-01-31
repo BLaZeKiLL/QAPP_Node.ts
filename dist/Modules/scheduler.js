@@ -38,7 +38,8 @@ class Scheduler {
                     dispatcher_1.Dispatcher.distribute(target, quiz);
                 });
             }
-            catch (_a) {
+            catch (error) {
+                logger_1.Log.main.error(error);
             }
         }), undefined, true, 'Asia/Kolkata');
     }

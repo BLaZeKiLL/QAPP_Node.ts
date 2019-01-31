@@ -21,8 +21,8 @@ class Scheduler {
           Firebase.reminder(target);
           Dispatcher.distribute(target, quiz);
         });
-      } catch {
-
+      } catch (error) {
+        Log.main.error(error);
       }
     }, undefined, true, 'Asia/Kolkata');
   }
