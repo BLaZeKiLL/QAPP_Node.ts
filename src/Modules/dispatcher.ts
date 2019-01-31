@@ -7,6 +7,7 @@ class Dispatcher {
 
   public static distribute(target: string, quiz: IQuiz): void {
     Log.main.info('QUIZ READY FOR DISPATCHING: ' + target);
+    Log.main.info(JSON.stringify(quiz));
     this.quizes.set(target, quiz);
   }
 
