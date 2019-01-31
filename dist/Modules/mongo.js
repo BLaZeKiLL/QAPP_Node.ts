@@ -69,7 +69,7 @@ class Mongo {
             }
         });
     }
-    static getOne(model, filter, id) {
+    static getOne(model, filter, id, populate = false) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let doc;
@@ -81,6 +81,9 @@ class Mongo {
                 }
                 else {
                     throw new mongoose_1.Error('Invalid Arguments');
+                }
+                if (populate) {
+                    doc = yield doc.populate('questions');
                 }
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }

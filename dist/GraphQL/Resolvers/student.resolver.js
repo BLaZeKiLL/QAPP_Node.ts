@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const misc_model_1 = require("../../Models/misc.model");
 const student_model_1 = require("../../Models/student.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
@@ -44,6 +45,7 @@ module.exports = {
                     token: jsonwebtoken_1.default.sign({
                         id: student._id,
                         email: student.email,
+                        power: misc_model_1.Power.STUDENT
                     }, authentication_1.APP_SECRET, {
                         expiresIn: '365 days'
                     }),

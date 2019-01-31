@@ -14,7 +14,7 @@ class Scheduler {
     Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
     new cron.CronJob(istdate.toDate(), async () => {
       try {
-        const quiz = await Quiz.getOne(undefined, quizID);
+        const quiz = await Quiz.getOne(undefined, quizID, true);
         quiz.targets.forEach((target: string) => {
           Firebase.reminder(target);
           Dispatcher.distribute(target, quiz);

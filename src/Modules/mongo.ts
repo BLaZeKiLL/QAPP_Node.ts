@@ -74,7 +74,7 @@ class Mongo {
     }
   }
 
-  public static async getOne<T, F>(model: Model<Document>, filter?: F, id?: Schema.Types.ObjectId): Promise<T> {
+  public static async getOne<T, F>(model: Model<Document>, filter?: F, id?: Schema.Types.ObjectId,  populate: boolean = false): Promise<T> {
     try {
       let doc: any;
       if (filter) {
@@ -83,6 +83,9 @@ class Mongo {
         doc = await model.findById(id);
       } else {
         throw new Error('Invalid Arguments');
+      }
+      if (populate) {
+        doc = await doc.populate('questions');
       }
       return {
         ...doc._doc,

@@ -31,7 +31,7 @@ class Scheduler {
         logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
         new cron.CronJob(istdate.toDate(), () => __awaiter(this, void 0, void 0, function* () {
             try {
-                const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID);
+                const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID, true);
                 quiz.targets.forEach((target) => {
                     firebase_1.Firebase.reminder(target);
                     dispatcher_1.Dispatcher.distribute(target, quiz);

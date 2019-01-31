@@ -26,9 +26,9 @@ class Quiz {
             }
         });
     }
-    static getOne(filter, id) {
+    static getOne(filter, id, populate = false) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.getOne(Quiz.DBmodel, filter, id);
+            return mongo_1.Mongo.getOne(Quiz.DBmodel, filter, id, populate);
         });
     }
 }

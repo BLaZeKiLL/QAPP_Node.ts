@@ -136,8 +136,8 @@ class Quiz {
     }
   }
 
-  public static async getOne(filter?: IQuizFilter, id?: Schema.Types.ObjectId): Promise<IQuiz> {
-    return Mongo.getOne(Quiz.DBmodel, filter, id);
+  public static async getOne(filter?: IQuizFilter, id?: Schema.Types.ObjectId, populate: boolean = false): Promise<IQuiz> {
+    return Mongo.getOne(Quiz.DBmodel, filter, id, populate);
   }
 
 }
