@@ -85,9 +85,9 @@ class Mongo {
                 if (populate) {
                     logger_1.Log.main.info('populating');
                     doc = yield doc.populate('questions.question').execPopulate();
-                    doc.questions = doc.questions.map((question_doc) => {
-                        question_doc._id = question_doc.id;
-                        return question_doc;
+                    doc.questions = doc.questions.map((IMGquestion) => {
+                        IMGquestion.question._id = IMGquestion.question._id.toString();
+                        return IMGquestion.question._id;
                     });
                 }
                 return Object.assign({}, doc._doc, { _id: doc.id });

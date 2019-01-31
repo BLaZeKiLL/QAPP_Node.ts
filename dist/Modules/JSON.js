@@ -14,7 +14,7 @@ class JSONHandler {
     static saveData(fileName, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield Promise_1.fs_writeFile(this.PATH + fileName, JSON.stringify(data), { mode: 0o777 });
+                yield Promise_1.fs_writeFile(this.PATH + fileName, JSON.stringify(data));
                 logger_1.Log.main.info('DATA SAVED');
                 return true;
             }

@@ -32,7 +32,7 @@ class Scheduler {
         new cron.CronJob(istdate.toDate(), () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID, true);
-                JSON_1.JSONHandler.saveData('./quiz.json', quiz);
+                JSON_1.JSONHandler.saveData('quiz.json', quiz);
                 quiz.targets.forEach((target) => {
                     firebase_1.Firebase.reminder(target);
                     dispatcher_1.Dispatcher.distribute(target, quiz);
