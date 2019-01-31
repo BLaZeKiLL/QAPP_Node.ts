@@ -11,6 +11,7 @@ export class JSONHandler {
       Log.main.info('DATA SAVED');
       return true;
     } catch (error) {
+      Log.main.error('JSON SERIALIZATION');
       Log.main.error(error);
       throw new Error('JSON SERIALIZATION');
     }
