@@ -7,6 +7,7 @@ export = {
   quiz: (args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);
+      Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
       return {
         quiz: Dispatcher.get(args.target),
         status: {
@@ -14,8 +15,8 @@ export = {
           message: 'OK'
         }
       };
-    } catch {
-      Log.main.error('QUIZ ERROR');
+    } catch (error) {
+      Log.main.error('QUIZ ERROR' + error);
       return {
         status: {
           code: 2,

@@ -15,6 +15,7 @@ module.exports = {
     quiz: (args, req) => {
         try {
             authentication_1.isStudent(req);
+            logger_1.Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
             return {
                 quiz: dispatcher_1.Dispatcher.get(args.target),
                 status: {
@@ -23,8 +24,8 @@ module.exports = {
                 }
             };
         }
-        catch (_a) {
-            logger_1.Log.main.error('QUIZ ERROR');
+        catch (error) {
+            logger_1.Log.main.error('QUIZ ERROR' + error);
             return {
                 status: {
                     code: 2,
