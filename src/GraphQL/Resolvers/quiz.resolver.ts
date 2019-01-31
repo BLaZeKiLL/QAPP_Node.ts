@@ -16,7 +16,8 @@ export = {
         }
       };
     } catch (error) {
-      Log.main.error('QUIZ ERROR' + error);
+      Log.main.error('QUIZ ERROR');
+      Log.main.error(error);
       return {
         status: {
           code: 2,

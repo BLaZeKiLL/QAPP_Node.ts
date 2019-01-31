@@ -25,7 +25,8 @@ module.exports = {
             };
         }
         catch (error) {
-            logger_1.Log.main.error('QUIZ ERROR' + error);
+            logger_1.Log.main.error('QUIZ ERROR');
+            logger_1.Log.main.error(error);
             return {
                 status: {
                     code: 2,

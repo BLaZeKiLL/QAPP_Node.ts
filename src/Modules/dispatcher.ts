@@ -3,7 +3,7 @@ import { Log } from './logger';
 
 class Dispatcher {
 
-  private static quizes: Map<string, IQuiz>;
+  private static quizes: Map<string, IQuiz> = new Map<string, IQuiz>();
 
   public static distribute(target: string, quiz: IQuiz): void {
     Log.main.info('QUIZ READY FOR DISPATCHING: ' + target);

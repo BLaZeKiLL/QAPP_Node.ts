@@ -19,5 +19,6 @@ class Dispatcher {
         this.quizes.clear();
     }
 }
+Dispatcher.quizes = new Map();
 exports.Dispatcher = Dispatcher;
 //# sourceMappingURL=dispatcher.js.map
