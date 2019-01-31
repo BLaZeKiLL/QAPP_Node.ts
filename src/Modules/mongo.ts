@@ -24,9 +24,7 @@ class Mongo {
 
   public static async add<T>(model: Model<Document>, obj: T): Promise<T> {
     try {
-      const doc = await <any>model.create(obj);
-      doc._id = doc._id.toString();
-      return doc;
+      return await <any>model.create(obj);
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
@@ -35,8 +33,7 @@ class Mongo {
 
   public static async addMany<T>(model: Model<Document>, objs: T[]): Promise<T[]> {
     try {
-      const docs = await <any>model.insertMany(objs);
-      return (<any[]>docs).map((doc) => doc._id = doc._id.toString());
+      return await <any>model.insertMany(objs);
     } catch (error) {
       const errorData = JSON.parse(error);
       const ids = errorData.result.insertedIds.map((a: any) => a._id);
@@ -53,8 +50,7 @@ class Mongo {
 
   public static async get<T, F>(model: Model<Document>, filter?: F): Promise<T[]> {
     try {
-      const docs = await <any>model.find(filter ? filter : {});
-      return (<any[]>docs).map((doc) => doc._id = doc._id.toString());
+      return await <any>model.find(filter ? filter : {});
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
@@ -75,7 +71,6 @@ class Mongo {
         Log.main.info('populating');
         doc = await (<Document>doc).populate('questions.question').execPopulate();
       }
-      doc._id = doc._id.toString();
       return doc;
     } catch (error) {
       Log.main.error(error);
@@ -95,9 +90,7 @@ class Mongo {
 
   public static async update<T, F>(model: Model<Document>, filter: F, id: string): Promise<T> {
     try {
-      const doc = await <any>model.findByIdAndUpdate(id, filter);
-      doc._id = doc._id.toString();
-      return doc;
+      return await <any>model.findByIdAndUpdate(id, filter);
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');

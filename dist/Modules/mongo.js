@@ -22,9 +22,7 @@ class Mongo {
     static add(model, obj) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const doc = yield model.create(obj);
-                doc._id = doc._id.toString();
-                return doc;
+                return yield model.create(obj);
             }
             catch (error) {
                 logger_1.Log.main.error(error);
@@ -35,8 +33,7 @@ class Mongo {
     static addMany(model, objs) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const docs = yield model.insertMany(objs);
-                return docs.map((doc) => doc._id = doc._id.toString());
+                return yield model.insertMany(objs);
             }
             catch (error) {
                 const errorData = JSON.parse(error);
@@ -56,8 +53,7 @@ class Mongo {
     static get(model, filter) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const docs = yield model.find(filter ? filter : {});
-                return docs.map((doc) => doc._id = doc._id.toString());
+                return yield model.find(filter ? filter : {});
             }
             catch (error) {
                 logger_1.Log.main.error(error);
@@ -82,7 +78,6 @@ class Mongo {
                     logger_1.Log.main.info('populating');
                     doc = yield doc.populate('questions.question').execPopulate();
                 }
-                doc._id = doc._id.toString();
                 return doc;
             }
             catch (error) {
@@ -106,9 +101,7 @@ class Mongo {
     static update(model, filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const doc = yield model.findByIdAndUpdate(id, filter);
-                doc._id = doc._id.toString();
-                return doc;
+                return yield model.findByIdAndUpdate(id, filter);
             }
             catch (error) {
                 logger_1.Log.main.error(error);
