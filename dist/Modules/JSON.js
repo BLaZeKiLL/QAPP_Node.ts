@@ -14,13 +14,12 @@ class JSONHandler {
     static saveData(fileName, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield Promise_1.fs_writeFile(this.PATH + fileName, JSON.stringify(data));
+                yield Promise_1.fs_writeFile(this.PATH + fileName, JSON.stringify(data), { mode: 0o777 });
                 logger_1.Log.main.info('DATA SAVED');
                 return true;
             }
-            catch (error) {
-                logger_1.Log.main.error('JSON SERIALIZATION');
-                logger_1.Log.main.error(error);
+            catch (_a) {
+                logger_1.Log.main.error('JSON SERIALIZATION WRITE ERROR');
                 throw new Error('JSON SERIALIZATION');
             }
         });
@@ -31,7 +30,7 @@ class JSONHandler {
                 const data = JSON.parse((yield Promise_1.fs_readFile(this.PATH + fileName)).toString());
                 return data;
             }
-            catch (error) {
+            catch (_a) {
                 throw new Error('JSON SERIALIZATION');
             }
         });
