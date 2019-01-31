@@ -26,7 +26,8 @@ interface IQuestion {
   type: QuestionType;
   statement: string;
   options: IOption[];
-  _id?: string;
+  _id?: Schema.Types.ObjectId;
+  id?: string;
 }
 
 interface IQuestionIMGInput {
@@ -47,11 +48,11 @@ interface IQuestionFilter {
   type?: QuestionType;
   statement?: string;
   options?: IOption[];
-  id?: string;
+  id?: Schema.Types.ObjectId;
 }
 
 interface IQuestionUpdate {
-  _id: string;
+  _id: Schema.Types.ObjectId;
   courseCode?: string;
   type?: QuestionType;
   statement?: string;
@@ -128,11 +129,11 @@ class Question {
     return Mongo.get(Question.DBmodel, filter);
   }
 
-  public static async getOne(filter?: IQuestionFilter, id?: string): Promise<IQuestion> {
+  public static async getOne(filter?: IQuestionFilter, id?: Schema.Types.ObjectId): Promise<IQuestion> {
     return Mongo.getOne(Question.DBmodel, filter, id);
   }
 
-  public static async update(filter?: IQuestionFilter, id?: string): Promise<IQuestion> {
+  public static async update(filter?: IQuestionFilter, id?: Schema.Types.ObjectId): Promise<IQuestion> {
     try {
       return await Mongo.update<IQuestion, IQuestionFilter>(Question.DBmodel, filter, id);
     } catch (error) {
@@ -140,7 +141,7 @@ class Question {
     }
   }
 
-  public static async delete(id: string): Promise<boolean> {
+  public static async delete(id: Schema.Types.ObjectId): Promise<boolean> {
     return Mongo.delete(Question.DBmodel, id);
   }
 

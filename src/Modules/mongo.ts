@@ -24,7 +24,11 @@ class Mongo {
 
   public static async add<T>(model: Model<Document>, obj: T): Promise<T> {
     try {
-      return await <any>model.create(obj);
+      const doc = await <any>model.create(obj);
+      return {
+        ...doc._doc,
+        _id: doc.id
+      };
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
@@ -33,7 +37,14 @@ class Mongo {
 
   public static async addMany<T>(model: Model<Document>, objs: T[]): Promise<T[]> {
     try {
-      return await <any>model.insertMany(objs);
+      const docs = await model.insertMany(objs);
+      const rdocs = <any[]>docs.map((doc: any) => {
+        return <any>{
+          ...doc._doc,
+          _id: doc.id
+        };
+      });
+      return rdocs;
     } catch (error) {
       const errorData = JSON.parse(error);
       const ids = errorData.result.insertedIds.map((a: any) => a._id);
@@ -50,14 +61,20 @@ class Mongo {
 
   public static async get<T, F>(model: Model<Document>, filter?: F): Promise<T[]> {
     try {
-      return await <any>model.find(filter ? filter : {});
+      const docs = await <any>model.find(filter ? filter : {});
+      return docs.map((doc: any) => {
+        return {
+          ...doc._doc,
+          _id: doc.id
+        };
+      });
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
     }
   }
 
-  public static async getOne<T, F>(model: Model<Document>, filter?: F, id?: string,  populate: boolean = false): Promise<T> {
+  public static async getOne<T, F>(model: Model<Document>, filter?: F, id?: Schema.Types.ObjectId,  populate: boolean = false): Promise<T> {
     try {
       let doc: any;
       if (filter) {
@@ -71,14 +88,17 @@ class Mongo {
         Log.main.info('populating');
         doc = await (<Document>doc).populate('questions.question').execPopulate();
       }
-      return doc;
+      return {
+        ...doc._doc,
+        _id: doc.id
+      };
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
     }
   }
 
-  public static async delete(model: Model<Document>, id: string): Promise<boolean> {
+  public static async delete(model: Model<Document>, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
       await model.deleteOne({ _id: id});
       return true;
@@ -88,7 +108,7 @@ class Mongo {
     }
   }
 
-  public static async update<T, F>(model: Model<Document>, filter: F, id: string): Promise<T> {
+  public static async update<T, F>(model: Model<Document>, filter: F, id: Schema.Types.ObjectId): Promise<T> {
     try {
       return await <any>model.findByIdAndUpdate(id, filter);
     } catch (error) {

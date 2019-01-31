@@ -24,7 +24,6 @@ const dispatcher_1 = require("./dispatcher");
 const logger_1 = require("./logger");
 const quiz_model_1 = require("../Models/quiz.model");
 const firebase_1 = require("./firebase");
-const JSON_1 = require("./JSON");
 class Scheduler {
     static schedule(quizID, date) {
         const istdate = moment_1.default.utc(date.toUTCString()).local();
@@ -32,7 +31,6 @@ class Scheduler {
         new cron.CronJob(istdate.toDate(), () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID, true);
-                JSON_1.JSONHandler.saveData('./quiz.json', quiz);
                 quiz.targets.forEach((target) => {
                     firebase_1.Firebase.reminder(target);
                     dispatcher_1.Dispatcher.distribute(target, quiz);

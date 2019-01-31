@@ -1,3 +1,5 @@
+import { Schema } from '../Modules/mongo';
+
 enum Power {
   STUDENT,
   TEACHER,
@@ -10,7 +12,7 @@ interface IStatus {
 }
 
 interface IToken {
-  id: string;
+  id: Schema.Types.ObjectId;
   email: string;
   power?: Power;
 }

@@ -22,7 +22,8 @@ class Mongo {
     static add(model, obj) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model.create(obj);
+                const doc = yield model.create(obj);
+                return Object.assign({}, doc._doc, { _id: doc.id });
             }
             catch (error) {
                 logger_1.Log.main.error(error);
@@ -33,7 +34,11 @@ class Mongo {
     static addMany(model, objs) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model.insertMany(objs);
+                const docs = yield model.insertMany(objs);
+                const rdocs = docs.map((doc) => {
+                    return Object.assign({}, doc._doc, { _id: doc.id });
+                });
+                return rdocs;
             }
             catch (error) {
                 const errorData = JSON.parse(error);
@@ -53,7 +58,10 @@ class Mongo {
     static get(model, filter) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model.find(filter ? filter : {});
+                const docs = yield model.find(filter ? filter : {});
+                return docs.map((doc) => {
+                    return Object.assign({}, doc._doc, { _id: doc.id });
+                });
             }
             catch (error) {
                 logger_1.Log.main.error(error);
@@ -78,7 +86,7 @@ class Mongo {
                     logger_1.Log.main.info('populating');
                     doc = yield doc.populate('questions.question').execPopulate();
                 }
-                return doc;
+                return Object.assign({}, doc._doc, { _id: doc.id });
             }
             catch (error) {
                 logger_1.Log.main.error(error);
