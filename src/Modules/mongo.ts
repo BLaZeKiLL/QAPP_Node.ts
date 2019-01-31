@@ -86,7 +86,7 @@ class Mongo {
       }
       if (populate) {
         Log.main.info('populating');
-        doc.questions = await doc.populate('questions.question');
+        doc = await (<Document>doc).populate('questions.question').execPopulate();
       }
       return {
         ...doc._doc,

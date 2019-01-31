@@ -8,6 +8,7 @@ const APP_SECRET = 'iuwbviudqvtiuvtwd';
 function authenticate(req: any, res: Response, next: NextFunction) {
   const token = req.get('Authorization');
   if (token == undefined) {
+    Log.main.info('NO TOKEN');
     req.isStudent = false;
     req.isTeacher = false;
     req.isAdmin = false;
@@ -15,6 +16,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
     return;
   }
   if (!token) {
+    Log.main.info('NO TOKEN');
     req.isStudent = false;
     req.isTeacher = false;
     req.isAdmin = false;
@@ -23,6 +25,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
   }
   const decodedToken = <IToken>jwt.verify(token, APP_SECRET);
   if (!decodedToken) {
+    Log.main.info('INVALID TOKEN');
     req.isStudent = false;
     req.isTeacher = false;
     req.isAdmin = false;
