@@ -13,7 +13,7 @@ class JSONHandler {
     static saveData(fileName, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield Promise_1.fs_writeFile(this.PATH + fileName, data);
+                yield Promise_1.fs_writeFile(this.PATH + fileName, JSON.stringify(data));
                 return true;
             }
             catch (error) {

@@ -6,7 +6,6 @@ import { IResult } from './result.model';
 
 interface IStudent {
   _id?: Schema.Types.ObjectId;
-  id?: string;
   name: string;
   email: string;
   password?: string;

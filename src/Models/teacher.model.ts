@@ -9,7 +9,6 @@ interface ITeacher {
   admin: boolean;
   password?: string;
   _id?: Schema.Types.ObjectId;
-  id?: string;
 }
 
 interface ITeacherFilter {

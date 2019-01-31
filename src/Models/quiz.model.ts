@@ -45,7 +45,6 @@ interface IQuiz {
   targets: string[];
   questions: IQuestionIMG[];
   _id: Schema.Types.ObjectId;
-  id: string;
   results?: IResult[];
 }
 

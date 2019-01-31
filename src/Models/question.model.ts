@@ -27,7 +27,6 @@ interface IQuestion {
   statement: string;
   options: IOption[];
   _id?: Schema.Types.ObjectId;
-  id?: string;
 }
 
 interface IQuestionIMGInput {
@@ -48,7 +47,7 @@ interface IQuestionFilter {
   type?: QuestionType;
   statement?: string;
   options?: IOption[];
-  id?: Schema.Types.ObjectId;
+  _id?: Schema.Types.ObjectId;
 }
 
 interface IQuestionUpdate {
