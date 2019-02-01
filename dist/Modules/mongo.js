@@ -103,11 +103,11 @@ class Mongo {
                 else {
                     throw new mongoose_1.Error('Invalid Arguments');
                 }
-                logger_1.Log.main.info(JSON.stringify(doc.questions));
-                doc.questions = doc.questions.map((IMGquestion) => {
-                    IMGquestion.question._id = IMGquestion.question._id.toString();
+                logger_1.Log.main.info('BEFORE  ' + JSON.stringify(doc));
+                doc.questions.forEach((element) => {
+                    element.question._id = element.question._id.toString();
                 });
-                logger_1.Log.main.info(JSON.stringify(doc));
+                logger_1.Log.main.info('AFTER  ' + JSON.stringify(doc));
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }
             catch (error) {

@@ -104,11 +104,11 @@ class Mongo {
       } else {
         throw new Error('Invalid Arguments');
       }
-      Log.main.info(JSON.stringify(doc));
-      doc.questions = doc.questions.map((IMGquestion: any) => {
-        IMGquestion.question._id = IMGquestion.question._id.toString();
+      Log.main.info('BEFORE  ' + JSON.stringify(doc));
+      doc.questions.forEach((element: any) => {
+        element.question._id = element.question._id.toString();
       });
-      Log.main.info(JSON.stringify(doc));
+      Log.main.info('AFTER  ' + JSON.stringify(doc));
       return {
         ...doc._doc,
         _id: doc.id
