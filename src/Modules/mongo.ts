@@ -132,7 +132,7 @@ class Mongo {
 
   public static async update<T>(model: Model<Document>, filter: any, id: Schema.Types.ObjectId): Promise<T> {
     try {
-      return await <any>model.findByIdAndUpdate(id, filter);
+      return await <any>model.findOneAndUpdate({_id: id}, {$set: filter});
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
