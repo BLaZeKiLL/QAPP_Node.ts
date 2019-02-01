@@ -12,11 +12,12 @@ class Dispatcher {
 
   public static get(target: string): IQuiz {
     const quiz = this.quizes.get(target);
-    if (quiz == undefined) {
+    if (quiz === undefined || quiz === null) {
       throw new Error('Quiz Not Found');
+    } else {
+      Log.main.info('QUIZ DISPATCHED');
+      return quiz;
     }
-    Log.main.info('QUIZ DISPATCHED');
-    return quiz;
   }
 
   public static clear(): void {

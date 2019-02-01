@@ -8,11 +8,13 @@ class Dispatcher {
     }
     static get(target) {
         const quiz = this.quizes.get(target);
-        if (quiz == undefined) {
+        if (quiz === undefined || quiz === null) {
             throw new Error('Quiz Not Found');
         }
-        logger_1.Log.main.info('QUIZ DISPATCHED');
-        return quiz;
+        else {
+            logger_1.Log.main.info('QUIZ DISPATCHED');
+            return quiz;
+        }
     }
     static clear() {
         this.quizes.clear();

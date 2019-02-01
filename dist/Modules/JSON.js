@@ -36,6 +36,6 @@ class JSONHandler {
         });
     }
 }
-JSONHandler.PATH = '../Static/';
+JSONHandler.PATH = './Static/';
 exports.JSONHandler = JSONHandler;
 //# sourceMappingURL=JSON.js.map
