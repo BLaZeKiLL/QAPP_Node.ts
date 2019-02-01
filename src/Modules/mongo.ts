@@ -74,7 +74,7 @@ class Mongo {
     }
   }
 
-  public static async getOne<T, F>(model: Model<Document>, filter?: F, id?: Schema.Types.ObjectId,  populate: boolean = false): Promise<T> {
+  public static async getOne<T, F>(model: Model<Document>, filter?: F, id?: Schema.Types.ObjectId): Promise<T> {
     try {
       let doc: any;
       if (filter) {
@@ -83,14 +83,6 @@ class Mongo {
         doc = await model.findById(id);
       } else {
         throw new Error('Invalid Arguments');
-      }
-      if (populate) {
-        Log.main.info('populating');
-        doc = await (<Document>doc).populate('questions.question').execPopulate();
-        doc.questions = (<any[]>doc.questions).map((IMGquestion) => {
-          IMGquestion.question._id = IMGquestion.question._id.toString();
-        });
-        Log.main.info(JSON.stringify(doc));
       }
       return {
         ...doc._doc,

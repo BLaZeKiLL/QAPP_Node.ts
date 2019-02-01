@@ -69,7 +69,7 @@ class Mongo {
             }
         });
     }
-    static getOne(model, filter, id, populate = false) {
+    static getOne(model, filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let doc;
@@ -81,14 +81,6 @@ class Mongo {
                 }
                 else {
                     throw new mongoose_1.Error('Invalid Arguments');
-                }
-                if (populate) {
-                    logger_1.Log.main.info('populating');
-                    doc = yield doc.populate('questions.question').execPopulate();
-                    doc.questions = doc.questions.map((IMGquestion) => {
-                        IMGquestion.question._id = IMGquestion.question._id.toString();
-                    });
-                    logger_1.Log.main.info(JSON.stringify(doc));
                 }
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }
