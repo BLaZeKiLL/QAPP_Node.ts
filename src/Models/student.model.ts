@@ -102,9 +102,9 @@ class Student {
     return Mongo.getOne(Student.DBmodel, filter, id);
   }
 
-  public static async update(filter: IStudentFilter, id: Schema.Types.ObjectId): Promise<boolean> {
+  public static async update(filter: any, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
-      await Mongo.update<IStudent, IStudentFilter>(Student.DBmodel, filter, id);
+      await Mongo.update<IStudent>(Student.DBmodel, filter, id);
       return true;
     } catch (error) {
       throw error;

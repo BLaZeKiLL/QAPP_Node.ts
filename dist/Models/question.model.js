@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../Modules/mongo");
 const mongoose_unique_validator_1 = __importDefault(require("mongoose-unique-validator"));
+const logger_1 = require("../Modules/logger");
 /**
  * Types of questions
  */
@@ -53,6 +54,7 @@ class Question {
     static update(filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                logger_1.Log.main.info(JSON.stringify(filter));
                 return yield mongo_1.Mongo.update(Question.DBmodel, filter, id);
             }
             catch (error) {

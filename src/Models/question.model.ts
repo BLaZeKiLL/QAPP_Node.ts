@@ -1,6 +1,7 @@
 import { Mongo, Schema, model } from '../Modules/mongo';
 import unique from 'mongoose-unique-validator';
 import { IStatus } from './misc.model';
+import { Log } from '../Modules/logger';
 
 /**
  * Types of questions
@@ -132,9 +133,10 @@ class Question {
     return Mongo.getOne(Question.DBmodel, filter, id);
   }
 
-  public static async update(filter?: IQuestionFilter, id?: Schema.Types.ObjectId): Promise<IQuestion> {
+  public static async update(filter?: any, id?: Schema.Types.ObjectId): Promise<IQuestion> {
     try {
-      return await Mongo.update<IQuestion, IQuestionFilter>(Question.DBmodel, filter, id);
+      Log.main.info(JSON.stringify(filter));
+      return await Mongo.update<IQuestion>(Question.DBmodel, filter, id);
     } catch (error) {
       throw error;
     }
