@@ -90,6 +90,32 @@ class Mongo {
             }
         });
     }
+    static getOneQuiz(model, filter, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let doc;
+                if (filter) {
+                    doc = yield model.findOne(filter).populate('questions.question').exec();
+                }
+                else if (id) {
+                    doc = yield model.findById(id).populate('questions.question').exec();
+                }
+                else {
+                    throw new mongoose_1.Error('Invalid Arguments');
+                }
+                logger_1.Log.main.info(JSON.stringify(doc.questions));
+                doc.questions = doc.questions.map((IMGquestion) => {
+                    IMGquestion.question._id = IMGquestion.question._id.toString();
+                });
+                logger_1.Log.main.info(JSON.stringify(doc));
+                return Object.assign({}, doc._doc, { _id: doc.id });
+            }
+            catch (error) {
+                logger_1.Log.main.error(error);
+                throw new mongoose_1.Error('MONGODB');
+            }
+        });
+    }
     static delete(model, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

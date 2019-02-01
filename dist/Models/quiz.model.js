@@ -29,17 +29,7 @@ class Quiz {
     static getOne(filter, id, populate = false) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let doc = yield mongo_1.Mongo.getOne(Quiz.DBmodel, filter, id);
-                if (populate) {
-                    logger_1.Log.main.info('populating');
-                    doc = yield doc.populate('questions.question').execPopulate();
-                    logger_1.Log.main.info(JSON.stringify(doc.questions));
-                    doc.questions = doc.questions.map((IMGquestion) => {
-                        IMGquestion.question._id = IMGquestion.question._id.toString();
-                    });
-                    logger_1.Log.main.info(JSON.stringify(doc));
-                }
-                return doc;
+                return yield mongo_1.Mongo.getOneQuiz(Quiz.DBmodel, filter, id);
             }
             catch (error) {
                 logger_1.Log.main.error('POPULATION ERROR');

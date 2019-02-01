@@ -94,6 +94,31 @@ class Mongo {
     }
   }
 
+  public static async getOneQuiz<T, F>(model: Model<Document>, filter?: F, id?: Schema.Types.ObjectId): Promise<T> {
+    try {
+      let doc: any;
+      if (filter) {
+        doc = await model.findOne(filter).populate('questions.question').exec();
+      } else if (id) {
+        doc = await model.findById(id).populate('questions.question').exec();
+      } else {
+        throw new Error('Invalid Arguments');
+      }
+      Log.main.info(JSON.stringify(doc));
+      doc.questions = doc.questions.map((IMGquestion: any) => {
+        IMGquestion.question._id = IMGquestion.question._id.toString();
+      });
+      Log.main.info(JSON.stringify(doc));
+      return {
+        ...doc._doc,
+        _id: doc.id
+      };
+    } catch (error) {
+      Log.main.error(error);
+      throw new Error('MONGODB');
+    }
+  }
+
   public static async delete(model: Model<Document>, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
       await model.deleteOne({ _id: id});

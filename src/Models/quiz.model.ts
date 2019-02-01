@@ -137,17 +137,7 @@ class Quiz {
 
   public static async getOne(filter?: IQuizFilter, id?: Schema.Types.ObjectId, populate: boolean = false): Promise<IQuiz> {
     try {
-      let doc = await <any>Mongo.getOne(Quiz.DBmodel, filter, id);
-      if (populate) {
-        Log.main.info('populating');
-        doc = await doc.populate('questions.question').execPopulate();
-        Log.main.info(JSON.stringify(doc.questions));
-        doc.questions = doc.questions.map((IMGquestion: any) => {
-          IMGquestion.question._id = IMGquestion.question._id.toString();
-        });
-        Log.main.info(JSON.stringify(doc));
-      }
-      return doc;
+      return await Mongo.getOneQuiz(Quiz.DBmodel, filter, id);
     } catch (error) {
       Log.main.error('POPULATION ERROR');
     }
