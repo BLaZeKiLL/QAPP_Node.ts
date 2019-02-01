@@ -89,8 +89,8 @@ class Mongo {
         doc = await (<Document>doc).populate('questions.question').execPopulate();
         doc.questions = (<any[]>doc.questions).map((IMGquestion) => {
           IMGquestion.question._id = IMGquestion.question._id.toString();
-          return IMGquestion.question._id;
         });
+        Log.main.info(JSON.stringify(doc));
       }
       return {
         ...doc._doc,
