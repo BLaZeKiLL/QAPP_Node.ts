@@ -56,13 +56,13 @@ export = {
   updateQuestion: async (args: any, req: any): Promise<boolean> => {
     try {
       isTeacher(req);
+      const question: any = {};
+      if (args.question.courseCode !== undefined) { question.courseCode = args.question.courseCode; }
+      if (args.question.type !== undefined) { question.type = args.question.type; }
+      if (args.question.statement !== undefined) { question.statement = args.question.statement; }
+      if (args.question.options !== undefined) { question.options = args.question.options; }
       await Question.update(
-        {
-          courseCode: args.question.courseCode,
-          statement: args.question.statement,
-          type: args.question.type,
-          options: args.question.options
-        },
+        question,
         args.question._id
       );
       return true;

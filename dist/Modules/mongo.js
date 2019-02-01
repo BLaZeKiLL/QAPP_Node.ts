@@ -21,7 +21,7 @@ function castToString(arg) {
 }
 class Mongo {
     static connectDB(url) {
-        mongoose_1.connect(url, { useNewUrlParser: true, useCreateIndex: true, })
+        mongoose_1.connect(url, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
             .catch((error) => {
             throw new mongoose_1.Error('MONGODB');
         });

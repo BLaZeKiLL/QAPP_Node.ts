@@ -67,12 +67,20 @@ module.exports = {
     updateQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
-            yield question_model_1.Question.update({
-                courseCode: args.question.courseCode,
-                statement: args.question.statement,
-                type: args.question.type,
-                options: args.question.options
-            }, args.question._id);
+            const question = {};
+            if (args.question.courseCode !== undefined) {
+                question.courseCode = args.question.courseCode;
+            }
+            if (args.question.type !== undefined) {
+                question.type = args.question.type;
+            }
+            if (args.question.statement !== undefined) {
+                question.statement = args.question.statement;
+            }
+            if (args.question.options !== undefined) {
+                question.options = args.question.options;
+            }
+            yield question_model_1.Question.update(question, args.question._id);
             return true;
         }
         catch (error) {

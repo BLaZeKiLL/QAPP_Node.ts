@@ -22,7 +22,7 @@ function castToString(arg: any) {
 class Mongo {
 
   public static connectDB(url: string): void {
-    connect(url, { useNewUrlParser: true, useCreateIndex: true, })
+    connect(url, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false})
     .catch((error) => {
       throw new Error('MONGODB');
     });
