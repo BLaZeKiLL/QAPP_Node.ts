@@ -7,11 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const transform_props_1 = __importDefault(require("transform-props"));
 const logger_1 = require("../Modules/logger");
 const mongoose_1 = require("mongoose");
 exports.Schema = mongoose_1.Schema;
 exports.model = mongoose_1.model;
+function castToString(arg) {
+    return String(arg);
+}
 class Mongo {
     static connectDB(url) {
         mongoose_1.connect(url, { useNewUrlParser: true, useCreateIndex: true, })
@@ -103,12 +110,10 @@ class Mongo {
                 else {
                     throw new mongoose_1.Error('Invalid Arguments');
                 }
-                logger_1.Log.main.info('BEFORE  ' + JSON.stringify(doc));
-                doc.questions.forEach((element) => {
-                    element.question._id = element.question._id.toString();
-                });
-                logger_1.Log.main.info('AFTER  ' + JSON.stringify(doc));
-                return Object.assign({}, doc._doc, { _id: doc.id });
+                const docObj = doc.toObject();
+                transform_props_1.default(docObj, castToString, '_id');
+                logger_1.Log.main.info('AFTER  ' + JSON.stringify(docObj));
+                return docObj;
             }
             catch (error) {
                 logger_1.Log.main.error(error);

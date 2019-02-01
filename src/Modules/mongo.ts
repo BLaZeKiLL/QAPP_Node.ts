@@ -1,3 +1,5 @@
+import transformProps from 'transform-props';
+
 import { Log } from '../Modules/logger';
 import { Model,
          Document,
@@ -11,6 +13,10 @@ interface IModel<T, F> {
   add(obj: T): Promise<T>;
   get(filter?: F): Promise<T[]>;
   getOne(filter?: F, id?: string): Promise<T>;
+}
+
+function castToString(arg: any) {
+  return String(arg);
 }
 
 class Mongo {
@@ -104,15 +110,10 @@ class Mongo {
       } else {
         throw new Error('Invalid Arguments');
       }
-      Log.main.info('BEFORE  ' + JSON.stringify(doc));
-      doc.questions.forEach((element: any) => {
-        element.question._id = element.question._id.toString();
-      });
-      Log.main.info('AFTER  ' + JSON.stringify(doc));
-      return {
-        ...doc._doc,
-        _id: doc.id
-      };
+      const docObj = doc.toObject();
+      transformProps(docObj, castToString, '_id');
+      Log.main.info('AFTER  ' + JSON.stringify(docObj));
+      return docObj;
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');
