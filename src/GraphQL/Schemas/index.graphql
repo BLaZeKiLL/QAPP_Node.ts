@@ -18,8 +18,8 @@ type RootQuery {
 
 type RootMutations {
   # ADDITIONS
-  addQuestion(question: QuestionInput!): Boolean! #
-  addQuestions(questions: [QuestionInput!]!): Boolean! #
+  addQuestion(question: QuestionInput!): QuestionResponse! #
+  addQuestions(questions: [QuestionInput!]!): QuestionsResponse! #
   addQuiz(quiz: QuizInput!): Boolean! #
   addResult(result: ResultInput!): Boolean!
   addCourse(course: CourseInput!): Boolean!
