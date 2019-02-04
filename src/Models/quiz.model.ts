@@ -49,7 +49,7 @@ interface IQuiz {
 }
 
 interface IQuizResponse {
-  quiz?: IQuiz;
+  quizJSON?: string;
   status: IStatus;
 }
 

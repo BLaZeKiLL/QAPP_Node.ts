@@ -9,7 +9,7 @@ export = {
       isStudent(req);
       Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
       return {
-        quiz: Dispatcher.get(args.target),
+        quizJSON: Dispatcher.get(args.target),
         status: {
           code: 0,
           message: 'OK'
