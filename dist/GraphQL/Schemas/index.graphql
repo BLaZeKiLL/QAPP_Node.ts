@@ -33,6 +33,6 @@ type RootMutations {
   updateTeacher(teacher: TeacherUpdate!): Boolean!
 
   # DELETIONS
-  deleteQuestion(questionID: ID!): Boolean! #
-  deleteQuiz(quizID: ID!): Boolean!
+  deleteQuestion(id: ID!): Boolean! #
+  deleteQuiz(id: ID!): Boolean!
 }
