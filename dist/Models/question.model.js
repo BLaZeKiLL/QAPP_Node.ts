@@ -29,15 +29,15 @@ exports.QuestionType = QuestionType;
 class Question {
     static add(question) {
         return __awaiter(this, void 0, void 0, function* () {
-            question.type = QuestionType[question.type];
+            // question.type = <any>QuestionType[question.type];
             return mongo_1.Mongo.add(Question.DBmodel, question);
         });
     }
     static addMany(questions) {
         return __awaiter(this, void 0, void 0, function* () {
-            questions.forEach((question) => {
-                question.type = QuestionType[question.type];
-            });
+            // questions.forEach((question: IQuestion) => {
+            //   question.type = <any>QuestionType[question.type];
+            // });
             return mongo_1.Mongo.addMany(Question.DBmodel, questions);
         });
     }
