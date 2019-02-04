@@ -44,8 +44,13 @@ class App {
         this.setupLoggers();
         this.setupFirebase();
         this.setupRoutes();
-        // this.ini(); // Uncomment this to add deafult admin account
-        // this.iniQuestions(); // Uncomment this to seed question bank
+        try {
+            // this.ini(); // Uncomment this to add deafult admin account
+            // this.iniQuestions(); // Uncomment this to seed question bank
+        }
+        catch (error) {
+            logger_1.Log.main.error(error);
+        }
     }
     /**
      * Express app.listen() wrapper

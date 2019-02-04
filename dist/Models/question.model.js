@@ -19,8 +19,8 @@ const logger_1 = require("../Modules/logger");
  */
 var QuestionType;
 (function (QuestionType) {
-    QuestionType[QuestionType["MCQ_SINGLE"] = 0] = "MCQ_SINGLE";
-    QuestionType[QuestionType["MCQ_MULTIPLE"] = 1] = "MCQ_MULTIPLE";
+    QuestionType["MCQ_SINGLE"] = "MCQ_SINGLE";
+    QuestionType["MCQ_MULTIPLE"] = "MCQ_MULTIPLE";
 })(QuestionType || (QuestionType = {}));
 exports.QuestionType = QuestionType;
 /**
@@ -29,15 +29,11 @@ exports.QuestionType = QuestionType;
 class Question {
     static add(question) {
         return __awaiter(this, void 0, void 0, function* () {
-            // question.type = <any>QuestionType[question.type];
             return mongo_1.Mongo.add(Question.DBmodel, question);
         });
     }
     static addMany(questions) {
         return __awaiter(this, void 0, void 0, function* () {
-            // questions.forEach((question: IQuestion) => {
-            //   question.type = <any>QuestionType[question.type];
-            // });
             return mongo_1.Mongo.addMany(Question.DBmodel, questions);
         });
     }
