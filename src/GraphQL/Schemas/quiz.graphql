@@ -44,6 +44,7 @@ type Quiz {
 }
 
 type QuizResponse {
-  quizJSON: String
+  _id: ID!
+  JSON: String
   status: Status!
 }

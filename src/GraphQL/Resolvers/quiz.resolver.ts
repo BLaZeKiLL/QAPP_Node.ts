@@ -8,8 +8,10 @@ export = {
     try {
       isStudent(req);
       Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
+      const quizData = Dispatcher.get(args.target);
       return {
-        quizJSON: Dispatcher.get(args.target),
+        _id: quizData._id,
+        JSON: quizData.JSON,
         status: {
           code: 0,
           message: 'OK'

@@ -16,8 +16,10 @@ module.exports = {
         try {
             authentication_1.isStudent(req);
             logger_1.Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
+            const quizData = dispatcher_1.Dispatcher.get(args.target);
             return {
-                quiz: dispatcher_1.Dispatcher.get(args.target),
+                _id: quizData._id,
+                JSON: quizData.JSON,
                 status: {
                     code: 0,
                     message: 'OK'

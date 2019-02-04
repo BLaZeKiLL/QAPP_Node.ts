@@ -4,7 +4,7 @@ const logger_1 = require("./logger");
 class Dispatcher {
     static distribute(target, quiz) {
         logger_1.Log.main.info('QUIZ READY FOR DISPATCHING: ' + target);
-        this.quizes.set(target, quiz);
+        this.quizes.set(target, { _id: quiz._id.toString(), JSON: JSON.stringify(quiz) });
     }
     static get(target) {
         const quiz = this.quizes.get(target);

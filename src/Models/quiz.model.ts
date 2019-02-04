@@ -49,7 +49,8 @@ interface IQuiz {
 }
 
 interface IQuizResponse {
-  quizJSON?: string;
+  _id?: string;
+  JSON?: string;
   status: IStatus;
 }
 
