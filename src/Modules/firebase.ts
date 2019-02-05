@@ -60,7 +60,6 @@ class Firebase {
       quiz.targets = undefined;
       quiz.questions = undefined;
       quiz.results = undefined;
-      quiz._id = undefined;
       quiz.setQuestions = undefined;
 
       const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
