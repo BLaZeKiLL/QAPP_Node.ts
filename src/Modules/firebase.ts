@@ -84,11 +84,9 @@ class Firebase {
 
   public static async reminder(target: string) {
     try {
-      await this.broadcast(
+      await this.dataload(
         target,
         { request: 'true' },
-        'Quiz Reminder',
-        'QAPP'
       );
       Log.main.info('QUIZ REMINDER SENT');
     } catch (error) {
@@ -104,6 +102,17 @@ class Firebase {
           title: title,
           body: message
         },
+      });
+    } catch (error) {
+      Log.main.error('FIREBASE');
+      Log.main.error(error);
+    }
+  }
+
+  private static async dataload(topic: string, payload: any): Promise<void> {
+    try {
+      await admin.messaging().sendToTopic(topic, {
+        data: payload,
       });
     } catch (error) {
       Log.main.error('FIREBASE');

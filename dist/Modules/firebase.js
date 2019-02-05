@@ -95,7 +95,7 @@ class Firebase {
     static reminder(target) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.broadcast(target, { request: 'true' }, 'Quiz Reminder', 'QAPP');
+                yield this.dataload(target, { request: 'true' });
                 logger_1.Log.main.info('QUIZ REMINDER SENT');
             }
             catch (error) {
@@ -112,6 +112,19 @@ class Firebase {
                         title: title,
                         body: message
                     },
+                });
+            }
+            catch (error) {
+                logger_1.Log.main.error('FIREBASE');
+                logger_1.Log.main.error(error);
+            }
+        });
+    }
+    static dataload(topic, payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield admin.messaging().sendToTopic(topic, {
+                    data: payload,
                 });
             }
             catch (error) {
