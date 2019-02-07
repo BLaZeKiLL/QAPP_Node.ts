@@ -104,6 +104,7 @@ class Student {
 
   public static async update(filter: any, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
+      if (filter.password !== undefined) filter.password = await bcrypt.hash(filter.password, 12);
       await Mongo.update<IStudent>(Student.DBmodel, filter, id);
       return true;
     } catch (error) {

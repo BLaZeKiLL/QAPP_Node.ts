@@ -57,14 +57,14 @@ export = {
   updateStudent: async (args: any, req: any): Promise<boolean> => {
     try {
       isStudent(req);
+      const student: any = {};
+      if (args.student.name !== undefined) student.name = args.student.name;
+      if (args.student.email !== undefined) student.email = args.student.email;
+      if (args.student.password !== undefined) student.password = args.student.password;
+      if (args.student.rollno !== undefined) student.rollno = args.student.rollno;
+      if (args.student.target !== undefined) student.target = args.student.target;
       return await Student.update(
-        {
-          name: args.student.name,
-          email: args.student.email,
-          password: args.student.password,
-          rollno: args.student.rollno,
-          target: args.student.target
-        },
+        student,
         args.student._id
       );
     } catch (error) {

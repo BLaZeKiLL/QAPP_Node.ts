@@ -67,13 +67,18 @@ module.exports = {
     updateStudent: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isStudent(req);
-            return yield student_model_1.Student.update({
-                name: args.student.name,
-                email: args.student.email,
-                password: args.student.password,
-                rollno: args.student.rollno,
-                target: args.student.target
-            }, args.student._id);
+            const student = {};
+            if (args.student.name !== undefined)
+                student.name = args.student.name;
+            if (args.student.email !== undefined)
+                student.email = args.student.email;
+            if (args.student.password !== undefined)
+                student.password = args.student.password;
+            if (args.student.rollno !== undefined)
+                student.rollno = args.student.rollno;
+            if (args.student.target !== undefined)
+                student.target = args.student.target;
+            return yield student_model_1.Student.update(student, args.student._id);
         }
         catch (error) {
             logger_1.Log.main.error('ACCOUNT UPDATE ERROR');

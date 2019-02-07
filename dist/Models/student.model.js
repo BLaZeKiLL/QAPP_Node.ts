@@ -38,6 +38,8 @@ class Student {
     static update(filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                if (filter.password !== undefined)
+                    filter.password = yield bcrypt.hash(filter.password, 12);
                 yield mongo_1.Mongo.update(Student.DBmodel, filter, id);
                 return true;
             }

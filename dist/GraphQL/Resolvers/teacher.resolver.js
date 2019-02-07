@@ -59,12 +59,16 @@ module.exports = {
     updateTeacher: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
-            return yield teacher_model_1.Teacher.update({
-                name: args.teacher.name,
-                email: args.teacher.email,
-                password: args.teacher.password,
-                admin: args.teacher.admin
-            }, args.teacher._id);
+            const teacher = {};
+            if (args.teacher.name !== undefined)
+                teacher.name = args.teacher.name;
+            if (args.teacher.email !== undefined)
+                teacher.email = args.teacher.email;
+            if (args.teacher.password !== undefined)
+                teacher.password = args.teacher.password;
+            if (args.teacher.admin !== undefined)
+                teacher.admin = args.teacher.admin;
+            return yield teacher_model_1.Teacher.update(teacher, args.teacher._id);
         }
         catch (error) {
             logger_1.Log.main.error('ACCOUNT UPDATE ERROR');

@@ -48,13 +48,13 @@ export = {
   updateTeacher: async (args: any, req: any): Promise<boolean> => {
     try {
       isTeacher(req);
+      const teacher: any = {};
+      if (args.teacher.name !== undefined) teacher.name = args.teacher.name;
+      if (args.teacher.email !== undefined) teacher.email = args.teacher.email;
+      if (args.teacher.password !== undefined) teacher.password = args.teacher.password;
+      if (args.teacher.admin !== undefined) teacher.admin = args.teacher.admin;
       return await Teacher.update(
-        {
-          name: args.teacher.name,
-          email: args.teacher.email,
-          password: args.teacher.password,
-          admin: args.teacher.admin
-        },
+        teacher,
         args.teacher._id
       );
     } catch (error) {
