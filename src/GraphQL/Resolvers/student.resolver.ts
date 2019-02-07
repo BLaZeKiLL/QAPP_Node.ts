@@ -51,7 +51,7 @@ export = {
       };
     }
   },
-  studentResults: async (args: any, req: any) => {
+  getStudentResults: async (args: any, req: any) => {
 
   },
   updateStudent: async (args: any, req: any): Promise<boolean> => {

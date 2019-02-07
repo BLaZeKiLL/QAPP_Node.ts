@@ -12,7 +12,7 @@ const authentication_1 = require("../../Modules/authentication");
 const dispatcher_1 = require("../../Modules/dispatcher");
 const logger_1 = require("../../Modules/logger");
 module.exports = {
-    quiz: (args, req) => {
+    getQuiz: (args, req) => {
         try {
             authentication_1.isStudent(req);
             logger_1.Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
@@ -40,6 +40,7 @@ module.exports = {
     addQuiz: (args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isTeacher(req);
         return quiz_model_1.Quiz.add(args.quiz);
-    })
+    }),
+    getQuizResults: (args, req) => __awaiter(this, void 0, void 0, function* () { })
 };
 //# sourceMappingURL=quiz.resolver.js.map

@@ -3,7 +3,6 @@ import { Mongo, Schema, model } from '../Modules/mongo';
 interface IResult {
   score: string;
   _id?: Schema.Types.ObjectId;
-  id?: string;
 }
 
 interface IResultInput {

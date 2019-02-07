@@ -4,7 +4,7 @@ import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
 
 export = {
-  quiz: (args: any, req: any): IQuizResponse => {
+  getQuiz: (args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);
       Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
@@ -31,5 +31,6 @@ export = {
   addQuiz: async (args: any, req: any): Promise<boolean> => {
     isTeacher(req);
     return Quiz.add(args.quiz);
-  }
+  },
+  getQuizResults: async (args: any, req: any) => {}
 };

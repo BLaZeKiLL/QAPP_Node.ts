@@ -62,7 +62,7 @@ module.exports = {
             };
         }
     }),
-    studentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    getStudentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
     }),
     updateStudent: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {

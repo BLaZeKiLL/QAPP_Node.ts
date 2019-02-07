@@ -9,9 +9,9 @@
 type RootQuery {
   getQuestions(courseCode: String!): QuestionsResponse! #
   getTargets(corseCode: String!): TargetsResponse!
-  quiz(target: String!): QuizResponse! #
-  quizResults(quizID: ID!): [Result!]!
-  studentResults(studentID: ID!): [Result!]!
+  getQuiz(target: String!): QuizResponse! #
+  getQuizResults(quizID: ID!): [Result!]!
+  getStudentResults(studentID: ID!): [Result!]!
   studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthResponse! #
   teacherLogin(email: String!, password: String!): TeacherAuthResponse! #
 }
