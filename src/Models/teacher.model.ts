@@ -77,13 +77,17 @@ class Teacher {
   }
 
   public static async getOne(filter?: ITeacherFilter, id?: Schema.Types.ObjectId): Promise<ITeacher> {
-    return Mongo.getOne(Teacher.DBmodel, filter, id);
+    try {
+      return await Mongo.getOne(Teacher.DBmodel, filter, id);
+    } catch (error) {
+      throw error;
+    }
   }
 
-  public static async update(filter: any, id: Schema.Types.ObjectId): Promise<boolean> {
+  public static async update(update: any, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
-      if (filter.password !== undefined) filter.password = await bcrypt.hash(filter.password, 12);
-      await Mongo.update<ITeacher>(Teacher.DBmodel, filter, id);
+      if (update.password !== undefined) update.password = await bcrypt.hash(update.password, 12);
+      await Mongo.update<ITeacher>(Teacher.DBmodel, update, id);
       return true;
     } catch (error) {
       throw error;

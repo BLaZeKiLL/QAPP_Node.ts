@@ -122,17 +122,21 @@ class Quiz {
   private static DBmodel = model('Quiz', Quiz.schema);
 
   public static async add(quiz: IQuizInput): Promise<boolean> {
-    const doc = await Mongo.add(Quiz.DBmodel, quiz);
+    try {
+      const doc = await Mongo.add<IQuiz>(Quiz.DBmodel, quiz);
 
-    if (doc) {
-      const id = doc._id;
-      const date = doc.date;
+      if (doc) {
+        const id = doc._id;
+        const date = doc.date;
 
-      Firebase.quizCard(<any>doc);
-      Scheduler.schedule(id, date);
+        Firebase.quizCard(<any>doc);
+        Scheduler.schedule(id, date);
 
-      Log.main.info(`QUIZ ${id} ADDED TO DB`);
-      return true;
+        Log.main.info(`QUIZ ${id} ADDED TO DB`);
+        return true;
+      }
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -141,6 +145,16 @@ class Quiz {
       return await Mongo.getOneQuiz(Quiz.DBmodel, filter, id);
     } catch (error) {
       Log.main.error('POPULATION ERROR');
+      throw error;
+    }
+  }
+
+  public static async addResult(update: any, id: Schema.Types.ObjectId): Promise<boolean> {
+    try {
+      await Mongo.addToArray(this.DBmodel, update, id);
+      return true;
+    } catch (error) {
+      throw error;
     }
   }
 

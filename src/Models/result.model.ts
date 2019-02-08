@@ -1,4 +1,5 @@
 import { Mongo, Schema, model } from '../Modules/mongo';
+import { IStatus } from './misc.model';
 
 interface IResult {
   score: string;
@@ -11,6 +12,16 @@ interface IResultInput {
   score: string;
   quizID: string;
   studentID: string;
+}
+
+interface IResultResponse {
+  result?: IResult;
+  status: IStatus;
+}
+
+interface IResultsResponse {
+  result?: IResult[];
+  status: IStatus;
 }
 
 class Result {
@@ -38,9 +49,9 @@ class Result {
 
   private static DBmodel = model('Result', Result.schema);
 
-  public static addResult(result: IResultInput): Promise<boolean> {
+  public static async addResult(result: IResultInput): Promise<IResult> {
     try {
-      return undefined;
+      return await Mongo.add(this.DBmodel, result);
     } catch {
 
     }
@@ -51,5 +62,7 @@ class Result {
 export {
   Result,
   IResult,
-  IResultInput
+  IResultInput,
+  IResultResponse,
+  IResultsResponse
 };

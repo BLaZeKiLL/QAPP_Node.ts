@@ -114,32 +114,51 @@ class Question {
   private static DBmodel = model('Question', Question.schema);
 
   public static async add(question: IQuestion): Promise<IQuestion> {
-    return Mongo.add(Question.DBmodel, question);
+    try {
+      return await Mongo.add(Question.DBmodel, question);
+    } catch (error) {
+      throw error;
+    }
   }
 
   public static async addMany(questions: IQuestion[]): Promise<IQuestion[]> {
-    return Mongo.addMany(Question.DBmodel, questions);
+    try {
+      return await Mongo.addMany(Question.DBmodel, questions);
+    } catch (error) {
+      throw error;
+    }
   }
 
   public static async get(filter?: IQuestionFilter): Promise<IQuestion[]> {
-    return Mongo.get(Question.DBmodel, filter);
+    try {
+      return await Mongo.get(Question.DBmodel, filter);
+    } catch (error) {
+      throw error;
+    }
   }
 
   public static async getOne(filter?: IQuestionFilter, id?: Schema.Types.ObjectId): Promise<IQuestion> {
-    return Mongo.getOne(Question.DBmodel, filter, id);
+    try {
+      return await Mongo.getOne(Question.DBmodel, filter, id);
+    } catch (error) {
+      throw error;
+    }
   }
 
-  public static async update(filter?: any, id?: Schema.Types.ObjectId): Promise<IQuestion> {
+  public static async update(update?: any, id?: Schema.Types.ObjectId): Promise<IQuestion> {
     try {
-      Log.main.info(JSON.stringify(filter));
-      return await Mongo.update<IQuestion>(Question.DBmodel, filter, id);
+      return await Mongo.update<IQuestion>(Question.DBmodel, update, id);
     } catch (error) {
       throw error;
     }
   }
 
   public static async delete(id: Schema.Types.ObjectId): Promise<boolean> {
-    return Mongo.delete(Question.DBmodel, id);
+    try {
+      return await Mongo.delete(Question.DBmodel, id);
+    } catch (error) {
+      throw error;
+    }
   }
 
 }

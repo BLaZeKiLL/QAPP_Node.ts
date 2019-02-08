@@ -28,9 +28,11 @@ class Mongo {
     });
   }
 
-  public static async add<T>(model: Model<Document>, obj: T): Promise<T> {
+  public static async add<T>(model: Model<Document>, obj: any): Promise<T> {
     try {
       const doc = await <any>model.create(obj);
+      Log.main.info('Document Added');
+      Log.main.verbose(JSON.stringify(doc));
       return {
         ...doc._doc,
         _id: doc.id
@@ -44,6 +46,8 @@ class Mongo {
   public static async addMany<T>(model: Model<Document>, objs: T[]): Promise<T[]> {
     try {
       const docs = await model.insertMany(objs);
+      Log.main.info('Documents Added');
+      Log.main.verbose(JSON.stringify(docs));
       const rdocs = <any[]>docs.map((doc: any) => {
         return <any>{
           ...doc._doc,
@@ -130,9 +134,18 @@ class Mongo {
     }
   }
 
-  public static async update<T>(model: Model<Document>, filter: any, id: Schema.Types.ObjectId): Promise<T> {
+  public static async update<T>(model: Model<Document>, update: any, id: Schema.Types.ObjectId): Promise<T> {
     try {
-      return await <any>model.findOneAndUpdate({_id: id}, {$set: filter});
+      return await <any>model.findOneAndUpdate({_id: id}, {$set: update});
+    } catch (error) {
+      Log.main.error(error);
+      throw new Error('MONGODB');
+    }
+  }
+
+  public static async addToArray<T>(model: Model<Document>, update: any, id: Schema.Types.ObjectId): Promise<T> {
+    try {
+      return await <any>model.findOneAndUpdate({_id: id}, {$push: update});
     } catch (error) {
       Log.main.error(error);
       throw new Error('MONGODB');

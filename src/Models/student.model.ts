@@ -99,13 +99,26 @@ class Student {
   }
 
   public static async getOne(filter?: IStudentFilter, id?: Schema.Types.ObjectId): Promise<IStudent> {
-    return Mongo.getOne(Student.DBmodel, filter, id);
+    try {
+      return await Mongo.getOne(Student.DBmodel, filter, id);
+    } catch (error) {
+      throw error;
+    }
   }
 
-  public static async update(filter: any, id: Schema.Types.ObjectId): Promise<boolean> {
+  public static async update(update: any, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
-      if (filter.password !== undefined) filter.password = await bcrypt.hash(filter.password, 12);
-      await Mongo.update<IStudent>(Student.DBmodel, filter, id);
+      if (update.password !== undefined) update.password = await bcrypt.hash(update.password, 12);
+      await Mongo.update<IStudent>(Student.DBmodel, update, id);
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static async addResult(update: any, id: Schema.Types.ObjectId): Promise<boolean> {
+    try {
+      await Mongo.addToArray<IStudent>(this.DBmodel, update, id);
       return true;
     } catch (error) {
       throw error;

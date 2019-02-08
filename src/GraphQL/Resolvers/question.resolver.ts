@@ -1,10 +1,10 @@
-import { Question, IQuestionResponse, IQuestionsResponse, IQuestionFilter } from '../../Models/question.model';
+import { Question, IQuestionResponse, IQuestionsResponse } from '../../Models/question.model';
 import { isTeacher } from '../../Modules/authentication';
 import { Log } from '../../Modules/logger';
 import { Handle } from '../../Modules/errorHandler';
 
 const Query = {
-  getQuestions: async (obj: any, args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
+  getQuestions: async (obj: any, args: any, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
       Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
