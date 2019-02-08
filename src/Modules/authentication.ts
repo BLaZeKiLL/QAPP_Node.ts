@@ -23,13 +23,6 @@ function authenticate(req: any, res: Response, next: NextFunction) {
     next();
     return;
   }
-  if (token === 'QAPPICONDEVICONTOKENICON') {
-    req.isStudent = true;
-    req.isTeacher = true;
-    req.isAdmin = true;
-    next();
-    return;
-  }
   const decodedToken = <IToken>jwt.verify(token, APP_SECRET);
   if (!decodedToken) {
     Log.main.info('INVALID TOKEN');
@@ -69,18 +62,21 @@ function authenticate(req: any, res: Response, next: NextFunction) {
 }
 
 function isStudent(req: any): void {
+  if (process.env.NODE_ENV === 'test') return;
   if (!req.isStudent) {
     throw new Error('Not Enough Power');
   }
 }
 
 function isTeacher(req: any): void {
+  if (process.env.NODE_ENV === 'test') return;
   if (!req.isTeacher) {
     throw new Error('Not Enough Power');
   }
 }
 
 function isAdmin(req: any): void {
+  if (process.env.NODE_ENV === 'test') return;
   if (!req.isAdmin) {
     throw new Error('Not Enough Power');
   }

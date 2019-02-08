@@ -103,7 +103,7 @@ export class Log {
       exitOnError: false
     });
 
-    if (process.env.NODE_ENV === 'test') {
+    if (process.env.NODE_ENV === 'test' && process.env.DEBUG !== 'true') {
       this.mainLog.silent = true;
       this.requestLog.silent = true;
     }

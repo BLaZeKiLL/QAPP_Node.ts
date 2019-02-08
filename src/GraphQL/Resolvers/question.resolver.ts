@@ -4,7 +4,7 @@ import { Log } from '../../Modules/logger';
 import { Handle } from '../../Modules/errorHandler';
 
 const Query = {
-  getQuestions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
+  getQuestions: async (obj: any, args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
       Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
@@ -24,7 +24,7 @@ const Query = {
 };
 
 const Mutation = {
-  addQuestion: async (args: any, req: any): Promise<IQuestionResponse> => {
+  addQuestion: async (obj: any, args: any, req: any): Promise<IQuestionResponse> => {
     try {
       isTeacher(req);
       return {
@@ -40,7 +40,7 @@ const Mutation = {
       };
     }
   },
-  addQuestions: async (args: any, req: any): Promise<IQuestionsResponse> => {
+  addQuestions: async (obj: any, args: any, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
       return {
@@ -56,7 +56,7 @@ const Mutation = {
       };
     }
   },
-  updateQuestion: async (args: any, req: any): Promise<boolean> => {
+  updateQuestion: async (obj: any, args: any, req: any): Promise<boolean> => {
     try {
       isTeacher(req);
       const question: any = {};
@@ -74,7 +74,7 @@ const Mutation = {
       return false;
     }
   },
-  deleteQuestion: async (args: any, req: any): Promise<boolean> => {
+  deleteQuestion: async (obj: any, args: any, req: any): Promise<boolean> => {
     isTeacher(req);
     return Question.delete(args.id);
   }
