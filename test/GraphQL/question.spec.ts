@@ -2,32 +2,35 @@ import { graphql } from 'graphql';
 import { expect } from 'chai';
 import { QuestionType } from '../../src/Models/question.model';
 import { GraphQL } from '../Utils/graphql';
-import { asyncForEach } from '../Utils/utils';
 
 describe('Question', () => {
 
   it('Add questions', async () => {
     const result = await <any>graphql(GraphQL.Executable.Schema, addQuestionsMutation, undefined, undefined, {questions: questions});
+
     expect(result, 'Result null').to.not.equal(undefined);
     expect(result, 'Error occured').to.not.contain.keys('errors');
     expect(result, 'Data not found').to.contain.keys('data');
     expect(result.data, 'Response not found').to.contain.keys('addQuestions');
     expect(result.data.addQuestions.status.code).to.equal(0, `Status Code: ${result.data.addQuestions.status.code}: ${result.data.addQuestions.status.message}`);
-    // await asyncForEach(result.data.addQuestions.questions, (question) => {
-    //   expect(question).to.contain.keys('_id', 'type', 'courseCode', 'statement', 'options');
-    // });
+
+    for (let i = 0; i < result.data.addQuestions.questions.length; i++) {
+      expect(result.data.addQuestions.questions[i], 'Invalid Question').to.contain.keys('_id', 'type', 'courseCode', 'statement', 'options');
+    }
   });
 
   it('Get questions for a course code', async () => {
     const result = await <any>graphql(GraphQL.Executable.Schema, getQuestionsQuery, undefined, undefined, {courseCode: 'CS1501'});
+
     expect(result, 'Result null').to.not.equal(undefined);
     expect(result, 'Error occured').to.not.contain.keys('errors');
     expect(result, 'Data not found').to.contain.keys('data');
     expect(result.data, 'Response not found').to.contain.keys('getQuestions');
     expect(result.data.getQuestions.status.code).to.equal(0, `Status Code: ${result.data.getQuestions.status.code}: ${result.data.getQuestions.status.message}`);
-    // await asyncForEach(result.data.getQuestions.questions, (question) => {
-    //   expect(question).to.contain.keys('_id', 'type', 'courseCode', 'statement', 'options');
-    // });
+
+    for (let i = 0; i < result.data.addQuestions.questions.length; i++) {
+      expect(result.data.addQuestions.questions[i], 'Invalid Question').to.contain.keys('_id', 'type', 'courseCode', 'statement', 'options');
+    }
   });
 
 });
