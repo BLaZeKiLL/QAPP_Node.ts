@@ -34,10 +34,10 @@ class App {
   ) {
     this.app = express();
     process.env.TZ = 'Asia/Kolkata';
+    this.setupLoggers();
     this.setupMongoDB();
     this.setupBodyParser();
     this.setupGrapQL();
-    this.setupLoggers();
     this.setupFirebase();
     this.setupRoutes();
     try {
@@ -94,6 +94,7 @@ class App {
   }
 
   private setupLoggers(): void {
+    Log.initialize();
     this.app.use(morgan('combined', { stream: { write: (message: string) => Log.request.info(message.trim()) } }));
   }
 
