@@ -1,12 +1,17 @@
-process.env.NODE_ENV = 'test';
+import { expect } from 'chai';
 
-import { assert } from 'chai';
-import app from '../../src/server';
+import { App } from '../../src/App/app';
+
+export const qapp_test = new App('QAPP');
 
 describe('App', () => {
-  describe('getLocalUrl()', () => {
-    it('getLocalUrl() should return http://localhost:3000/', () => {
-      assert.equal(app.getLocalUrl(), 'http://localhost:3000/');
+  describe('Node Enviorment', () => {
+    it('Test Enviorment', () => {
+      expect(process.env.NODE_ENV, 'Envoirment not a string').to.be.a('string');
+      expect(process.env.NODE_ENV, 'Envoirment not test').to.equal('test');
+    });
+    it('App Started and Test DB connected', () => {
+      expect('')
     });
   });
 });

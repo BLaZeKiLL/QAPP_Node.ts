@@ -71,7 +71,7 @@ class App {
    * MongoDB setup
    */
   private setupMongoDB() {
-    Mongo.connectDB(this.getLocalMongoDBUrl());
+    Mongo.connectDB(this.getMongoDBUrl());
   }
 
   /**
@@ -112,7 +112,7 @@ class App {
    * Returns the MongoDb url according to the envoirment
    * @returns MongoDB url
    */
-  private getLocalMongoDBUrl(): string {
+  private getMongoDBUrl(): string {
     if (process.env.NODE_ENV === 'test') {
       Log.main.info('CONNNECTING TO LOCAL TEST DB');
       return `mongodb://localhost:27017/${this.MONGODB_NAME + '_TEST'}`;
