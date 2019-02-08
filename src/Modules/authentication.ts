@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Response, NextFunction } from '../App/router';
+import { Response, NextFunction } from 'express';
 import { Power, IToken } from '../Models/misc.model';
 import { Log } from './logger';
 

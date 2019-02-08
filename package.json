@@ -11,13 +11,14 @@
     "node": ">=10.14.1"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.ts",
+    "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.ts --exit",
     "local": "cross-env NODE_ENV=local node ./dist/server.js",
     "prestart": "npm run build",
     "start": "node ./dist/server.js",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc && ts-node post-build.ts",
-    "schema": "apollo service:download ./build/schema.json --endpoint=http://localhost:3000/graphql"
+    "schema": "apollo service:download ./build/schema.json --endpoint=http://localhost:3000/graphql",
+    "doc": "typedoc --out docs/ --name \"Qapp Api\" src/"
   },
   "author": "BLaZeKiLL",
   "license": "ISC",

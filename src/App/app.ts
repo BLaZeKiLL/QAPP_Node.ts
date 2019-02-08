@@ -1,10 +1,9 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import ip from 'ip';
 import morgan from 'morgan';
 
-import IndexRoutes from '../Routes/index';
 import { GraphBuilder } from '../GraphQL/graphql';
 import { Mongo } from '../Modules/mongo';
 import { Firebase } from '../Modules/firebase';
@@ -16,18 +15,25 @@ import { Question, QuestionType } from '../Models/question.model';
 
 /**
  * The Node-Express Application that will run on the server
+ *
+ * @export
+ * @class App
  */
-class App {
+export class App {
 
   /**
-   * Express app
+   * Express App
+   *
+   * @private
+   * @type {Express}
+   * @memberof App
    */
   private app: Express;
 
   /**
    * Creates the App and calls all the setups()
-   * @param PORT Port on which the server is to be run
    * @param MONGODB_NAME Database name to be used
+   * @memberof App
    */
   constructor(
     private MONGODB_NAME: string
@@ -39,7 +45,6 @@ class App {
     this.setupBodyParser();
     this.setupGrapQL();
     this.setupFirebase();
-    this.setupRoutes();
     try {
       // this.ini(); // Uncomment this to add deafult admin account
       // this.iniQuestions(); // Uncomment this to seed question bank
@@ -50,32 +55,44 @@ class App {
 
   /**
    * Express app.listen() wrapper
-   * @param callback called whern server is started
+   * @param {() => any} callback called whern server is started
+   * @memberof App
    */
   public listen(callback: () => any): void {
     this.app.listen(process.env.PORT || 3000, /*ip.address(),*/ callback());
   }
 
   /**
-   * @returns local URL of the server
+   * @returns {string} local URL of the server
+   * @memberof App
    */
   public getLocalUrl(): string {
     return `http://localhost:${process.env.PORT || 3000}/`;
   }
 
+  /**
+   * @returns {string} ip of the server
+   * @memberof App
+   */
   public getIP(): string {
     return `http://${ip.address()}:${process.env.PORT || 3000}/`;
   }
 
   /**
    * MongoDB setup
+   *
+   * @private
+   * @memberof App
    */
   private setupMongoDB() {
     Mongo.connectDB(this.getMongoDBUrl());
   }
 
   /**
-   * Body-Parser setup
+   * Body Parser setup
+   *
+   * @private
+   * @memberof App
    */
   private setupBodyParser(): void {
     this.app.use(cors()); // remove in production
@@ -84,6 +101,12 @@ class App {
     this.app.use(bodyParser.json({ type: 'application/json'}));
   }
 
+  /**
+   * GraphQL strup
+   *
+   * @private
+   * @memberof App
+   */
   private setupGrapQL(): void {
     this.app.use('/graphql', (req, res, next) => {
       Log.main.verbose(JSON.stringify(req.body));
@@ -93,25 +116,33 @@ class App {
     this.app.use('/graphql', new GraphBuilder(true).getMiddleWare());
   }
 
+  /**
+   * Logger Setup
+   *
+   * @private
+   * @memberof App
+   */
   private setupLoggers(): void {
     Log.initialize();
     this.app.use(morgan('combined', { stream: { write: (message: string) => Log.request.info(message.trim()) } }));
   }
 
+  /**
+   * Firebase Setup
+   *
+   * @private
+   * @memberof App
+   */
   private setupFirebase(): void {
     Firebase.connect();
   }
 
   /**
-   * Route setup
-   */
-  private setupRoutes(): void {
-    this.app.use('/', IndexRoutes);
-  }
-
-  /**
-   * Returns the MongoDb url according to the envoirment
-   * @returns MongoDB url
+   * Creates the mongodb url depending upon the config
+   *
+   * @private
+   * @returns {string} MongoDB url
+   * @memberof App
    */
   private getMongoDBUrl(): string {
     if (process.env.NODE_ENV === 'test') {
@@ -126,6 +157,13 @@ class App {
     }
   }
 
+  /**
+   * Account seeder
+   *
+   * @private
+   * @returns {Promise<void>}
+   * @memberof App
+   */
   private async ini(): Promise<void> {
     await Teacher.add({
       name: 'Admin',
@@ -144,6 +182,13 @@ class App {
     Log.main.info('ACCOUNTS SEEDED');
   }
 
+  /**
+   * Question seeder
+   *
+   * @private
+   * @returns {Promise<void>}
+   * @memberof App
+   */
   private async iniQuestions(): Promise<void> {
     await Question.addMany([
       {
@@ -262,9 +307,3 @@ class App {
   }
 
 }
-
-export {
-  App,
-  Request,
-  Response
-};
