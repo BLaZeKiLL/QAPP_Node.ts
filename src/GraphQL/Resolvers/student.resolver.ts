@@ -8,7 +8,7 @@ import { Handle } from '../../Modules/errorHandler';
 import { Log } from '../../Modules/logger';
 import { Firebase } from '../../Modules/firebase';
 
-export = {
+const Query = {
   studentLogin: async (args: any): Promise<IStudentAuthResponse> => {
     try {
       const student = await Student.getOne({ email: args.email });
@@ -50,7 +50,10 @@ export = {
         status: Handle(error)
       };
     }
-  },
+  }
+};
+
+const Mutation = {
   updateStudent: async (args: any, req: any): Promise<boolean> => {
     try {
       isStudent(req);
@@ -69,4 +72,9 @@ export = {
       return false;
     }
   }
+};
+
+export {
+  Query,
+  Mutation
 };

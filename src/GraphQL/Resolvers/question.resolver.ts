@@ -3,7 +3,7 @@ import { isTeacher } from '../../Modules/authentication';
 import { Log } from '../../Modules/logger';
 import { Handle } from '../../Modules/errorHandler';
 
-export = {
+const Query = {
   getQuestions: async (args: IQuestionFilter, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
@@ -20,7 +20,10 @@ export = {
         status: Handle(error)
       };
     }
-  },
+  }
+};
+
+const Mutation = {
   addQuestion: async (args: any, req: any): Promise<IQuestionResponse> => {
     try {
       isTeacher(req);
@@ -75,4 +78,9 @@ export = {
     isTeacher(req);
     return Question.delete(args.id);
   }
+};
+
+export {
+  Query,
+  Mutation
 };

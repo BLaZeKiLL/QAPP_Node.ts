@@ -3,7 +3,7 @@ import { buildSchema, GraphQLSchema } from 'graphql';
 import { importSchema } from 'graphql-import';
 import { Log } from '../Modules/logger';
 
-import RootResolver from './Resolvers/index.resolver';
+import { Resolvers } from './Resolvers/index.resolver';
 
 export class GraphBuilder {
 
@@ -12,7 +12,7 @@ export class GraphBuilder {
   public getMiddleWare(): Middleware {
     return graphqlHttp({
       schema: this.buildGraphQLSchema(),
-      rootValue: RootResolver,
+      rootValue: Resolvers,
       graphiql: this.graphiql,
       formatError: error => {
         Log.main.error(error);
@@ -22,13 +22,12 @@ export class GraphBuilder {
   }
 
   private buildGraphQLSchema(): GraphQLSchema {
-    const schema = importSchema(`${__dirname}/Schemas/index.graphql`);
     return buildSchema(`
-      ${schema}
+      ${importSchema(`${__dirname}/Schemas/index.graphql`)}
 
       schema {
-        query: RootQuery
-        mutation: RootMutations
+        query: Query
+        mutation: Mutation
       }
     `);
   }

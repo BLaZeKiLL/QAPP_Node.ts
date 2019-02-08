@@ -2,7 +2,7 @@ import { Course, ITargetResponse } from '../../Models/course.model';
 import { isTeacher, isAdmin } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 
-export = {
+const Query = {
   getTargets: async (args: any, req: any): Promise<ITargetResponse> => {
     try {
       isTeacher(req);
@@ -19,7 +19,10 @@ export = {
         status: Handle(error)
       };
     }
-  },
+  }
+};
+
+const Mutation = {
   addCourse: async (args: any, req: any): Promise<boolean> => {
     try {
       return true;
@@ -27,4 +30,9 @@ export = {
 
     }
   }
+};
+
+export {
+  Query,
+  Mutation
 };

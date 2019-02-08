@@ -3,7 +3,7 @@ import { isTeacher, isStudent } from '../../Modules/authentication';
 import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
 
-export = {
+const Query = {
   getQuiz: (args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);
@@ -27,9 +27,17 @@ export = {
         }
       };
     }
-  },
+  }
+};
+
+const Mutation = {
   addQuiz: async (args: any, req: any): Promise<boolean> => {
     isTeacher(req);
     return Quiz.add(args.quiz);
   }
+};
+
+export {
+  Query,
+  Mutation
 };

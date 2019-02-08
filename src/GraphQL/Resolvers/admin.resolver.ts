@@ -6,7 +6,11 @@ import { Student } from '../../Models/student.model';
 import { Teacher } from '../../Models/teacher.model';
 import { Log } from '../../Modules/logger';
 
-export = {
+const Query = {
+
+};
+
+const Mutation = {
   addStudent: async (args: any, req: any): Promise<boolean> => {
     isAdmin(req);
     args.student.password = passwordGenerator.generate(6);
@@ -21,4 +25,9 @@ export = {
     Log.main.info(`NEW TEACHER: ${JSON.stringify(args.teacher)}`);
     return Teacher.add(args.teacher);
   }
+};
+
+export {
+  Query,
+  Mutation
 };

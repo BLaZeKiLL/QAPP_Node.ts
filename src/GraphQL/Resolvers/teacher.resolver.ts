@@ -7,7 +7,7 @@ import { Teacher, ITeacherAuthResponse } from '../../Models/teacher.model';
 import { APP_SECRET, isTeacher } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 
-export = {
+const Query = {
   teacherLogin: async (args: any): Promise<ITeacherAuthResponse> => {
     Log.main.info(`Email: ${args.email} Password: ${args.password}`);
     try {
@@ -44,7 +44,10 @@ export = {
         status: Handle(error)
       };
     }
-  },
+  }
+};
+
+const Mutation = {
   updateTeacher: async (args: any, req: any): Promise<boolean> => {
     try {
       isTeacher(req);
@@ -62,4 +65,9 @@ export = {
       return false;
     }
   }
+};
+
+export {
+  Query,
+  Mutation
 };

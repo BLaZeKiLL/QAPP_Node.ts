@@ -1,7 +1,7 @@
 import { GraphQLSchema } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 import { importSchema } from 'graphql-import';
-import RootResolver from '../../src/GraphQL/Resolvers/index.resolver';
+import { Resolvers } from '../../src/GraphQL/Resolvers/index.resolver';
 
 
 export class GraphQL {
@@ -16,11 +16,11 @@ export class GraphQL {
         ${importSchema(`${__dirname}/../../src/GraphQL/Schemas/index.graphql`)}
 
         schema {
-          query: RootQuery
-          mutation: RootMutations
+          query: Query
+          mutation: Mutation
         }
         `,
-      resolvers: <any>RootResolver
+      resolvers: Resolvers
     });
   }
 

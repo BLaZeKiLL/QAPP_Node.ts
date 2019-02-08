@@ -6,7 +6,7 @@
 # import TargetsResponse from 'course.graphql'
 # import Message from 'misc.graphql'
 
-type RootQuery {
+type Query {
   getQuestions(courseCode: String!): QuestionsResponse! #
   getTargets(corseCode: String!): TargetsResponse!
   getQuiz(target: String!): QuizResponse! #
@@ -16,7 +16,7 @@ type RootQuery {
   teacherLogin(email: String!, password: String!): TeacherAuthResponse! #
 }
 
-type RootMutations {
+type Mutation {
   # ADDITIONS
   addQuestion(question: QuestionInput!): QuestionResponse! #
   addQuestions(questions: [QuestionInput!]!): QuestionsResponse! #
