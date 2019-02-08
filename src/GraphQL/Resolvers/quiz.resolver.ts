@@ -31,6 +31,5 @@ export = {
   addQuiz: async (args: any, req: any): Promise<boolean> => {
     isTeacher(req);
     return Quiz.add(args.quiz);
-  },
-  getQuizResults: async (args: any, req: any) => {}
+  }
 };

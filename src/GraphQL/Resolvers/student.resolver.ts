@@ -51,9 +51,6 @@ export = {
       };
     }
   },
-  getStudentResults: async (args: any, req: any) => {
-
-  },
   updateStudent: async (args: any, req: any): Promise<boolean> => {
     try {
       isStudent(req);
