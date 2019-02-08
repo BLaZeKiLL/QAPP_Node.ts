@@ -3,7 +3,7 @@ import { isTeacher, isAdmin } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 
 const Query = {
-  getTargets: async (args: any, req: any): Promise<ITargetResponse> => {
+  getTargets: async (obj: any, args: any, req: any): Promise<ITargetResponse> => {
     try {
       isTeacher(req);
       const targets = await Course.getTargets(args.courseCode);
@@ -23,7 +23,7 @@ const Query = {
 };
 
 const Mutation = {
-  addCourse: async (args: any, req: any): Promise<boolean> => {
+  addCourse: async (obj: any, args: any, req: any): Promise<boolean> => {
     try {
       return true;
     } catch (error) {

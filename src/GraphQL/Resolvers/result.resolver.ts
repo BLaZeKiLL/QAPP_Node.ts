@@ -1,8 +1,8 @@
 const Query = {
-  getStudentResults: async (args: any, req: any) => {
+  getStudentResults: async (obj: any, args: any, req: any) => {
 
   },
-  getQuizResults: async (args: any, req: any) => {
+  getQuizResults: async (obj: any, args: any, req: any) => {
 
   }
 };

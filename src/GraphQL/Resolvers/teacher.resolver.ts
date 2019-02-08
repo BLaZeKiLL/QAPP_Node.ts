@@ -8,7 +8,7 @@ import { APP_SECRET, isTeacher } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 
 const Query = {
-  teacherLogin: async (args: any): Promise<ITeacherAuthResponse> => {
+  teacherLogin: async (obj: any, args: any): Promise<ITeacherAuthResponse> => {
     Log.main.info(`Email: ${args.email} Password: ${args.password}`);
     try {
       const teacher = await Teacher.getOne({ email: args.email });
@@ -48,7 +48,7 @@ const Query = {
 };
 
 const Mutation = {
-  updateTeacher: async (args: any, req: any): Promise<boolean> => {
+  updateTeacher: async (obj: any, args: any, req: any): Promise<boolean> => {
     try {
       isTeacher(req);
       const teacher: any = {};

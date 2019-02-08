@@ -4,7 +4,7 @@ import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
 
 const Query = {
-  getQuiz: (args: any, req: any): IQuizResponse => {
+  getQuiz: (obj: any, args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);
       Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
@@ -31,7 +31,7 @@ const Query = {
 };
 
 const Mutation = {
-  addQuiz: async (args: any, req: any): Promise<boolean> => {
+  addQuiz: async (obj: any, args: any, req: any): Promise<boolean> => {
     isTeacher(req);
     return Quiz.add(args.quiz);
   }
