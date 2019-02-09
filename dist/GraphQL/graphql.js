@@ -7,7 +7,7 @@ const express_graphql_1 = __importDefault(require("express-graphql"));
 const graphql_1 = require("graphql");
 const graphql_import_1 = require("graphql-import");
 const logger_1 = require("../Modules/logger");
-const index_resolver_1 = __importDefault(require("./Resolvers/index.resolver"));
+const index_resolver_1 = require("./Resolvers/index.resolver");
 class GraphBuilder {
     constructor(graphiql) {
         this.graphiql = graphiql;
@@ -15,7 +15,7 @@ class GraphBuilder {
     getMiddleWare() {
         return express_graphql_1.default({
             schema: this.buildGraphQLSchema(),
-            rootValue: index_resolver_1.default,
+            rootValue: index_resolver_1.Resolvers,
             graphiql: this.graphiql,
             formatError: error => {
                 logger_1.Log.main.error(error);
@@ -24,13 +24,12 @@ class GraphBuilder {
         });
     }
     buildGraphQLSchema() {
-        const schema = graphql_import_1.importSchema(`${__dirname}/Schemas/index.graphql`);
         return graphql_1.buildSchema(`
-      ${schema}
+      ${graphql_import_1.importSchema(`${__dirname}/Schemas/index.graphql`)}
 
       schema {
-        query: RootQuery
-        mutation: RootMutations
+        query: Query
+        mutation: Mutation
       }
     `);
     }

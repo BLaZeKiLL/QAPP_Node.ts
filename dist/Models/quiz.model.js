@@ -15,14 +15,19 @@ const logger_1 = require("../Modules/logger");
 class Quiz {
     static add(quiz) {
         return __awaiter(this, void 0, void 0, function* () {
-            const doc = yield mongo_1.Mongo.add(Quiz.DBmodel, quiz);
-            if (doc) {
-                const id = doc._id;
-                const date = doc.date;
-                firebase_1.Firebase.quizCard(doc);
-                scheduler_1.Scheduler.schedule(id, date);
-                logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
-                return true;
+            try {
+                const doc = yield mongo_1.Mongo.add(Quiz.DBmodel, quiz);
+                if (doc) {
+                    const id = doc._id;
+                    const date = doc.date;
+                    firebase_1.Firebase.quizCard(doc);
+                    scheduler_1.Scheduler.schedule(id, date);
+                    logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
+                    return true;
+                }
+            }
+            catch (error) {
+                throw error;
             }
         });
     }
@@ -33,6 +38,18 @@ class Quiz {
             }
             catch (error) {
                 logger_1.Log.main.error('POPULATION ERROR');
+                throw error;
+            }
+        });
+    }
+    static addResult(update, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield mongo_1.Mongo.addToArray(this.DBmodel, update, id);
+                return true;
+            }
+            catch (error) {
+                throw error;
             }
         });
     }

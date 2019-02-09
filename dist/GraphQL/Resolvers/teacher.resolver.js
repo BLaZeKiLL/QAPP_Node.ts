@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const logger_1 = require("../../Modules/logger");
@@ -17,8 +18,8 @@ const misc_model_1 = require("../../Models/misc.model");
 const teacher_model_1 = require("../../Models/teacher.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
-module.exports = {
-    teacherLogin: (args) => __awaiter(this, void 0, void 0, function* () {
+const Query = {
+    teacherLogin: (obj, args) => __awaiter(this, void 0, void 0, function* () {
         logger_1.Log.main.info(`Email: ${args.email} Password: ${args.password}`);
         try {
             const teacher = yield teacher_model_1.Teacher.getOne({ email: args.email });
@@ -55,8 +56,11 @@ module.exports = {
                 status: errorHandler_1.Handle(error)
             };
         }
-    }),
-    updateTeacher: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    })
+};
+exports.Query = Query;
+const Mutation = {
+    updateTeacher: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             const teacher = {};
@@ -76,4 +80,5 @@ module.exports = {
         }
     })
 };
+exports.Mutation = Mutation;
 //# sourceMappingURL=teacher.resolver.js.map

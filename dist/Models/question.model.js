@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../Modules/mongo");
 const mongoose_unique_validator_1 = __importDefault(require("mongoose-unique-validator"));
-const logger_1 = require("../Modules/logger");
 /**
  * Types of questions
  */
@@ -29,29 +28,48 @@ exports.QuestionType = QuestionType;
 class Question {
     static add(question) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.add(Question.DBmodel, question);
+            try {
+                return yield mongo_1.Mongo.add(Question.DBmodel, question);
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
     static addMany(questions) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.addMany(Question.DBmodel, questions);
+            try {
+                return yield mongo_1.Mongo.addMany(Question.DBmodel, questions);
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
     static get(filter) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.get(Question.DBmodel, filter);
+            try {
+                return yield mongo_1.Mongo.get(Question.DBmodel, filter);
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
     static getOne(filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.getOne(Question.DBmodel, filter, id);
+            try {
+                return yield mongo_1.Mongo.getOne(Question.DBmodel, filter, id);
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
-    static update(filter, id) {
+    static update(update, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                logger_1.Log.main.info(JSON.stringify(filter));
-                return yield mongo_1.Mongo.update(Question.DBmodel, filter, id);
+                return yield mongo_1.Mongo.update(Question.DBmodel, update, id);
             }
             catch (error) {
                 throw error;
@@ -60,7 +78,12 @@ class Question {
     }
     static delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.delete(Question.DBmodel, id);
+            try {
+                return yield mongo_1.Mongo.delete(Question.DBmodel, id);
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
 }

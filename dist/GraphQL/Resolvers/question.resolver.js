@@ -7,12 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const question_model_1 = require("../../Models/question.model");
 const authentication_1 = require("../../Modules/authentication");
 const logger_1 = require("../../Modules/logger");
 const errorHandler_1 = require("../../Modules/errorHandler");
-module.exports = {
-    getQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
+const Query = {
+    getQuestions: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             logger_1.Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
@@ -29,8 +30,11 @@ module.exports = {
                 status: errorHandler_1.Handle(error)
             };
         }
-    }),
-    addQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    })
+};
+exports.Query = Query;
+const Mutation = {
+    addQuestion: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             return {
@@ -47,7 +51,7 @@ module.exports = {
             };
         }
     }),
-    addQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    addQuestions: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             return {
@@ -64,7 +68,7 @@ module.exports = {
             };
         }
     }),
-    updateQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    updateQuestion: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             const question = {};
@@ -88,9 +92,10 @@ module.exports = {
             return false;
         }
     }),
-    deleteQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    deleteQuestion: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isTeacher(req);
         return question_model_1.Question.delete(args.id);
     })
 };
+exports.Mutation = Mutation;
 //# sourceMappingURL=question.resolver.js.map

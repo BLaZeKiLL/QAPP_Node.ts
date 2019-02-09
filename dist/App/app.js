@@ -16,7 +16,6 @@ const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const ip_1 = __importDefault(require("ip"));
 const morgan_1 = __importDefault(require("morgan"));
-const index_1 = __importDefault(require("../Routes/index"));
 const graphql_1 = require("../GraphQL/graphql");
 const mongo_1 = require("../Modules/mongo");
 const firebase_1 = require("../Modules/firebase");
@@ -27,23 +26,25 @@ const authentication_1 = require("../Modules/authentication");
 const question_model_1 = require("../Models/question.model");
 /**
  * The Node-Express Application that will run on the server
+ *
+ * @export
+ * @class App
  */
 class App {
     /**
      * Creates the App and calls all the setups()
-     * @param PORT Port on which the server is to be run
      * @param MONGODB_NAME Database name to be used
+     * @memberof App
      */
     constructor(MONGODB_NAME) {
         this.MONGODB_NAME = MONGODB_NAME;
         this.app = express_1.default();
         process.env.TZ = 'Asia/Kolkata';
+        this.setupLoggers();
         this.setupMongoDB();
         this.setupBodyParser();
         this.setupGrapQL();
-        this.setupLoggers();
         this.setupFirebase();
-        this.setupRoutes();
         try {
             // this.ini(); // Uncomment this to add deafult admin account
             // this.iniQuestions(); // Uncomment this to seed question bank
@@ -54,28 +55,40 @@ class App {
     }
     /**
      * Express app.listen() wrapper
-     * @param callback called whern server is started
+     * @param {() => any} callback called whern server is started
+     * @memberof App
      */
     listen(callback) {
         this.app.listen(process.env.PORT || 3000, /*ip.address(),*/ callback());
     }
     /**
-     * @returns local URL of the server
+     * @returns {string} local URL of the server
+     * @memberof App
      */
     getLocalUrl() {
         return `http://localhost:${process.env.PORT || 3000}/`;
     }
+    /**
+     * @returns {string} ip of the server
+     * @memberof App
+     */
     getIP() {
         return `http://${ip_1.default.address()}:${process.env.PORT || 3000}/`;
     }
     /**
      * MongoDB setup
+     *
+     * @private
+     * @memberof App
      */
     setupMongoDB() {
-        mongo_1.Mongo.connectDB(this.getLocalMongoDBUrl());
+        mongo_1.Mongo.connectDB(this.getMongoDBUrl());
     }
     /**
-     * Body-Parser setup
+     * Body Parser setup
+     *
+     * @private
+     * @memberof App
      */
     setupBodyParser() {
         this.app.use(cors_1.default()); // remove in production
@@ -83,6 +96,12 @@ class App {
         this.app.use(body_parser_1.default.text());
         this.app.use(body_parser_1.default.json({ type: 'application/json' }));
     }
+    /**
+     * GraphQL strup
+     *
+     * @private
+     * @memberof App
+     */
     setupGrapQL() {
         this.app.use('/graphql', (req, res, next) => {
             logger_1.Log.main.verbose(JSON.stringify(req.body));
@@ -91,23 +110,33 @@ class App {
         this.app.use('/graphql', authentication_1.authenticate);
         this.app.use('/graphql', new graphql_1.GraphBuilder(true).getMiddleWare());
     }
+    /**
+     * Logger Setup
+     *
+     * @private
+     * @memberof App
+     */
     setupLoggers() {
+        logger_1.Log.initialize();
         this.app.use(morgan_1.default('combined', { stream: { write: (message) => logger_1.Log.request.info(message.trim()) } }));
     }
+    /**
+     * Firebase Setup
+     *
+     * @private
+     * @memberof App
+     */
     setupFirebase() {
         firebase_1.Firebase.connect();
     }
     /**
-     * Route setup
+     * Creates the mongodb url depending upon the config
+     *
+     * @private
+     * @returns {string} MongoDB url
+     * @memberof App
      */
-    setupRoutes() {
-        this.app.use('/', index_1.default);
-    }
-    /**
-     * Returns the MongoDb url according to the envoirment
-     * @returns MongoDB url
-     */
-    getLocalMongoDBUrl() {
+    getMongoDBUrl() {
         if (process.env.NODE_ENV === 'test') {
             logger_1.Log.main.info('CONNNECTING TO LOCAL TEST DB');
             return `mongodb://localhost:27017/${this.MONGODB_NAME + '_TEST'}`;
@@ -121,6 +150,13 @@ class App {
             return `mongodb+srv://QAPP_DEV:qappdev@devcluster-3kbft.mongodb.net/${this.MONGODB_NAME}?retryWrites=true`;
         }
     }
+    /**
+     * Account seeder
+     *
+     * @private
+     * @returns {Promise<void>}
+     * @memberof App
+     */
     ini() {
         return __awaiter(this, void 0, void 0, function* () {
             yield teacher_model_1.Teacher.add({
@@ -139,6 +175,13 @@ class App {
             logger_1.Log.main.info('ACCOUNTS SEEDED');
         });
     }
+    /**
+     * Question seeder
+     *
+     * @private
+     * @returns {Promise<void>}
+     * @memberof App
+     */
     iniQuestions() {
         return __awaiter(this, void 0, void 0, function* () {
             yield question_model_1.Question.addMany([

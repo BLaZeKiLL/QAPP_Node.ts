@@ -7,11 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const course_model_1 = require("../../Models/course.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
-module.exports = {
-    getTargets: (args, req) => __awaiter(this, void 0, void 0, function* () {
+const Query = {
+    getTargets: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             const targets = yield course_model_1.Course.getTargets(args.courseCode);
@@ -28,8 +29,11 @@ module.exports = {
                 status: errorHandler_1.Handle(error)
             };
         }
-    }),
-    addCourse: (args, req) => __awaiter(this, void 0, void 0, function* () {
+    })
+};
+exports.Query = Query;
+const Mutation = {
+    addCourse: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             return true;
         }
@@ -37,4 +41,5 @@ module.exports = {
         }
     })
 };
+exports.Mutation = Mutation;
 //# sourceMappingURL=course.resolver.js.map

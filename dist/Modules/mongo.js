@@ -30,6 +30,8 @@ class Mongo {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const doc = yield model.create(obj);
+                logger_1.Log.main.info('Document Added');
+                logger_1.Log.main.verbose(JSON.stringify(doc));
                 return Object.assign({}, doc._doc, { _id: doc.id });
             }
             catch (error) {
@@ -42,6 +44,8 @@ class Mongo {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const docs = yield model.insertMany(objs);
+                logger_1.Log.main.info('Documents Added');
+                logger_1.Log.main.verbose(JSON.stringify(docs));
                 const rdocs = docs.map((doc) => {
                     return Object.assign({}, doc._doc, { _id: doc.id });
                 });
@@ -133,10 +137,21 @@ class Mongo {
             }
         });
     }
-    static update(model, filter, id) {
+    static update(model, update, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield model.findOneAndUpdate({ _id: id }, { $set: filter });
+                return yield model.findOneAndUpdate({ _id: id }, { $set: update });
+            }
+            catch (error) {
+                logger_1.Log.main.error(error);
+                throw new mongoose_1.Error('MONGODB');
+            }
+        });
+    }
+    static addToArray(model, update, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield model.findOneAndUpdate({ _id: id }, { $push: update });
             }
             catch (error) {
                 logger_1.Log.main.error(error);

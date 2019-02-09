@@ -32,15 +32,31 @@ class Student {
     }
     static getOne(filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return mongo_1.Mongo.getOne(Student.DBmodel, filter, id);
+            try {
+                return yield mongo_1.Mongo.getOne(Student.DBmodel, filter, id);
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
-    static update(filter, id) {
+    static update(update, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (filter.password !== undefined)
-                    filter.password = yield bcrypt.hash(filter.password, 12);
-                yield mongo_1.Mongo.update(Student.DBmodel, filter, id);
+                if (update.password !== undefined)
+                    update.password = yield bcrypt.hash(update.password, 12);
+                yield mongo_1.Mongo.update(Student.DBmodel, update, id);
+                return true;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    static addResult(update, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield mongo_1.Mongo.addToArray(this.DBmodel, update, id);
                 return true;
             }
             catch (error) {

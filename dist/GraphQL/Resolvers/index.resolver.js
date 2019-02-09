@@ -1,14 +1,15 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+Object.defineProperty(exports, "__esModule", { value: true });
+const admin_resolver_1 = require("./admin.resolver");
+const course_resolver_1 = require("./course.resolver");
+const misc_resolver_1 = require("./misc.resolver");
+const question_resolver_1 = require("./question.resolver");
+const quiz_resolver_1 = require("./quiz.resolver");
+const result_resolver_1 = require("./result.resolver");
+const student_resolver_1 = require("./student.resolver");
+const teacher_resolver_1 = require("./teacher.resolver");
+exports.Resolvers = {
+    Query: Object.assign({}, admin_resolver_1.Query, course_resolver_1.Query, misc_resolver_1.Query, question_resolver_1.Query, quiz_resolver_1.Query, result_resolver_1.Query, student_resolver_1.Query, teacher_resolver_1.Query),
+    Mutation: Object.assign({}, admin_resolver_1.Mutation, course_resolver_1.Mutation, misc_resolver_1.Mutation, question_resolver_1.Mutation, quiz_resolver_1.Mutation, result_resolver_1.Mutation, student_resolver_1.Mutation, teacher_resolver_1.Mutation)
 };
-const admin_resolver_1 = __importDefault(require("./admin.resolver"));
-const course_resolver_1 = __importDefault(require("./course.resolver"));
-const misc_resolver_1 = __importDefault(require("./misc.resolver"));
-const question_resolver_1 = __importDefault(require("./question.resolver"));
-const quiz_resolver_1 = __importDefault(require("./quiz.resolver"));
-const result_resolver_1 = __importDefault(require("./result.resolver"));
-const student_resolver_1 = __importDefault(require("./student.resolver"));
-const teacher_resolver_1 = __importDefault(require("./teacher.resolver"));
-module.exports = Object.assign({}, admin_resolver_1.default, course_resolver_1.default, misc_resolver_1.default, question_resolver_1.default, quiz_resolver_1.default, result_resolver_1.default, student_resolver_1.default, teacher_resolver_1.default);
 //# sourceMappingURL=index.resolver.js.map

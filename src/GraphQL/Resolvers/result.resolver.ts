@@ -1,4 +1,4 @@
-import { IResultResponse, Result } from 'Models/result.model';
+import { IResultResponse, Result } from '../../Models/result.model';
 import { isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Student } from '../../Models/student.model';
