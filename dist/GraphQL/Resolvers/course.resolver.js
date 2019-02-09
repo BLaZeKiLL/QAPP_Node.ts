@@ -12,7 +12,7 @@ const course_model_1 = require("../../Models/course.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
 const Query = {
-    getTargets: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    getTargets: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             const targets = yield course_model_1.Course.getTargets(args.courseCode);
@@ -33,7 +33,7 @@ const Query = {
 };
 exports.Query = Query;
 const Mutation = {
-    addCourse: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addCourse: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             return true;
         }

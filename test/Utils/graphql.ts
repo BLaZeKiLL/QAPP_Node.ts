@@ -1,7 +1,5 @@
-import { GraphQLSchema } from 'graphql';
-import { makeExecutableSchema } from 'graphql-tools';
+import { GraphQLSchema, buildSchema } from 'graphql';
 import { importSchema } from 'graphql-import';
-import { Resolvers } from '../../src/GraphQL/Resolvers/index.resolver';
 
 
 export class GraphQL {
@@ -11,17 +9,14 @@ export class GraphQL {
   private schema: GraphQLSchema;
 
   private constructor() {
-    this.schema = makeExecutableSchema({
-      typeDefs: `
-        ${importSchema(`${__dirname}/../../src/GraphQL/Schemas/index.graphql`)}
+    this.schema =  buildSchema(`
+      ${importSchema(`${__dirname}/Schemas/index.graphql`)}
 
-        schema {
-          query: Query
-          mutation: Mutation
-        }
-        `,
-      resolvers: Resolvers
-    });
+      schema {
+        query: Query
+        mutation: Mutation
+      }
+    `);
   }
 
   public static get Executable(): GraphQL {

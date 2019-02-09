@@ -13,7 +13,7 @@ const authentication_1 = require("../../Modules/authentication");
 const logger_1 = require("../../Modules/logger");
 const errorHandler_1 = require("../../Modules/errorHandler");
 const Query = {
-    getQuestions: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    getQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             logger_1.Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
@@ -34,7 +34,7 @@ const Query = {
 };
 exports.Query = Query;
 const Mutation = {
-    addQuestion: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             return {
@@ -51,7 +51,7 @@ const Mutation = {
             };
         }
     }),
-    addQuestions: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             return {
@@ -68,7 +68,7 @@ const Mutation = {
             };
         }
     }),
-    updateQuestion: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    updateQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             const question = {};
@@ -92,7 +92,7 @@ const Mutation = {
             return false;
         }
     }),
-    deleteQuestion: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    deleteQuestion: (args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isTeacher(req);
         return question_model_1.Question.delete(args.id);
     })

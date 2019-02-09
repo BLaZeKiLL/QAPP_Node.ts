@@ -13,7 +13,7 @@ const authentication_1 = require("../../Modules/authentication");
 const dispatcher_1 = require("../../Modules/dispatcher");
 const logger_1 = require("../../Modules/logger");
 const Query = {
-    getQuiz: (obj, args, req) => {
+    getQuiz: (args, req) => {
         try {
             authentication_1.isStudent(req);
             logger_1.Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
@@ -41,7 +41,7 @@ const Query = {
 };
 exports.Query = Query;
 const Mutation = {
-    addQuiz: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addQuiz: (args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isTeacher(req);
         return quiz_model_1.Quiz.add(args.quiz);
     })

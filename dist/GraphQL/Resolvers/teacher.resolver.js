@@ -19,7 +19,8 @@ const teacher_model_1 = require("../../Models/teacher.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
 const Query = {
-    teacherLogin: (obj, args) => __awaiter(this, void 0, void 0, function* () {
+    teacherLogin: (args) => __awaiter(this, void 0, void 0, function* () {
+        logger_1.Log.main.info(args);
         logger_1.Log.main.info(`Email: ${args.email} Password: ${args.password}`);
         try {
             const teacher = yield teacher_model_1.Teacher.getOne({ email: args.email });
@@ -60,7 +61,7 @@ const Query = {
 };
 exports.Query = Query;
 const Mutation = {
-    updateTeacher: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    updateTeacher: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
             const teacher = {};

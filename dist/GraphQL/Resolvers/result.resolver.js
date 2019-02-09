@@ -14,14 +14,14 @@ const errorHandler_1 = require("../../Modules/errorHandler");
 const student_model_1 = require("../../Models/student.model");
 const quiz_model_1 = require("../../Models/quiz.model");
 const Query = {
-    getStudentResults: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    getStudentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
     }),
-    getQuizResults: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    getQuizResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
     })
 };
 exports.Query = Query;
 const Mutation = {
-    addResult: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addResult: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isStudent(req);
             const result = yield result_model_1.Result.addResult(args.result);

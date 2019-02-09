@@ -16,6 +16,9 @@ export class GraphBuilder {
       graphiql: this.graphiql,
       formatError: error => {
         Log.main.error(error);
+        Log.main.error(JSON.stringify(error.source));
+        Log.main.error(JSON.stringify(error.locations));
+        Log.main.error(error.stack);
         return error;
       }
     });

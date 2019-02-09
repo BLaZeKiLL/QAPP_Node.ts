@@ -8,7 +8,7 @@ import { Query as studentQuery, Mutation as studentMutation } from './student.re
 import { Query as teacherQuery, Mutation as teacherMutation } from './teacher.resolver';
 
 export const Resolvers = {
-  Query: {
+  // Query
     ...adminQuery,
     ...courseQuery,
     ...miscQuery,
@@ -16,9 +16,8 @@ export const Resolvers = {
     ...quizQuery,
     ...resultQuery,
     ...studentQuery,
-    ...teacherQuery
-  },
-  Mutation: {
+    ...teacherQuery,
+  // Mutation
     ...adminMutation,
     ...courseMutation,
     ...miscMutation,
@@ -27,5 +26,4 @@ export const Resolvers = {
     ...resultMutation,
     ...studentMutation,
     ...teacherMutation
-  }
 };

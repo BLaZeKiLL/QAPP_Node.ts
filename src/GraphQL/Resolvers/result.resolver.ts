@@ -5,16 +5,16 @@ import { Student } from '../../Models/student.model';
 import { Quiz } from '../../Models/quiz.model';
 
 const Query = {
-  getStudentResults: async (obj: any, args: any, req: any) => {
+  getStudentResults: async (args: any, req: any) => {
 
   },
-  getQuizResults: async (obj: any, args: any, req: any) => {
+  getQuizResults: async (args: any, req: any) => {
 
   }
 };
 
 const Mutation = {
-  addResult: async (obj: any, args: any, req: any): Promise<IResultResponse> => {
+  addResult: async (args: any, req: any): Promise<IResultResponse> => {
     try {
       isStudent(req);
       const result = await Result.addResult(args.result);

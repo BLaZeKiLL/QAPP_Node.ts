@@ -9,7 +9,7 @@ import { Log } from '../../Modules/logger';
 import { Firebase } from '../../Modules/firebase';
 
 const Query = {
-  studentLogin: async (obj: any, args: any): Promise<IStudentAuthResponse> => {
+  studentLogin: async (args: any): Promise<IStudentAuthResponse> => {
     try {
       const student = await Student.getOne({ email: args.email });
       if (!student) {
@@ -54,7 +54,7 @@ const Query = {
 };
 
 const Mutation = {
-  updateStudent: async (obj: any, args: any, req: any): Promise<boolean> => {
+  updateStudent: async (args: any, req: any): Promise<boolean> => {
     try {
       isStudent(req);
       const student: any = {};

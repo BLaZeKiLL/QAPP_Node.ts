@@ -20,7 +20,7 @@ const errorHandler_1 = require("../../Modules/errorHandler");
 const logger_1 = require("../../Modules/logger");
 const firebase_1 = require("../../Modules/firebase");
 const Query = {
-    studentLogin: (obj, args) => __awaiter(this, void 0, void 0, function* () {
+    studentLogin: (args) => __awaiter(this, void 0, void 0, function* () {
         try {
             const student = yield student_model_1.Student.getOne({ email: args.email });
             if (!student) {
@@ -66,7 +66,7 @@ const Query = {
 };
 exports.Query = Query;
 const Mutation = {
-    updateStudent: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    updateStudent: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isStudent(req);
             const student = {};

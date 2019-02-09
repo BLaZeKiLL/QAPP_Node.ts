@@ -24,14 +24,14 @@ const logger_1 = require("../../Modules/logger");
 const Query = {};
 exports.Query = Query;
 const Mutation = {
-    addStudent: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addStudent: (args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isAdmin(req);
         args.student.password = passwordGenerator.generate(6);
         postman_1.Postman.accountMail(args.student.email, 'Student', args.student.password);
         logger_1.Log.main.info(`NEW STUDENT: ${JSON.stringify(args.student)}`);
         return student_model_1.Student.add(args.student);
     }),
-    addTeacher: (obj, args, req) => __awaiter(this, void 0, void 0, function* () {
+    addTeacher: (args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isAdmin(req);
         args.teacher.password = passwordGenerator.generate(6);
         postman_1.Postman.accountMail(args.teacher.email, 'Teacher', args.teacher.password);
