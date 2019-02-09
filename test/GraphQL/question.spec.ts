@@ -1,14 +1,14 @@
-import { graphql } from 'graphql';
 import { expect } from 'chai';
+import { GraphQLTest } from '../Utils/graphql.spec';
 import { QuestionType } from '../../src/Models/question.model';
-import { GraphQL } from '../Utils/graphql';
 
 describe('Question', () => {
 
   it('Add questions', async () => {
-    const result = await <any>graphql(GraphQL.Executable.Schema, addQuestionsMutation, undefined, undefined, {questions: questions});
+    const result = await GraphQLTest.Schema.execute(addQuestionsMutation, {questions: questions});
 
     expect(result, 'Result null').to.not.equal(undefined);
+    if (result.errors) console.log(result.errors);
     expect(result, 'Error occured').to.not.contain.keys('errors');
     expect(result, 'Data not found').to.contain.keys('data');
     expect(result.data, 'Response not found').to.contain.keys('addQuestions');
@@ -19,8 +19,9 @@ describe('Question', () => {
     }
   });
 
+  // Initial seeds required
   it('Get questions for a course code', async () => {
-    const result = await <any>graphql(GraphQL.Executable.Schema, getQuestionsQuery, undefined, undefined, {courseCode: 'CS1501'});
+    const result = await GraphQLTest.Schema.execute(getQuestionsQuery, {courseCode: 'CS1501'});
 
     expect(result, 'Result null').to.not.equal(undefined);
     expect(result, 'Error occured').to.not.contain.keys('errors');

@@ -11,8 +11,8 @@
     "node": ">=10.14.1"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/test.ts --exit --timeout 10000",
-    "test-full": "cross-env NODE_ENV=test DEBUG=true mocha --require ts-node/register test/test.ts --exit --timeout 10000",
+    "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/main.spec.ts --exit --timeout 10000",
+    "test-full": "cross-env NODE_ENV=test DEBUG=true mocha --require ts-node/register test/main.spec.ts --exit --timeout 10000",
     "local": "cross-env NODE_ENV=local node ./dist/server.js",
     "prestart": "npm run build",
     "start": "node ./dist/server.js",

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { App } from '../../src/App/app';
-import { GraphQL } from '../Utils/graphql';
+import { GraphQLTest } from '../Utils/graphql.spec';
 
 export const qapp_test = new App('QAPP');
 
@@ -27,7 +27,7 @@ describe('Main', () => {
   describe('Load graphql', () => {
 
     it('GraphQL schema loaded', () => {
-      expect(GraphQL.Executable.Schema, 'Failed to build schema').to.not.equal(undefined);
+      expect(GraphQLTest.Schema, 'Failed to build schema').to.not.equal(undefined);
     });
 
   });
