@@ -18,7 +18,7 @@ describe('Statics', () => {
 
   });
 
-})
+});
 
 const getTargetsQuery = `
   query GetTargetsQuery($courseCode: String!) {

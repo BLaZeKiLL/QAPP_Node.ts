@@ -20,7 +20,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = __importStar(require("firebase-admin"));
 const moment_1 = __importDefault(require("moment"));
-const account = __importStar(require("./qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json"));
+const account = __importStar(require("../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json"));
 const logger_1 = require("./logger");
 class Firebase {
     static connect() {
