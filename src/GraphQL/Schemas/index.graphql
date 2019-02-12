@@ -8,7 +8,7 @@
 
 type Query {
   getQuestions(courseCode: String!): QuestionsResponse! #
-  getTargets(corseCode: String!): TargetsResponse!
+  getTargets(courseCode: String!): TargetsResponse!
   getQuiz(target: String!): QuizResponse! #
   getQuizResults(quizID: ID!): ResultsResponse!
   getStudentResults(studentID: ID!): ResultsResponse!

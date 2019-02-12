@@ -5,10 +5,14 @@ interface ICourse {
   name: string;
   code: string;
   targets: string[];
+  branches: string[];
 }
 
 interface ITargetResponse {
-  targets?: string[];
+  data?: {
+    targets: string[];
+    branches: string[];
+  };
   status: IStatus;
 }
 
@@ -20,13 +24,18 @@ class Course {
     return false;
   }
 
-  public static async getTargets(courseCode: string): Promise<string[]> {
+  public static async getTargets(courseCode: string): Promise<{targets: string[], branches: string[]}> {
     const courses = await JSONHandler.readData<ICourse[]>(this.FILE_NAME);
-    let targets: string[] = [];
+    let data: {targets: string[], branches: string[]};
     courses.forEach((course) => {
-      if (course.code === courseCode) targets = course.targets;
+      if (course.code === courseCode) {
+        data = {
+          targets: course.targets,
+          branches: course.branches
+        };
+      }
     });
-    return targets;
+    return data;
   }
 
 }

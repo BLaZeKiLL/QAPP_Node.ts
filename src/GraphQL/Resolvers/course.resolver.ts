@@ -1,14 +1,16 @@
 import { Course, ITargetResponse } from '../../Models/course.model';
 import { isTeacher, isAdmin } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
+import { Log } from '../../Modules/logger';
 
 const Query = {
   getTargets: async (args: any, req: any): Promise<ITargetResponse> => {
     try {
       isTeacher(req);
-      const targets = await Course.getTargets(args.courseCode);
+      Log.main.info(`TARGETS FOR COURSE CODE: ${args.courseCode}`);
+      const data = await Course.getTargets(args.courseCode);
       return {
-        targets: targets,
+        data: data,
         status: {
           code: 0,
           message: 'OK'

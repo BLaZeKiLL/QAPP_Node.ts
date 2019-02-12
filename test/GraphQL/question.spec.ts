@@ -8,8 +8,8 @@ describe('Question', () => {
     const result = await GraphQLTest.Schema.execute(addQuestionsMutation, {questions: questions});
 
     expect(result, 'Result null').to.not.equal(undefined);
-    if (result.errors) console.log(result.errors);
     expect(result, 'Error occured').to.not.contain.keys('errors');
+    if (result.errors) { console.log(JSON.stringify(result)); }
     expect(result, 'Data not found').to.contain.keys('data');
     expect(result.data, 'Response not found').to.contain.keys('addQuestions');
     expect(result.data.addQuestions.status.code).to.equal(0, `Status Code: ${result.data.addQuestions.status.code}: ${result.data.addQuestions.status.message}`);
@@ -25,6 +25,7 @@ describe('Question', () => {
 
     expect(result, 'Result null').to.not.equal(undefined);
     expect(result, 'Error occured').to.not.contain.keys('errors');
+    if (result.errors) { console.log(JSON.stringify(result)); }
     expect(result, 'Data not found').to.contain.keys('data');
     expect(result.data, 'Response not found').to.contain.keys('getQuestions');
     expect(result.data.getQuestions.status.code).to.equal(0, `Status Code: ${result.data.getQuestions.status.code}: ${result.data.getQuestions.status.message}`);
