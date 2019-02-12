@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import moment from 'moment';
-import * as account from '../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json';
+import * as account from './qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json';
 
 import { Log } from './logger';
 import { IQuiz } from '../Models/quiz.model';

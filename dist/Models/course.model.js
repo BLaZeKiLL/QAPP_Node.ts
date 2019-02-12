@@ -18,12 +18,16 @@ class Course {
     static getTargets(courseCode) {
         return __awaiter(this, void 0, void 0, function* () {
             const courses = yield JSON_1.JSONHandler.readData(this.FILE_NAME);
-            let targets = [];
+            let data;
             courses.forEach((course) => {
-                if (course.code === courseCode)
-                    targets = course.targets;
+                if (course.code === courseCode) {
+                    data = {
+                        targets: course.targets,
+                        branches: course.branches
+                    };
+                }
             });
-            return targets;
+            return data;
         });
     }
 }

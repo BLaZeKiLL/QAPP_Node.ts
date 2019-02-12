@@ -10,9 +10,10 @@ type Course {
   name: String!
   code: String!
   targets: [String!]!
+  branches: [String!]!
 }
 
 type TargetsResponse {
-  targets: [String!]
-  status: Status
+  data: Course
+  status: Status!
 }

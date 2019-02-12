@@ -11,13 +11,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const course_model_1 = require("../../Models/course.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
+const logger_1 = require("../../Modules/logger");
 const Query = {
     getTargets: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
-            const targets = yield course_model_1.Course.getTargets(args.courseCode);
+            logger_1.Log.main.info(`TARGETS FOR COURSE CODE: ${args.courseCode}`);
+            const data = yield course_model_1.Course.getTargets(args.courseCode);
             return {
-                targets: targets,
+                data: data,
                 status: {
                     code: 0,
                     message: 'OK'

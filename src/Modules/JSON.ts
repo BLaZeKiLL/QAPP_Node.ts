@@ -3,7 +3,7 @@ import { Log } from './logger';
 
 export class JSONHandler {
 
-  private static readonly PATH = 'src/Static/';
+  private static readonly PATH = 'Static/';
 
   public static async saveData<T>(fileName: string, data: T): Promise<boolean> {
     try {

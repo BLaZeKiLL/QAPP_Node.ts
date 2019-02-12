@@ -18,8 +18,9 @@ class JSONHandler {
                 logger_1.Log.main.info('DATA SAVED');
                 return true;
             }
-            catch (_a) {
+            catch (error) {
                 logger_1.Log.main.error('JSON SERIALIZATION WRITE ERROR');
+                logger_1.Log.main.error(JSON.stringify(error));
                 throw new Error('JSON SERIALIZATION');
             }
         });
@@ -28,14 +29,17 @@ class JSONHandler {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = JSON.parse((yield Promise_1.fs_readFile(this.PATH + fileName)).toString());
+                logger_1.Log.main.info(JSON.stringify(data));
                 return data;
             }
-            catch (_a) {
+            catch (error) {
+                logger_1.Log.main.error('JSON SERIALIZATION READ ERROR');
+                logger_1.Log.main.error(JSON.stringify(error));
                 throw new Error('JSON SERIALIZATION');
             }
         });
     }
 }
-JSONHandler.PATH = './Static/';
+JSONHandler.PATH = 'Static/';
 exports.JSONHandler = JSONHandler;
 //# sourceMappingURL=JSON.js.map
