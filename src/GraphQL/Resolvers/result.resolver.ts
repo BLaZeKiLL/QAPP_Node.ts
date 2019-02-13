@@ -1,4 +1,4 @@
-import { IResultResponse, Result } from '../../Models/result.model';
+import { IResultResponse, Result, IResultsResponse, IResultFlat } from '../../Models/result.model';
 import { isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Student } from '../../Models/student.model';
@@ -9,8 +9,36 @@ const Query = {
   getStudentResults: async (args: any, req: any) => {
 
   },
-  getQuizResults: async (args: any, req: any) => {
-
+  getQuizResults: async (args: any, req: any): Promise<IResultsResponse> => {
+    try {
+      const quiz = await Quiz.getOne({
+        No: args.number,
+        courseCode: args.courseCode
+      });
+      const results: IResultFlat[] = [];
+      quiz.results.forEach(result => {
+        results.push({
+          score: result.score,
+          name: result.name
+        });
+      });
+      return {
+        result: results,
+        status: {
+          code: 0,
+          message: 'OK'
+        }
+      };
+    } catch (error) {
+      Log.main.error('RESULT ERROR');
+      Log.main.error(error);
+      return {
+        status: {
+          code: 2,
+          message: 'ERROR'
+        }
+      };
+    }
   }
 };
 

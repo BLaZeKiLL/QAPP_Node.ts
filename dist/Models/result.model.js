@@ -15,7 +15,8 @@ class Result {
             try {
                 return yield mongo_1.Mongo.add(this.DBmodel, result);
             }
-            catch (_a) {
+            catch (error) {
+                throw error;
             }
         });
     }
@@ -26,6 +27,10 @@ class Result {
  */
 Result.schema = new mongo_1.Schema({
     score: {
+        type: String,
+        required: true
+    },
+    name: {
         type: String,
         required: true
     },

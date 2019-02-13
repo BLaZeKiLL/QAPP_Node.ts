@@ -2,6 +2,7 @@
 
 input ResultInput {
   score: String!
+  name: String!
   studentID: ID!
   quizID: ID!
 }
@@ -9,16 +10,23 @@ input ResultInput {
 type Result {
   _id: ID!
   score: String!
+  name: String!
   studentID: ID!
   quizID: ID!
 }
 
+type ResultFlat {
+  _id: ID
+  score: String!
+  name: String!
+}
+
 type ResultResponse {
-  result: Result
+  result: ResultFlat
   status: Status!
 }
 
 type ResultsResponse {
-  result: [Result!]
+  result: [ResultFlat!]
   status: Status!
 }
