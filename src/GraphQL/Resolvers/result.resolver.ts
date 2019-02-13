@@ -3,6 +3,7 @@ import { isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Student } from '../../Models/student.model';
 import { Quiz } from '../../Models/quiz.model';
+import { Log } from '../../Modules/logger';
 
 const Query = {
   getStudentResults: async (args: any, req: any) => {
@@ -18,6 +19,7 @@ const Mutation = {
     try {
       isStudent(req);
       const result = await Result.addResult(args.result);
+      Log.main.info(`RESULT ADDED: ${JSON.stringify(result)}`);
       Student.addResult({results: result._id}, result.studentID);
       Quiz.addResult({results: result._id}, result.quizID);
       return {

@@ -13,6 +13,7 @@ const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
 const student_model_1 = require("../../Models/student.model");
 const quiz_model_1 = require("../../Models/quiz.model");
+const logger_1 = require("../../Modules/logger");
 const Query = {
     getStudentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
     }),
@@ -25,6 +26,7 @@ const Mutation = {
         try {
             authentication_1.isStudent(req);
             const result = yield result_model_1.Result.addResult(args.result);
+            logger_1.Log.main.info(`RESULT ADDED: ${JSON.stringify(result)}`);
             student_model_1.Student.addResult({ results: result._id }, result.studentID);
             quiz_model_1.Quiz.addResult({ results: result._id }, result.quizID);
             return {
