@@ -129,7 +129,7 @@ class Quiz {
         const id = doc._id;
         const date = doc.date;
 
-        Firebase.quizCard(<any>doc);
+        Firebase.quizCard(<any>id, <any>doc);
         Scheduler.schedule(id, date);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);

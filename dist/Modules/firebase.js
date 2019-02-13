@@ -67,23 +67,24 @@ class Firebase {
             }
         });
     }
-    static quizCard(quiz) {
+    static quizCard(id, quiz) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const targets = quiz.targets;
                 const date = moment_1.default.utc(quiz.date.toUTCString()).local();
                 // date.setTime(date.getTime() + date.getTimezoneOffset());
                 quiz.date = date.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+                quiz._id = id;
                 quiz.targets = undefined;
                 quiz.questions = undefined;
                 quiz.results = undefined;
                 quiz.setQuestions = undefined;
-                const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+                // const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
                 const payload = JSON.stringify(quiz);
                 targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
-                    yield this.broadcast(target, { quizData: payload }, message, 'QAPP');
+                    yield this.dataload(target, { quizData: payload });
                 }));
-                logger_1.Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date}`);
+                logger_1.Log.main.info(`QUIZ CARD DATA SENT: ${JSON.stringify(quiz)}`);
                 return true;
             }
             catch (error) {

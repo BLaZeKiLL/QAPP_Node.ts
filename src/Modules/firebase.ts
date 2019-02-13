@@ -50,31 +50,30 @@ class Firebase {
     }
   }
 
-  public static async quizCard(quiz: IQuiz): Promise<boolean> {
+  public static async quizCard(id: string, quiz: any): Promise<boolean> {
     try {
       const targets: string[] = quiz.targets;
       const date = moment.utc(quiz.date.toUTCString()).local();
       // date.setTime(date.getTime() + date.getTimezoneOffset());
       quiz.date = <any>date.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
 
+      quiz._id = id;
       quiz.targets = undefined;
       quiz.questions = undefined;
       quiz.results = undefined;
       quiz.setQuestions = undefined;
 
-      const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
+      // const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
       const payload = JSON.stringify(quiz);
 
       targets.forEach(async (target: string) => {
-        await this.broadcast(
+        await this.dataload(
           target,
-          { quizData: payload },
-          message,
-          'QAPP'
+          { quizData: payload }
         );
       });
 
-      Log.main.info(`QUIZ CARD DATA SENT FOR ${quiz.date}`);
+      Log.main.info(`QUIZ CARD DATA SENT: ${JSON.stringify(quiz)}`);
       return true;
     } catch (error) {
       Log.main.error(error);
