@@ -6,7 +6,6 @@ import morgan from 'morgan';
 
 import { GraphBuilder } from '../GraphQL/graphql';
 import { Mongo } from '../Modules/mongo';
-import { Firebase } from '../Modules/firebase';
 import { Log } from '../Modules/logger';
 import { Teacher } from '../Models/teacher.model';
 import { Student } from '../Models/student.model';
@@ -44,7 +43,6 @@ export class App {
     this.setupMongoDB();
     this.setupBodyParser();
     this.setupGrapQL();
-    this.setupFirebase();
     try {
       // this.ini(); // Uncomment this to add deafult admin account
       // this.iniQuestions(); // Uncomment this to seed question bank
@@ -128,16 +126,6 @@ export class App {
   }
 
   /**
-   * Firebase Setup
-   *
-   * @private
-   * @memberof App
-   */
-  private setupFirebase(): void {
-    Firebase.connect();
-  }
-
-  /**
    * Creates the mongodb url depending upon the config
    *
    * @private
@@ -168,7 +156,6 @@ export class App {
     await Teacher.add({
       name: 'Admin',
       email: 'admin@gmail.com',
-      admin: true,
       password: 'admin'
     });
 
@@ -176,8 +163,6 @@ export class App {
       name: 'Admin',
       email: 'admin@gmail.com',
       password: 'admin',
-      rollno: '169105077',
-      target: 'CS5B'
     });
     Log.main.info('ACCOUNTS SEEDED');
   }
@@ -192,7 +177,7 @@ export class App {
   private async iniQuestions(): Promise<void> {
     await Question.addMany([
       {
-        courseCode: 'CS1501',
+        tags: ['DAA', 'Algorithims'],
         statement: 'What is the essentials of dynamic programing ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
@@ -214,7 +199,7 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
+        tags: ['DAA', 'Algorithims'],
         statement: 'In a max-heap, element with the greatest key is always in the which node ?',
         type: QuestionType.MCQ_SINGLE,
         options: [
@@ -236,7 +221,7 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
+        tags: ['DAA', 'Algorithims'],
         statement: 'Which of the follwing have N complexity ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
@@ -258,7 +243,7 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
+        tags: ['DAA', 'Algorithims'],
         statement: 'Which of the following problems can be solved using recursion ?',
         type: QuestionType.MCQ_SINGLE,
         options: [
@@ -280,7 +265,7 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
+        tags: ['DAA', 'Algorithims'],
         statement: 'What are the types of complexity analysis ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
