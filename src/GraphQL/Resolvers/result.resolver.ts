@@ -1,4 +1,4 @@
-import { IResultResponse, Result, IResultsResponse, IResultFlat } from '../../Models/result.model';
+import { IAddResultResponse, Result, IQuizResultsResponse, IQuizResult } from '../../Models/result.model';
 import { isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Student } from '../../Models/student.model';
@@ -9,17 +9,19 @@ const Query = {
   getStudentResults: async (args: any, req: any) => {
 
   },
-  getQuizResults: async (args: any, req: any): Promise<IResultsResponse> => {
+  getQuizResults: async (args: any, req: any): Promise<IQuizResultsResponse> => {
     try {
       const quiz = await Quiz.getOne({
         No: args.number,
         courseCode: args.courseCode
       });
-      const results: IResultFlat[] = [];
-      quiz.results.forEach(result => {
+      const results: IQuizResult[] = [];
+      quiz.results.forEach(async result => {
+        const student = await Student.getOne(undefined, result.studentID);
         results.push({
           score: result.score,
-          name: result.name
+          name: student.name,
+          rollno: student.rollno
         });
       });
       return {
@@ -43,7 +45,7 @@ const Query = {
 };
 
 const Mutation = {
-  addResult: async (args: any, req: any): Promise<IResultResponse> => {
+  addResult: async (args: any, req: any): Promise<IAddResultResponse> => {
     try {
       isStudent(req);
       const result = await Result.addResult(args.result);

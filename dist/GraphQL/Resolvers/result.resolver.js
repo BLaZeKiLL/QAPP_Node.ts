@@ -24,12 +24,14 @@ const Query = {
                 courseCode: args.courseCode
             });
             const results = [];
-            quiz.results.forEach(result => {
+            quiz.results.forEach((result) => __awaiter(this, void 0, void 0, function* () {
+                const student = yield student_model_1.Student.getOne(undefined, result.studentID);
                 results.push({
                     score: result.score,
-                    name: result.name
+                    name: student.name,
+                    rollno: student.rollno
                 });
-            });
+            }));
             return {
                 result: results,
                 status: {
