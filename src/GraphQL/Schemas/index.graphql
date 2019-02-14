@@ -1,6 +1,6 @@
 # import Question, QuestionInput, QuestionUpdate, QuestionsResponse from 'question.graphql'
 # import Quiz, QuizInput, QuizResponse from 'quiz.graphql'
-# import ResultInput, ResultResponse, ResultsResponse from 'result.graphql'
+# import ResultInput, AddResultResponse, QuizResultsResponse from 'result.graphql'
 # import StudentInput, StudentUpdate, StudentAuthResponse from 'student.graphql'
 # import TeacherInput, TeacherUpdate, TeacherAuthResponse from 'teacher.graphql'
 # import TargetsResponse from 'course.graphql'
@@ -10,8 +10,8 @@ type Query {
   getQuestions(courseCode: String!): QuestionsResponse! #
   getTargets(courseCode: String!): TargetsResponse!
   getQuiz(target: String!): QuizResponse! #
-  getQuizResults(courseCode: String!, number: Int!): ResultsResponse!
-  getStudentResults(studentID: ID!): ResultsResponse!
+  getQuizResults(courseCode: String!, number: Int!): QuizResultsResponse!
+  getStudentResults(studentID: ID!): QuizResultsResponse!
   studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthResponse! #
   teacherLogin(email: String!, password: String!): TeacherAuthResponse! #
 }
@@ -21,7 +21,7 @@ type Mutation {
   addQuestion(question: QuestionInput!): QuestionResponse! #
   addQuestions(questions: [QuestionInput!]!): QuestionsResponse! #
   addQuiz(quiz: QuizInput!): Boolean! #
-  addResult(result: ResultInput!): ResultResponse!
+  addResult(result: ResultInput!): AddResultResponse!
   addCourse(course: CourseInput!): Boolean!
   addStudent(student: StudentInput!): Boolean! #
   addTeacher(teacher: TeacherInput!): Boolean! #
