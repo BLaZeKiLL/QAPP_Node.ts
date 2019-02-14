@@ -7,7 +7,7 @@ const Query = {
   getQuestions: async (args: any, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
-      Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
+      Log.main.info(`QUERY FOR QUESTION: ${args.tags}`);
       return {
         questions: await Question.get(args),
         status: {
@@ -60,7 +60,7 @@ const Mutation = {
     try {
       isTeacher(req);
       const question: any = {};
-      if (args.question.courseCode !== undefined) { question.courseCode = args.question.courseCode; }
+      if (args.question.tags !== undefined) { question.tags = args.question.tags; }
       if (args.question.type !== undefined) { question.type = args.question.type; }
       if (args.question.statement !== undefined) { question.statement = args.question.statement; }
       if (args.question.options !== undefined) { question.options = args.question.options; }
