@@ -7,42 +7,42 @@ import { Scheduler } from '../Modules/scheduler';
 import { Log } from '../Modules/logger';
 
 interface IQuizInput {
-  courseCode: string;
+  subject: string;
   No: number;
   creator: Schema.Types.ObjectId;
   totalQuestions: number;
   setQuestions: number;
   date: Date;
   duration: number;
-  targets: string[];
+  targetEmails: string[];
   questions: IQuestionIMGInput[];
   _id?: Schema.Types.ObjectId;
   results?: Schema.Types.ObjectId[];
 }
 
 interface IQuizFilter {
-  courseCode?: string;
+  subject?: string;
   No?: number;
   creator?: Schema.Types.ObjectId;
   totalQuestions?: number;
   setQuestions?: number;
   date?: Date;
   duration?: number;
-  targets?: string[];
+  targetEmails?: string[];
   questions?: IQuestionIMG[];
   _id?: Schema.Types.ObjectId;
   results?: IResult[];
 }
 
 interface IQuiz {
-  courseCode: string;
+  subject: string;
   No: number;
   creator: Schema.Types.ObjectId;
   totalQuestions: number;
   setQuestions: number;
   date: Date;
   duration: number;
-  targets: string[];
+  targetEmails: string[];
   questions: IQuestionIMG[];
   _id: Schema.Types.ObjectId;
   results?: IResult[];
@@ -58,7 +58,7 @@ class Quiz {
 
   /**
    * Quiz schema
-   * @property {String} courseCode Course-Code of the quiz
+   * @property {String} subject Subject/Topic/Name of the quiz
    * @property {Number} No Quiz number
    * @property {ref} creator refrence to the teacher account which created the quiz
    * @property {Number} totalQuestions Total number of questions in the quiz
@@ -66,12 +66,12 @@ class Quiz {
    * @property {String} date scheduled date of the quiz
    * @property {String} time scheduled time of the quiz
    * @property {Number} duration time duaration of the quiz
-   * @property {string[]} targets array of targets of the quiz
+   * @property {string[]} targetEmails array of targets of the quiz
    * @property {question[]} questions questions for the quiz with image URL's if any
    * @property {ref} result reference to quiz result
    */
   private static schema = new Schema({
-    courseCode: {
+    subject: {
       type: String,
       required: true
     },
@@ -100,7 +100,7 @@ class Quiz {
       type: Number,
       required: true
     },
-    targets: [{
+    targetEmails: [{
       type: String,
       required: true
     }],
@@ -121,6 +121,16 @@ class Quiz {
 
   private static DBmodel = model('Quiz', Quiz.schema);
 
+  /**
+   * Adds a quiz to DB
+   * should publish to subscribtion
+   * remove firebase logic
+   * remove cron job
+   * @static
+   * @param {IQuizInput} quiz
+   * @returns {Promise<boolean>}
+   * @memberof Quiz
+   */
   public static async add(quiz: IQuizInput): Promise<boolean> {
     try {
       const doc = await Mongo.add<IQuiz>(Quiz.DBmodel, quiz);
