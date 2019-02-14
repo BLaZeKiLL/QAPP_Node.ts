@@ -3,7 +3,6 @@ import { Schema } from '../Modules/mongo';
 enum Power {
   STUDENT,
   TEACHER,
-  ADMIN
 }
 
 interface IStatus {

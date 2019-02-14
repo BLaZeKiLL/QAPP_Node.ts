@@ -50,14 +50,6 @@ function authenticate(req: any, res: Response, next: NextFunction) {
       next();
       return;
     }
-    case Power.ADMIN: {
-      req.isStudent = false;
-      req.isTeacher = true;
-      req.isAdmin = true;
-      Log.main.info('ADMIN REQUEST');
-      next();
-      return;
-    }
   }
 }
 
@@ -75,17 +67,9 @@ function isTeacher(req: any): void {
   }
 }
 
-function isAdmin(req: any): void {
-  if (process.env.NODE_ENV === 'test') return;
-  if (!req.isAdmin) {
-    throw new Error('Not Enough Power');
-  }
-}
-
 export {
   APP_SECRET,
   authenticate,
   isStudent,
-  isTeacher,
-  isAdmin
+  isTeacher
 };
