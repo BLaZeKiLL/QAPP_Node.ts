@@ -23,7 +23,7 @@ interface IOption {
  * Question accourding to GraphQL
  */
 interface IQuestion {
-  courseCode: string;
+  tags: string[];
   type: QuestionType;
   statement: string;
   options: IOption[];
@@ -44,7 +44,7 @@ interface IQuestionIMG {
  * MongoDB Question filter
  */
 interface IQuestionFilter {
-  courseCode?: string;
+  tags?: string[];
   type?: QuestionType;
   statement?: string;
   options?: IOption[];
@@ -53,7 +53,7 @@ interface IQuestionFilter {
 
 interface IQuestionUpdate {
   _id: Schema.Types.ObjectId;
-  courseCode?: string;
+  tags?: string[];
   type?: QuestionType;
   statement?: string;
   options?: IOption[];
@@ -82,10 +82,10 @@ class Question {
    * @property {option[]} options Array of options of the question
    */
   private static schema = new Schema({
-    courseCode: {
+    tags: [{
       type: String,
       required: true
-    },
+    }],
     type: {
       type: String,
       enum: ['MCQ_SINGLE', 'MCQ_MULTIPLE'],
