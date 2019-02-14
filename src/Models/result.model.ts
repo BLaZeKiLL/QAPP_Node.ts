@@ -10,9 +10,10 @@ interface IResult {
   _id?: Schema.Types.ObjectId;
 }
 
-interface IResultFlat {
+interface IQuizResult {
   score: string;
   name: string;
+  rollno: string;
   _id?: Schema.Types.ObjectId;
 }
 
@@ -23,13 +24,13 @@ interface IResultInput {
   studentID: string;
 }
 
-interface IResultResponse {
-  result?: IResultFlat;
+interface IAddResultResponse {
+  result?: IResult;
   status: IStatus;
 }
 
-interface IResultsResponse {
-  result?: IResultFlat[];
+interface IQuizResultsResponse {
+  result?: IQuizResult[];
   status: IStatus;
 }
 
@@ -41,10 +42,6 @@ class Result {
    */
   private static schema = new Schema({
     score: {
-      type: String,
-      required: true
-    },
-    name: {
       type: String,
       required: true
     },
@@ -75,8 +72,8 @@ class Result {
 export {
   Result,
   IResult,
-  IResultFlat,
+  IQuizResult,
   IResultInput,
-  IResultResponse,
-  IResultsResponse
+  IAddResultResponse,
+  IQuizResultsResponse
 };

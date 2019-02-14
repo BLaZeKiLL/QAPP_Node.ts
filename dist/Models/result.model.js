@@ -30,10 +30,6 @@ Result.schema = new mongo_1.Schema({
         type: String,
         required: true
     },
-    name: {
-        type: String,
-        required: true
-    },
     studentID: {
         type: mongo_1.Schema.Types.ObjectId,
         ref: 'Student',
