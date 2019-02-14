@@ -2,7 +2,6 @@ import { Mongo, Schema, model } from '../Modules/mongo';
 import { IQuestionIMGInput, IQuestionIMG } from './question.model';
 import { IResult } from './result.model';
 import { IStatus } from './misc.model';
-import { Firebase } from '../Modules/firebase';
 import { Scheduler } from '../Modules/scheduler';
 import { Log } from '../Modules/logger';
 
@@ -139,7 +138,7 @@ class Quiz {
         const id = doc._id;
         const date = doc.date;
 
-        Firebase.quizCard(<any>id, <any>doc);
+        // quiz card pub sub
         Scheduler.schedule(id, date);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);

@@ -1,6 +1,11 @@
 import { IQuiz } from '../Models/quiz.model';
 import { Log } from './logger';
 
+/**
+ * Logic needs to be changed
+ *
+ * @class Dispatcher
+ */
 class Dispatcher {
 
   private static quizes: Map<string, {_id: string, JSON: string}> = new Map<string, {_id: string, JSON: string}>();

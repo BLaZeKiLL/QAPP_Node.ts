@@ -4,7 +4,6 @@ import { Schema } from './mongo';
 import { Dispatcher } from './dispatcher';
 import { Log } from './logger';
 import { Quiz } from '../Models/quiz.model';
-import { Firebase } from './firebase';
 import { JSONHandler } from './JSON';
 
 class Scheduler {
@@ -17,8 +16,8 @@ class Scheduler {
       try {
         const quiz = await Quiz.getOne(undefined, quizID, true);
         JSONHandler.saveData('quiz.json', quiz);
-        quiz.targets.forEach((target: string) => {
-          Firebase.reminder(target);
+        quiz.targetEmails.forEach((target: string) => {
+          // publish subscribtion
           Dispatcher.distribute(target, quiz);
         });
       } catch (error) {
