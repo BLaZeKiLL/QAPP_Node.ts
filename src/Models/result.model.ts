@@ -4,7 +4,6 @@ import { Log } from '../Modules/logger';
 
 interface IResult {
   score: string;
-  name: string;
   studentID: Schema.Types.ObjectId;
   quizID: Schema.Types.ObjectId;
   _id?: Schema.Types.ObjectId;
@@ -12,14 +11,12 @@ interface IResult {
 
 interface IQuizResult {
   score: string;
-  name: string;
   rollno: string;
   _id?: Schema.Types.ObjectId;
 }
 
 interface IResultInput {
   score: string;
-  name: string;
   quizID: string;
   studentID: string;
 }
