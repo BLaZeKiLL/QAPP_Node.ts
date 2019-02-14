@@ -9,9 +9,6 @@ interface IStudent {
   name: string;
   email: string;
   password?: string;
-  deviceID?: string;
-  rollno: string;
-  target: string;
   resluts?: IResult[];
 }
 
@@ -19,9 +16,6 @@ interface IStudentFilter {
   _id?: Schema.Types.ObjectId;
   name?: string;
   email?: string;
-  deviceID?: string;
-  rollno?: string;
-  target?: string;
   password?: boolean;
   resluts?: IResult[];
 }
@@ -30,8 +24,6 @@ interface IStudentInput {
   name: string;
   email: string;
   password: string;
-  rollno: string;
-  target: string;
 }
 
 interface IStudentAuthResponse {
@@ -39,8 +31,6 @@ interface IStudentAuthResponse {
     id: Schema.Types.ObjectId;
     name: string;
     email: string;
-    rollno: string;
-    target: string;
     token: string;
   };
   status: IStatus;
@@ -53,9 +43,6 @@ class Student {
    * @property {String} name name of teacher
    * @property {String} username username credential
    * @property {String} password password credential stored as HASH
-   * @property {String} deviceID Firebase device ID
-   * @property {Number} rollNo University Roll number
-   * @property {string} target brancg/sem/section of the student
    * @property {ref[]} result references to results of the student
    */
   private static schema = new Schema({
@@ -68,15 +55,6 @@ class Student {
       required: true
     },
     password: {
-      type: String,
-      required: true
-    },
-    deviceID: String,
-    rollno: {
-      type: String,
-      required: true
-    },
-    target: {
       type: String,
       required: true
     },
