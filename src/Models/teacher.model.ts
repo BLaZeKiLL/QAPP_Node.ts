@@ -6,7 +6,6 @@ import { IStatus } from './misc.model';
 interface ITeacher {
   name: string;
   email: string;
-  admin: boolean;
   password?: string;
   _id?: Schema.Types.ObjectId;
 }
@@ -14,7 +13,6 @@ interface ITeacher {
 interface ITeacherFilter {
   name?: string;
   email?: string;
-  admin?: boolean;
   password?: boolean;
   _id?: Schema.Types.ObjectId;
 }
@@ -22,7 +20,6 @@ interface ITeacherFilter {
 interface ITeacherInput {
   name: string;
   email: string;
-  admin: boolean;
   password: string;
 }
 
@@ -30,7 +27,6 @@ interface ITeacherAuthResponse {
   auth?: {
     id: Schema.Types.ObjectId;
     email: string;
-    admin: boolean;
     token: string;
     name: string;
   };
@@ -52,10 +48,6 @@ class Teacher {
     },
     email: {
       type: String,
-      required: true
-    },
-    admin: {
-      type: Boolean,
       required: true
     },
     password: {
