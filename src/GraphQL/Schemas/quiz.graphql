@@ -11,7 +11,7 @@ input QuizInput {
   setQuestions: Int!
   date: String!
   duration: Int!
-  targets: [String!]!
+  targetEmails: [String!]!
   questions: [IMGQuestionInput!]!
 }
 
@@ -23,7 +23,7 @@ input QuizUpdate {
   setQuestions: Int
   date: String
   duration: Int
-  targets: [String!]
+  targetEmails: [String!]
   questions: [IMGQuestionInput!]
   active: Boolean
 }
@@ -37,7 +37,7 @@ type Quiz {
   setQuestions: Int!
   date: String!
   duration: Int!
-  targets: [String!]!
+  targetEmails: [String!]!
   questions: [IMGQuestion!]!
   active: Boolean!
   results: [Result!]
