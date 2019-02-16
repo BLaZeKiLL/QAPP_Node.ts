@@ -23,7 +23,6 @@ const moment_1 = __importDefault(require("moment"));
 const dispatcher_1 = require("./dispatcher");
 const logger_1 = require("./logger");
 const quiz_model_1 = require("../Models/quiz.model");
-const firebase_1 = require("./firebase");
 const JSON_1 = require("./JSON");
 class Scheduler {
     static schedule(quizID, date) {
@@ -33,8 +32,8 @@ class Scheduler {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID, true);
                 JSON_1.JSONHandler.saveData('quiz.json', quiz);
-                quiz.targets.forEach((target) => {
-                    firebase_1.Firebase.reminder(target);
+                quiz.targetEmails.forEach((target) => {
+                    // publish subscribtion
                     dispatcher_1.Dispatcher.distribute(target, quiz);
                 });
             }

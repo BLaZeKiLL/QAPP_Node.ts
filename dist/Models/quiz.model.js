@@ -9,10 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../Modules/mongo");
-const firebase_1 = require("../Modules/firebase");
 const scheduler_1 = require("../Modules/scheduler");
 const logger_1 = require("../Modules/logger");
 class Quiz {
+    /**
+     * Adds a quiz to DB
+     * should publish to subscribtion
+     * remove firebase logic
+     * remove cron job
+     * @static
+     * @param {IQuizInput} quiz
+     * @returns {Promise<boolean>}
+     * @memberof Quiz
+     */
     static add(quiz) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -20,7 +29,7 @@ class Quiz {
                 if (doc) {
                     const id = doc._id;
                     const date = doc.date;
-                    firebase_1.Firebase.quizCard(id, doc);
+                    // quiz card pub sub
                     scheduler_1.Scheduler.schedule(id, date);
                     logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                     return true;
@@ -56,7 +65,7 @@ class Quiz {
 }
 /**
  * Quiz schema
- * @property {String} courseCode Course-Code of the quiz
+ * @property {String} subject Subject/Topic/Name of the quiz
  * @property {Number} No Quiz number
  * @property {ref} creator refrence to the teacher account which created the quiz
  * @property {Number} totalQuestions Total number of questions in the quiz
@@ -64,12 +73,12 @@ class Quiz {
  * @property {String} date scheduled date of the quiz
  * @property {String} time scheduled time of the quiz
  * @property {Number} duration time duaration of the quiz
- * @property {string[]} targets array of targets of the quiz
+ * @property {string[]} targetEmails array of targets of the quiz
  * @property {question[]} questions questions for the quiz with image URL's if any
  * @property {ref} result reference to quiz result
  */
 Quiz.schema = new mongo_1.Schema({
-    courseCode: {
+    subject: {
         type: String,
         required: true
     },
@@ -98,7 +107,7 @@ Quiz.schema = new mongo_1.Schema({
         type: Number,
         required: true
     },
-    targets: [{
+    targetEmails: [{
             type: String,
             required: true
         }],

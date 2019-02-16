@@ -57,14 +57,6 @@ function authenticate(req, res, next) {
             next();
             return;
         }
-        case misc_model_1.Power.ADMIN: {
-            req.isStudent = false;
-            req.isTeacher = true;
-            req.isAdmin = true;
-            logger_1.Log.main.info('ADMIN REQUEST');
-            next();
-            return;
-        }
     }
 }
 exports.authenticate = authenticate;
@@ -84,12 +76,4 @@ function isTeacher(req) {
     }
 }
 exports.isTeacher = isTeacher;
-function isAdmin(req) {
-    if (process.env.NODE_ENV === 'test')
-        return;
-    if (!req.isAdmin) {
-        throw new Error('Not Enough Power');
-    }
-}
-exports.isAdmin = isAdmin;
 //# sourceMappingURL=authentication.js.map

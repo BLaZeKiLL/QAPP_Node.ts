@@ -13,6 +13,7 @@ const authentication_1 = require("../../Modules/authentication");
 const dispatcher_1 = require("../../Modules/dispatcher");
 const logger_1 = require("../../Modules/logger");
 const Query = {
+    // logic change
     getQuiz: (args, req) => {
         try {
             authentication_1.isStudent(req);

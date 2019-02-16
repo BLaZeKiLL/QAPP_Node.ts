@@ -18,7 +18,6 @@ const ip_1 = __importDefault(require("ip"));
 const morgan_1 = __importDefault(require("morgan"));
 const graphql_1 = require("../GraphQL/graphql");
 const mongo_1 = require("../Modules/mongo");
-const firebase_1 = require("../Modules/firebase");
 const logger_1 = require("../Modules/logger");
 const teacher_model_1 = require("../Models/teacher.model");
 const student_model_1 = require("../Models/student.model");
@@ -44,10 +43,9 @@ class App {
         this.setupMongoDB();
         this.setupBodyParser();
         this.setupGrapQL();
-        this.setupFirebase();
         try {
             // this.ini(); // Uncomment this to add deafult admin account
-            // this.iniQuestions(); // Uncomment this to seed question bank
+            this.iniQuestions(); // Uncomment this to seed question bank
         }
         catch (error) {
             logger_1.Log.main.error(error);
@@ -121,15 +119,6 @@ class App {
         this.app.use(morgan_1.default('combined', { stream: { write: (message) => logger_1.Log.request.info(message.trim()) } }));
     }
     /**
-     * Firebase Setup
-     *
-     * @private
-     * @memberof App
-     */
-    setupFirebase() {
-        firebase_1.Firebase.connect();
-    }
-    /**
      * Creates the mongodb url depending upon the config
      *
      * @private
@@ -162,15 +151,12 @@ class App {
             yield teacher_model_1.Teacher.add({
                 name: 'Admin',
                 email: 'admin@gmail.com',
-                admin: true,
                 password: 'admin'
             });
             yield student_model_1.Student.add({
                 name: 'Admin',
                 email: 'admin@gmail.com',
                 password: 'admin',
-                rollno: '169105077',
-                target: 'CS5B'
             });
             logger_1.Log.main.info('ACCOUNTS SEEDED');
         });
@@ -186,7 +172,6 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             yield question_model_1.Question.addMany([
                 {
-                    courseCode: 'CS1501',
                     statement: 'What is the essentials of dynamic programing ?',
                     type: question_model_1.QuestionType.MCQ_MULTIPLE,
                     options: [
@@ -208,7 +193,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'In a max-heap, element with the greatest key is always in the which node ?',
                     type: question_model_1.QuestionType.MCQ_SINGLE,
                     options: [
@@ -230,7 +214,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'Which of the follwing have N complexity ?',
                     type: question_model_1.QuestionType.MCQ_MULTIPLE,
                     options: [
@@ -252,7 +235,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'Which of the following problems can be solved using recursion ?',
                     type: question_model_1.QuestionType.MCQ_SINGLE,
                     options: [
@@ -274,7 +256,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'What are the types of complexity analysis ?',
                     type: question_model_1.QuestionType.MCQ_MULTIPLE,
                     options: [
