@@ -7,9 +7,9 @@ const Query = {
   getQuestions: async (args: any, req: any): Promise<IQuestionsResponse> => {
     try {
       isTeacher(req);
-      Log.main.info(`QUERY FOR QUESTION: ${args.tags}`);
+      Log.main.info(`QUERY FOR QUESTION: ${args.searchQuery}`);
       return {
-        questions: await Question.get(args),
+        questions: await Question.get(args.searchQuery),
         status: {
           code: 0,
           message: 'OK'

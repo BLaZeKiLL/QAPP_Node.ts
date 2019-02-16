@@ -45,7 +45,7 @@ export class App {
     this.setupGrapQL();
     try {
       // this.ini(); // Uncomment this to add deafult admin account
-      // this.iniQuestions(); // Uncomment this to seed question bank
+      this.iniQuestions(); // Uncomment this to seed question bank
     } catch (error) {
       Log.main.error(error);
     }
@@ -177,7 +177,6 @@ export class App {
   private async iniQuestions(): Promise<void> {
     await Question.addMany([
       {
-        tags: ['DAA', 'Algorithims'],
         statement: 'What is the essentials of dynamic programing ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
@@ -199,7 +198,6 @@ export class App {
           }
         ]
       }, {
-        tags: ['DAA', 'Algorithims'],
         statement: 'In a max-heap, element with the greatest key is always in the which node ?',
         type: QuestionType.MCQ_SINGLE,
         options: [
@@ -221,7 +219,6 @@ export class App {
           }
         ]
       }, {
-        tags: ['DAA', 'Algorithims'],
         statement: 'Which of the follwing have N complexity ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
@@ -243,7 +240,6 @@ export class App {
           }
         ]
       }, {
-        tags: ['DAA', 'Algorithims'],
         statement: 'Which of the following problems can be solved using recursion ?',
         type: QuestionType.MCQ_SINGLE,
         options: [
@@ -265,7 +261,6 @@ export class App {
           }
         ]
       }, {
-        tags: ['DAA', 'Algorithims'],
         statement: 'What are the types of complexity analysis ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [

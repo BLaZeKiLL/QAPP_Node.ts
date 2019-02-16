@@ -7,8 +7,7 @@
 # import Message from 'misc.graphql'
 
 type Query {
-  getQuestions(courseCode: String!): QuestionsResponse! #
-  getTargets(courseCode: String!): TargetsResponse!
+  getQuestions(searchQuery: String!): QuestionsResponse! #
   getQuiz(target: String!): QuizResponse! #
   getQuizResults(courseCode: String!, number: Int!): QuizResultsResponse!
   getStudentResults(studentID: ID!): QuizResultsResponse!

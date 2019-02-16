@@ -23,7 +23,6 @@ interface IOption {
  * Question accourding to GraphQL
  */
 interface IQuestion {
-  tags: string[];
   type: QuestionType;
   statement: string;
   options: IOption[];
@@ -44,7 +43,6 @@ interface IQuestionIMG {
  * MongoDB Question filter
  */
 interface IQuestionFilter {
-  tags?: string[];
   type?: QuestionType;
   statement?: string;
   options?: IOption[];
@@ -53,7 +51,6 @@ interface IQuestionFilter {
 
 interface IQuestionUpdate {
   _id: Schema.Types.ObjectId;
-  tags?: string[];
   type?: QuestionType;
   statement?: string;
   options?: IOption[];
@@ -82,10 +79,6 @@ class Question {
    * @property {option[]} options Array of options of the question
    */
   private static schema = new Schema({
-    tags: [{
-      type: String,
-      required: true
-    }],
     type: {
       type: String,
       enum: ['MCQ_SINGLE', 'MCQ_MULTIPLE'],
@@ -106,7 +99,10 @@ class Question {
         required: true
       }
     }],
-  }).index({ courseCode: 1, type: 1, statement: 1 }, { unique: true }).plugin(unique);
+  })
+  .index({ statement: 'text'})
+  .index({ type: 1, statement: 1 }, { unique: true })
+  .plugin(unique);
 
   /**
    * Mongoose Model
@@ -129,9 +125,12 @@ class Question {
     }
   }
 
-  public static async get(filter?: IQuestionFilter): Promise<IQuestion[]> {
+  public static async get(searchQuery?: string): Promise<IQuestion[]> {
     try {
-      return await Mongo.get(Question.DBmodel, filter);
+      return await <any>this.DBmodel.find({$text: {$search: searchQuery}})
+      // .skip(20) // pagination controls
+      // .limit(10)
+      .exec();
     } catch (error) {
       throw error;
     }
