@@ -3,7 +3,6 @@
 input TeacherInput {
   name: String!
   email: String!
-  admin: Boolean!
 }
 
 input TeacherUpdate {
@@ -11,21 +10,18 @@ input TeacherUpdate {
   name: String
   email: String
   password: String
-  admin: Boolean
 }
 
 type Teacher {
   _id: ID!
   name: String!
   email: String!
-  admin: Boolean!
 }
 
 type TeacherAuthData {
   id: ID!
   name: String!
   email: String!
-  admin: Boolean!
   token: String!
 }
 
