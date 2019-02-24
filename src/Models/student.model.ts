@@ -8,6 +8,7 @@ interface IStudent {
   _id?: Schema.Types.ObjectId;
   name: string;
   email: string;
+  deviceID?: string;
   password?: string;
   resluts?: IResult[];
 }
@@ -16,6 +17,7 @@ interface IStudentFilter {
   _id?: Schema.Types.ObjectId;
   name?: string;
   email?: string;
+  deviceID?: string;
   password?: boolean;
   resluts?: IResult[];
 }
@@ -43,6 +45,7 @@ class Student {
    * @property {String} name name of teacher
    * @property {String} username username credential
    * @property {String} password password credential stored as HASH
+   * @property {String} deviceID Firebase device ID
    * @property {ref[]} result references to results of the student
    */
   private static schema = new Schema({
@@ -54,6 +57,7 @@ class Student {
       type: String,
       required: true
     },
+    deviceID: String,
     password: {
       type: String,
       required: true

@@ -18,6 +18,7 @@ const ip_1 = __importDefault(require("ip"));
 const morgan_1 = __importDefault(require("morgan"));
 const graphql_1 = require("../GraphQL/graphql");
 const mongo_1 = require("../Modules/mongo");
+const firebase_1 = require("../Modules/firebase");
 const logger_1 = require("../Modules/logger");
 const teacher_model_1 = require("../Models/teacher.model");
 const student_model_1 = require("../Models/student.model");
@@ -43,6 +44,7 @@ class App {
         this.setupMongoDB();
         this.setupBodyParser();
         this.setupGrapQL();
+        this.setupFirebase();
         try {
             // this.ini(); // Uncomment this to add deafult admin account
             // this.iniQuestions(); // Uncomment this to seed question bank
@@ -117,6 +119,15 @@ class App {
     setupLoggers() {
         logger_1.Log.initialize();
         this.app.use(morgan_1.default('combined', { stream: { write: (message) => logger_1.Log.request.info(message.trim()) } }));
+    }
+    /**
+     * Firebase Setup
+     *
+     * @private
+     * @memberof App
+     */
+    setupFirebase() {
+        firebase_1.Firebase.connect();
     }
     /**
      * Creates the mongodb url depending upon the config

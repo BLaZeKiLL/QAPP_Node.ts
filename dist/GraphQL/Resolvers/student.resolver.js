@@ -30,6 +30,11 @@ const Query = {
                 throw new Error('AUTH');
             }
             logger_1.Log.main.info('AUTH OK');
+            if (!student.deviceID || student.deviceID !== args.deviceID) {
+                student_model_1.Student.update({ deviceID: args.deviceID }, student._id);
+                Firebase.subscribe(student.target, args.deviceID);
+                logger_1.Log.main.info('DEVICE ID UPDATED');
+            }
             return {
                 auth: {
                     id: student._id,
