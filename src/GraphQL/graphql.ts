@@ -4,8 +4,11 @@ import { importSchema } from 'graphql-import';
 import { Log } from '../Modules/logger';
 
 import { Resolvers } from './Resolvers/index.resolver';
+import { RedisPubSub } from 'graphql-redis-subscriptions';
 
 export class GraphBuilder {
+
+  private static subscriber: RedisPubSub;
 
   constructor(private graphiql: boolean) {}
 
@@ -31,8 +34,14 @@ export class GraphBuilder {
       schema {
         query: Query
         mutation: Mutation
+        subscription: Subscription
       }
     `);
+  }
+
+  public static get Subscriber(): RedisPubSub {
+    if (this.subscriber === undefined) this.subscriber = new RedisPubSub();
+    return this.subscriber;
   }
 
 }

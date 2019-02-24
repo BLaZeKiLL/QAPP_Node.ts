@@ -4,6 +4,7 @@ import { IResult } from './result.model';
 import { IStatus } from './misc.model';
 import { Scheduler } from '../Modules/scheduler';
 import { Log } from '../Modules/logger';
+import { GraphBuilder } from 'GraphQL/graphql';
 
 interface IQuizInput {
   subject: string;
@@ -139,7 +140,8 @@ class Quiz {
         const date = doc.date;
 
         // quiz card pub sub
-        Scheduler.schedule(id, date);
+        // Scheduler.schedule(id, date);
+        GraphBuilder.Subscriber.publish('QUIZ_TOPIC', doc);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);
         return true;

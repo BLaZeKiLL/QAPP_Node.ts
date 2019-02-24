@@ -1,7 +1,9 @@
-import { Quiz, IQuizResponse } from '../../Models/quiz.model';
+import { Quiz, IQuizResponse, IQuiz } from '../../Models/quiz.model';
 import { isTeacher, isStudent } from '../../Modules/authentication';
 import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
+import { GraphBuilder } from '../graphql';
+import { withFilter } from 'graphql-subscriptions';
 
 const Query = {
   // logic change
@@ -38,7 +40,33 @@ const Mutation = {
   }
 };
 
+const Subscription = {
+  // expected order first subscribe then resolve
+  quizSub: {
+    subscribe: withFilter(() => GraphBuilder.Subscriber.asyncIterator('QUIZ_TOPIC'), (payload, variables) => {
+      return (<any[]>payload.quizSub.targetEmails).indexOf(variables.email) !== -1;
+    }),
+    resolve: (payload: { quizSub: any; }, args: any, context: any, info: any) => {
+      const quiz = <IQuiz>payload.quizSub;
+
+      quiz.results = undefined;
+      quiz.targetEmails = undefined;
+      quiz.creator = undefined;
+
+      return {
+        _id: quiz._id,
+        JSON: JSON.stringify(quiz),
+        status: {
+          code: 0,
+          message: 'OK'
+        }
+      };
+    }
+  }
+};
+
 export {
   Query,
-  Mutation
+  Mutation,
+  Subscription
 };

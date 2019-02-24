@@ -16,6 +16,7 @@ export class GraphQLTest {
       schema {
         query: Query
         mutation: Mutation
+        subscription: Subscription
       }
     `);
   }
