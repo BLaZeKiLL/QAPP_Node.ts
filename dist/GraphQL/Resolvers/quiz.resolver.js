@@ -12,6 +12,8 @@ const quiz_model_1 = require("../../Models/quiz.model");
 const authentication_1 = require("../../Modules/authentication");
 const dispatcher_1 = require("../../Modules/dispatcher");
 const logger_1 = require("../../Modules/logger");
+const graphql_1 = require("../graphql");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
 const Query = {
     // logic change
     getQuiz: (args, req) => {
@@ -48,4 +50,29 @@ const Mutation = {
     })
 };
 exports.Mutation = Mutation;
+const Subscription = {
+    // expected order first subscribe then resolve
+    quizSub: {
+        subscribe: graphql_subscriptions_1.withFilter(() => graphql_1.GraphBuilder.Subscriber.asyncIterator('QUIZ_TOPIC'), (payload, variables) => {
+            logger_1.Log.main.info(`QUIZ SUBSCRIBED`);
+            return payload.quizSub.targetEmails.indexOf(variables.email) !== -1;
+        }),
+        resolve: (payload, args, context, info) => {
+            const quiz = payload.quizSub;
+            logger_1.Log.main.info(`QUIZ RESOLVED`);
+            quiz.results = undefined;
+            quiz.targetEmails = undefined;
+            quiz.creator = undefined;
+            return {
+                _id: quiz._id,
+                JSON: JSON.stringify(quiz),
+                status: {
+                    code: 0,
+                    message: 'OK'
+                }
+            };
+        }
+    }
+};
+exports.Subscription = Subscription;
 //# sourceMappingURL=quiz.resolver.js.map

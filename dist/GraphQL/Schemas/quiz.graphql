@@ -4,40 +4,40 @@
 # import Status from 'misc.graphql'
 
 input QuizInput {
-  courseCode: String!
+  subject: String!
   No: Int!
   creator: ID!
   totalQuestions: Int!
   setQuestions: Int!
   date: String!
   duration: Int!
-  targets: [String!]!
+  targetEmails: [String!]!
   questions: [IMGQuestionInput!]!
 }
 
 input QuizUpdate {
   _id: ID!
-  courseCode: String
+  subject: String!
   No: Int
   totalQuestions: Int
   setQuestions: Int
   date: String
   duration: Int
-  targets: [String!]
+  targetEmails: [String!]
   questions: [IMGQuestionInput!]
   active: Boolean
 }
 
 type Quiz {
   _id: ID!
-  courseCode: String!
+  subject: String!
   No: Int!
   creator: Teacher!
   totalQuestions: Int!
   setQuestions: Int!
   date: String!
   duration: Int!
-  targets: [String!]!
+  targetEmails: [String!]!
   questions: [IMGQuestion!]!
   active: Boolean!
   results: [Result!]

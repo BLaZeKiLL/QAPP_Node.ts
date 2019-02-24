@@ -15,7 +15,7 @@ const errorHandler_1 = require("../../Modules/errorHandler");
 const Query = {
     getQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
-            // isTeacher(req);
+            authentication_1.isTeacher(req);
             logger_1.Log.main.info(`QUERY FOR QUESTION: ${args.searchQuery}`);
             return {
                 questions: yield question_model_1.Question.get(args.searchQuery),

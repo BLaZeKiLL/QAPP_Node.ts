@@ -45,7 +45,7 @@ export class App {
     this.setupGrapQL();
     try {
       // this.ini(); // Uncomment this to add deafult admin account
-      this.iniQuestions(); // Uncomment this to seed question bank
+      // this.iniQuestions(); // Uncomment this to seed question bank
     } catch (error) {
       Log.main.error(error);
     }
