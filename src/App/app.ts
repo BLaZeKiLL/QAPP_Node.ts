@@ -6,6 +6,7 @@ import morgan from 'morgan';
 
 import { GraphBuilder } from '../GraphQL/graphql';
 import { Mongo } from '../Modules/mongo';
+import { Firebase } from '../Modules/firebase';
 import { Log } from '../Modules/logger';
 import { Teacher } from '../Models/teacher.model';
 import { Student } from '../Models/student.model';
@@ -43,6 +44,7 @@ export class App {
     this.setupMongoDB();
     this.setupBodyParser();
     this.setupGrapQL();
+    this.setupFirebase();
     try {
       // this.ini(); // Uncomment this to add deafult admin account
       // this.iniQuestions(); // Uncomment this to seed question bank
@@ -123,6 +125,16 @@ export class App {
   private setupLoggers(): void {
     Log.initialize();
     this.app.use(morgan('combined', { stream: { write: (message: string) => Log.request.info(message.trim()) } }));
+  }
+
+  /**
+   * Firebase Setup
+   *
+   * @private
+   * @memberof App
+   */
+  private setupFirebase(): void {
+    Firebase.connect();
   }
 
   /**
