@@ -70,6 +70,7 @@ class Student {
  * @property {String} name name of teacher
  * @property {String} username username credential
  * @property {String} password password credential stored as HASH
+ * @property {String} deviceID Firebase device ID
  * @property {ref[]} result references to results of the student
  */
 Student.schema = new mongo_1.Schema({
@@ -81,6 +82,7 @@ Student.schema = new mongo_1.Schema({
         type: String,
         required: true
     },
+    deviceID: String,
     password: {
         type: String,
         required: true

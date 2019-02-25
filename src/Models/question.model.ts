@@ -1,4 +1,4 @@
-import { Mongo, Schema, model } from '../Modules/mongo';
+import { Mongo, Schema, model, MongoUtils } from '../Modules/mongo';
 import unique from 'mongoose-unique-validator';
 import { IStatus } from './misc.model';
 import { Log } from '../Modules/logger';
@@ -127,10 +127,10 @@ class Question {
 
   public static async get(searchQuery?: string): Promise<IQuestion[]> {
     try {
-      return await <any>this.DBmodel.find({$text: {$search: searchQuery}})
+      return MongoUtils.bsonConverterArray(await <any>this.DBmodel.find({$text: {$search: searchQuery}})
       // .skip(20) // pagination controls
       // .limit(10)
-      .exec();
+      .exec());
     } catch (error) {
       throw error;
     }

@@ -8,7 +8,6 @@ const graphql_1 = require("graphql");
 const graphql_import_1 = require("graphql-import");
 const logger_1 = require("../Modules/logger");
 const index_resolver_1 = require("./Resolvers/index.resolver");
-const graphql_redis_subscriptions_1 = require("graphql-redis-subscriptions");
 class GraphBuilder {
     constructor(graphiql) {
         this.graphiql = graphiql;
@@ -34,14 +33,8 @@ class GraphBuilder {
       schema {
         query: Query
         mutation: Mutation
-        subscription: Subscription
       }
     `);
-    }
-    static get Subscriber() {
-        if (this.subscriber === undefined)
-            this.subscriber = new graphql_redis_subscriptions_1.RedisPubSub();
-        return this.subscriber;
     }
 }
 exports.GraphBuilder = GraphBuilder;

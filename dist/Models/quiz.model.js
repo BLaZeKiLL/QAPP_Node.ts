@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../Modules/mongo");
+const scheduler_1 = require("../Modules/scheduler");
 const logger_1 = require("../Modules/logger");
-const graphql_1 = require("GraphQL/graphql");
 class Quiz {
     /**
      * Adds a quiz to DB
@@ -29,9 +29,7 @@ class Quiz {
                 if (doc) {
                     const id = doc._id;
                     const date = doc.date;
-                    // quiz card pub sub
-                    // Scheduler.schedule(id, date);
-                    graphql_1.GraphBuilder.Subscriber.publish('QUIZ_TOPIC', doc);
+                    scheduler_1.Scheduler.schedule(id, date);
                     logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                     return true;
                 }

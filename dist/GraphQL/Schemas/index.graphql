@@ -33,7 +33,3 @@ type Mutation {
   deleteQuestion(id: ID!): Boolean! #
   deleteQuiz(id: ID!): Boolean!
 }
-
-type Subscription {
-  quizSub(email: String!): QuizResponse!
-}

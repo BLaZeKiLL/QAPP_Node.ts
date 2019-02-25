@@ -49,10 +49,10 @@ class Question {
     static get(searchQuery) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.DBmodel.find({ $text: { $search: searchQuery } })
+                return mongo_1.MongoUtils.bsonConverterArray(yield this.DBmodel.find({ $text: { $search: searchQuery } })
                     // .skip(20) // pagination controls
                     // .limit(10)
-                    .exec();
+                    .exec());
             }
             catch (error) {
                 throw error;

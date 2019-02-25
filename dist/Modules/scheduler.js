@@ -33,7 +33,7 @@ class Scheduler {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID, true);
                 JSON_1.JSONHandler.saveData('quiz.json', quiz);
-                quiz.targets.forEach((target) => {
+                quiz.targetEmails.forEach((target) => {
                     firebase_1.Firebase.reminder(target);
                     dispatcher_1.Dispatcher.distribute(target, quiz);
                 });

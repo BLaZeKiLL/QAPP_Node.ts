@@ -17,7 +17,7 @@ class Scheduler {
       try {
         const quiz = await Quiz.getOne(undefined, quizID, true);
         JSONHandler.saveData('quiz.json', quiz);
-        quiz.targets.forEach((target: string) => {
+        quiz.targetEmails.forEach((target: string) => {
           Firebase.reminder(target);
           Dispatcher.distribute(target, quiz);
         });
