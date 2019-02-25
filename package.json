@@ -33,8 +33,6 @@
     "firebase-admin": "^6.4.0",
     "graphql": "^14.0.2",
     "graphql-import": "^0.7.1",
-    "graphql-redis-subscriptions": "^2.0.0",
-    "graphql-subscriptions": "^1.0.0",
     "ip": "^1.1.5",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.24.0",
