@@ -10,7 +10,7 @@ type Query {
   getQuiz(target: String!): QuizResponse! #
   getQuizResults(quizID: ID!): QuizResultsResponse!
   getStudentResults(studentID: ID!): QuizResultsResponse!
-  studentLogin(email: String!, password: String!): StudentAuthResponse! #
+  studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthResponse! #
   teacherLogin(email: String!, password: String!): TeacherAuthResponse! #
 }
 
