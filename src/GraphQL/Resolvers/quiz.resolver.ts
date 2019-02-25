@@ -44,7 +44,7 @@ const Subscription = {
   // expected order first subscribe then resolve
   quizSub: {
     subscribe: withFilter(() => GraphBuilder.Subscriber.asyncIterator('QUIZ_TOPIC'), (payload, variables) => {
-      Log.main.info(`QUIZ SUBSCRIBED`);
+      Log.main.info(`QUIZ SUBSCRIBED TO ${variables.email}`);
       return (<any[]>payload.quizSub.targetEmails).indexOf(variables.email) !== -1;
     }),
     resolve: (payload: { quizSub: any; }, args: any, context: any, info: any) => {

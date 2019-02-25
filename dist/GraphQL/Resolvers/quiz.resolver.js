@@ -54,7 +54,7 @@ const Subscription = {
     // expected order first subscribe then resolve
     quizSub: {
         subscribe: graphql_subscriptions_1.withFilter(() => graphql_1.GraphBuilder.Subscriber.asyncIterator('QUIZ_TOPIC'), (payload, variables) => {
-            logger_1.Log.main.info(`QUIZ SUBSCRIBED`);
+            logger_1.Log.main.info(`QUIZ SUBSCRIBED TO ${variables.email}`);
             return payload.quizSub.targetEmails.indexOf(variables.email) !== -1;
         }),
         resolve: (payload, args, context, info) => {
