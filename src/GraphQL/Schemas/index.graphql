@@ -35,5 +35,5 @@ type Mutation {
 }
 
 type Subscription {
-  quizSub(email: String!): QuizResponse!
+  quizSubscription(email: String!): QuizResponse!
 }

@@ -41,6 +41,7 @@ export class GraphBuilder {
 
   public static get Subscriber(): RedisPubSub {
     if (this.subscriber === undefined) this.subscriber = new RedisPubSub();
+    Log.main.info('REDIS STARTED');
     return this.subscriber;
   }
 

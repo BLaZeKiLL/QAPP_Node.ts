@@ -41,6 +41,7 @@ class GraphBuilder {
     static get Subscriber() {
         if (this.subscriber === undefined)
             this.subscriber = new graphql_redis_subscriptions_1.RedisPubSub();
+        logger_1.Log.main.info('REDIS STARTED');
         return this.subscriber;
     }
 }

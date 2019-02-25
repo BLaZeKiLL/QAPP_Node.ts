@@ -9,16 +9,16 @@ function authenticate(req: any, res: Response, next: NextFunction) {
   const token = req.get('Authorization');
   if (token == undefined) {
     Log.main.info('NO TOKEN');
-    req.isStudent = false;
-    req.isTeacher = false;
+    req.isStudent = true;
+    req.isTeacher = true;
     req.isAdmin = false;
     next();
     return;
   }
   if (!token) {
     Log.main.info('NO TOKEN');
-    req.isStudent = false;
-    req.isTeacher = false;
+    req.isStudent = true;
+    req.isTeacher = true;
     req.isAdmin = false;
     next();
     return;
