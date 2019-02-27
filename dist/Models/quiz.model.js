@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongo_1 = require("../Modules/mongo");
 const scheduler_1 = require("../Modules/scheduler");
 const logger_1 = require("../Modules/logger");
+const dispatcher_1 = require("../Modules/dispatcher");
 class Quiz {
     /**
      * Adds a quiz to DB
@@ -28,8 +29,8 @@ class Quiz {
                 const doc = yield mongo_1.Mongo.add(Quiz.DBmodel, quiz);
                 if (doc) {
                     const id = doc._id;
-                    const date = doc.date;
-                    scheduler_1.Scheduler.schedule(id, date);
+                    scheduler_1.Scheduler.process(doc.targetEmails);
+                    dispatcher_1.Dispatcher.cache(doc);
                     logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                     return true;
                 }
@@ -66,7 +67,6 @@ class Quiz {
  * Quiz schema
  * @property {String} subject Subject/Topic/Name of the quiz
  * @property {Number} No Quiz number
- * @property {ref} creator refrence to the teacher account which created the quiz
  * @property {Number} totalQuestions Total number of questions in the quiz
  * @property {Number} setQuestions number of questions in each set of the quiz
  * @property {String} date scheduled date of the quiz
@@ -83,11 +83,6 @@ Quiz.schema = new mongo_1.Schema({
     },
     No: {
         type: Number,
-        required: true
-    },
-    creator: {
-        type: mongo_1.Schema.Types.ObjectId,
-        ref: 'Teacher',
         required: true
     },
     totalQuestions: {

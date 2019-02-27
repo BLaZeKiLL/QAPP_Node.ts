@@ -2,27 +2,23 @@
 # import Result from 'result.graphql'
 
 input StudentInput {
-  name: String!
   email: String!
 }
 
 input StudentUpdate {
   _id: ID!
-  name: String
   password: String
   email: String
 }
 
 type Student {
   _id: ID!
-  name: String!
   email: String!
   results: [Result!]
 }
 
 type StudentAuthData {
   id: ID!
-  name: String!
   email: String!
   token: String!
 }

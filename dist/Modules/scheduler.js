@@ -19,12 +19,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cron = __importStar(require("cron"));
+const passwordGenerator = __importStar(require("randomstring"));
+const quiz_model_1 = require("../Models/quiz.model");
 const moment_1 = __importDefault(require("moment"));
 const dispatcher_1 = require("./dispatcher");
 const logger_1 = require("./logger");
-const quiz_model_1 = require("../Models/quiz.model");
 const firebase_1 = require("./firebase");
 const JSON_1 = require("./JSON");
+const student_model_1 = require("../Models/student.model");
+const postman_1 = require("./postman");
 class Scheduler {
     static schedule(quizID, date) {
         const istdate = moment_1.default.utc(date.toUTCString()).local();
@@ -42,6 +45,34 @@ class Scheduler {
                 logger_1.Log.main.error(error);
             }
         }), undefined, true, 'Asia/Kolkata');
+    }
+    static process(emails) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const stu_accounts = yield student_model_1.Student.Model.find({
+                    'email': {
+                        $in: emails
+                    }
+                });
+                firebase_1.Firebase.reminder_id(stu_accounts.map(student => student.deviceID));
+                const stu_emails = stu_accounts.map(student => student.email);
+                logger_1.Log.main.info(`OLD ACCOUNTS: ${JSON.stringify(stu_emails)}`);
+                const new_emails = emails.filter(x => stu_emails.indexOf(x) === -1);
+                logger_1.Log.main.info(`NEW ACCOUNTS: ${JSON.stringify(new_emails)}`);
+                new_emails.forEach(email => {
+                    const password = passwordGenerator.generate(6);
+                    postman_1.Postman.accountMail(email, 'Student', password);
+                    student_model_1.Student.add({
+                        email: email,
+                        password: password
+                    });
+                });
+            }
+            catch (error) {
+                console.log(error);
+                throw error;
+            }
+        });
     }
 }
 exports.Scheduler = Scheduler;

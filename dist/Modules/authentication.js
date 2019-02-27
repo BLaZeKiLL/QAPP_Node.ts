@@ -20,7 +20,7 @@ function authenticate(req, res, next) {
         req.isTeacher = false;
         req.isAdmin = false;
         next();
-        return;
+        return; // REMOVE
     }
     if (!token) {
         logger_1.Log.main.info('NO TOKEN');
@@ -28,7 +28,7 @@ function authenticate(req, res, next) {
         req.isTeacher = false;
         req.isAdmin = false;
         next();
-        return;
+        return; // REMOVE
     }
     const decodedToken = jwt.verify(token, APP_SECRET);
     if (!decodedToken) {
@@ -37,7 +37,7 @@ function authenticate(req, res, next) {
         req.isTeacher = false;
         req.isAdmin = false;
         next();
-        return;
+        return; // REMOVE
     }
     logger_1.Log.main.info(`DECODED TOKEN ${JSON.stringify(decodedToken)}`);
     switch (decodedToken.power) {

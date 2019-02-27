@@ -165,7 +165,6 @@ class App {
                 password: 'admin'
             });
             yield student_model_1.Student.add({
-                name: 'Admin',
                 email: 'admin@gmail.com',
                 password: 'admin',
             });

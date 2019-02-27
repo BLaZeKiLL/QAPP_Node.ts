@@ -18,6 +18,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = __importStar(require("bcryptjs"));
 const mongo_1 = require("../Modules/mongo");
 class Student {
+    static get Model() {
+        return this.DBmodel;
+    }
     static add(student) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -67,17 +70,12 @@ class Student {
 }
 /**
  * Student profile schema
- * @property {String} name name of teacher
- * @property {String} username username credential
+ * @property {String} email username credential
  * @property {String} password password credential stored as HASH
  * @property {String} deviceID Firebase device ID
  * @property {ref[]} result references to results of the student
  */
 Student.schema = new mongo_1.Schema({
-    name: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true
