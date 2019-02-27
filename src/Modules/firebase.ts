@@ -92,6 +92,18 @@ class Firebase {
     }
   }
 
+  public static async reminder_id(deviceIDs: string[]) {
+    try {
+      await this.dataload_id(
+        deviceIDs,
+        { request: 'true' },
+      );
+      Log.main.info('QUIZ REMINDER SENT');
+    } catch (error) {
+      Log.main.error(error);
+    }
+  }
+
   private static async broadcast(topic: string, payload: any, message: string, title: string): Promise<void> {
     try {
       await admin.messaging().sendToTopic(topic, {
@@ -110,6 +122,17 @@ class Firebase {
   private static async dataload(topic: string, payload: any): Promise<void> {
     try {
       await admin.messaging().sendToTopic(topic, {
+        data: payload,
+      });
+    } catch (error) {
+      Log.main.error('FIREBASE');
+      Log.main.error(error);
+    }
+  }
+
+  private static async dataload_id(deviceIDs: string[], payload: any): Promise<void> {
+    try {
+      await admin.messaging().sendToDevice(deviceIDs, {
         data: payload,
       });
     } catch (error) {
