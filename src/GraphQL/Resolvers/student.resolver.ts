@@ -6,7 +6,6 @@ import { Student, IStudentAuthResponse } from '../../Models/student.model';
 import { APP_SECRET, isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Log } from '../../Modules/logger';
-import { Firebase } from 'Modules/firebase';
 
 const Query = {
   studentLogin: async (args: any): Promise<IStudentAuthResponse> => {
@@ -22,13 +21,11 @@ const Query = {
       Log.main.info('AUTH OK');
       if (!student.deviceID || student.deviceID !== args.deviceID) {
         Student.update({deviceID: args.deviceID}, student._id);
-        // Firebase.subscribe(student.target, args.deviceID);
         Log.main.info('DEVICE ID UPDATED');
       }
       return {
         auth: {
           id: student._id,
-          name: student.name,
           email: student.email,
           token: jwt.sign(<IToken>{
               id: student._id,

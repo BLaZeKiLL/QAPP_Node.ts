@@ -172,7 +172,6 @@ export class App {
     });
 
     await Student.add({
-      name: 'Admin',
       email: 'admin@gmail.com',
       password: 'admin',
     });
