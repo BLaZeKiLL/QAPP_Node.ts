@@ -6,7 +6,6 @@
 input QuizInput {
   subject: String!
   No: Int!
-  creator: ID!
   totalQuestions: Int!
   setQuestions: Int!
   date: String!
@@ -32,7 +31,6 @@ type Quiz {
   _id: ID!
   subject: String!
   No: Int!
-  creator: Teacher!
   totalQuestions: Int!
   setQuestions: Int!
   date: String!
