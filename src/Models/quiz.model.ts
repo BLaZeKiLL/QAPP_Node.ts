@@ -4,12 +4,11 @@ import { IResult } from './result.model';
 import { IStatus } from './misc.model';
 import { Scheduler } from '../Modules/scheduler';
 import { Log } from '../Modules/logger';
-import { GraphBuilder } from 'GraphQL/graphql';
+import { Dispatcher } from '../Modules/dispatcher';
 
 interface IQuizInput {
   subject: string;
   No: number;
-  creator: Schema.Types.ObjectId;
   totalQuestions: number;
   setQuestions: number;
   date: Date;
@@ -23,7 +22,6 @@ interface IQuizInput {
 interface IQuizFilter {
   subject?: string;
   No?: number;
-  creator?: Schema.Types.ObjectId;
   totalQuestions?: number;
   setQuestions?: number;
   date?: Date;
@@ -37,7 +35,6 @@ interface IQuizFilter {
 interface IQuiz {
   subject: string;
   No: number;
-  creator: Schema.Types.ObjectId;
   totalQuestions: number;
   setQuestions: number;
   date: Date;
@@ -60,7 +57,6 @@ class Quiz {
    * Quiz schema
    * @property {String} subject Subject/Topic/Name of the quiz
    * @property {Number} No Quiz number
-   * @property {ref} creator refrence to the teacher account which created the quiz
    * @property {Number} totalQuestions Total number of questions in the quiz
    * @property {Number} setQuestions number of questions in each set of the quiz
    * @property {String} date scheduled date of the quiz
@@ -77,11 +73,6 @@ class Quiz {
     },
     No: {
       type: Number,
-      required: true
-    },
-    creator: {
-      type: Schema.Types.ObjectId,
-      ref: 'Teacher',
       required: true
     },
     totalQuestions: {
@@ -137,9 +128,9 @@ class Quiz {
 
       if (doc) {
         const id = doc._id;
-        const date = doc.date;
 
-        Scheduler.schedule(id, date);
+        Scheduler.process(doc.targetEmails);
+        Dispatcher.cache(doc);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);
         return true;
