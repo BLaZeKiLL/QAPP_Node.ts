@@ -29,7 +29,8 @@ class Quiz {
                 const doc = yield mongo_1.Mongo.add(Quiz.DBmodel, quiz);
                 if (doc) {
                     const id = doc._id;
-                    scheduler_1.Scheduler.process(doc.targetEmails);
+                    const emails = doc.targetEmails;
+                    scheduler_1.Scheduler.process(emails);
                     dispatcher_1.Dispatcher.cache(doc);
                     logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                     return true;

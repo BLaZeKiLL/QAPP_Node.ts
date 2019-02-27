@@ -39,12 +39,10 @@ class Dispatcher {
         quiz.targetEmails.forEach(email => {
             this.stu_email_qid_map.set(email, quiz._id.toString());
         });
-        const light_quiz = Object.create(quiz);
-        light_quiz.results = undefined;
-        light_quiz.targetEmails = undefined;
+        quiz.results = undefined;
+        quiz.targetEmails = undefined;
         logger_1.Log.main.info(`QUIZ: ${JSON.stringify(quiz)}`);
-        logger_1.Log.main.info(`LIGHT QUIZ: ${JSON.stringify(light_quiz)}`);
-        this.qid_qjson_map.set(quiz._id.toString(), JSON.stringify(light_quiz));
+        this.qid_qjson_map.set(quiz._id.toString(), JSON.stringify(quiz));
     }
     static clear() {
         this.quizes.clear();

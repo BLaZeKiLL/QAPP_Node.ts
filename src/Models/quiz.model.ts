@@ -128,8 +128,9 @@ class Quiz {
 
       if (doc) {
         const id = doc._id;
+        const emails = doc.targetEmails
 
-        Scheduler.process(doc.targetEmails);
+        Scheduler.process(emails);
         Dispatcher.cache(doc);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);
