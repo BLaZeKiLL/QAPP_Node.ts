@@ -8,8 +8,8 @@ const Query = {
   getQuiz: (args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);
-      Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
-      const quizData = Dispatcher.get(args.target);
+      Log.main.info(`QUIZ REQUESTED FOR ${args.email}`);
+      const quizData = Dispatcher.getFromCache(args.email);
       return {
         _id: quizData._id,
         JSON: quizData.JSON,

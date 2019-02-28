@@ -7,7 +7,7 @@
 
 type Query {
   getQuestions(searchQuery: String!): QuestionsResponse! #
-  getQuiz(target: String!): QuizResponse! #
+  getQuiz(email: String!): QuizResponse! #
   getQuizResults(quizID: ID!): QuizResultsResponse!
   getStudentResults(studentID: ID!): QuizResultsResponse!
   studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthResponse! #

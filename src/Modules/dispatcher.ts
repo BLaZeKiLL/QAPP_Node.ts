@@ -31,6 +31,8 @@ class Dispatcher {
   public static getFromCache(email: string): {_id: string, JSON: string} {
     const id = this.stu_email_qid_map.get(email);
     const json = this.qid_qjson_map.get(id);
+    console.log(email);
+    console.log(id);
     if (json === undefined || json === null || id === undefined || id ===  null) {
       throw new Error('Quiz Not Found');
     } else {
@@ -43,8 +45,9 @@ class Dispatcher {
   }
 
   public static cache(quiz: IQuiz): void {
+    console.log(quiz._id.toString());
     quiz.targetEmails.forEach(email => {
-      this.stu_email_qid_map.set(email, quiz._id.toString())
+      this.stu_email_qid_map.set(email, quiz._id.toString());
     });
 
     quiz.results = undefined;

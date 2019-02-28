@@ -24,6 +24,8 @@ class Dispatcher {
     static getFromCache(email) {
         const id = this.stu_email_qid_map.get(email);
         const json = this.qid_qjson_map.get(id);
+        console.log(email);
+        console.log(id);
         if (json === undefined || json === null || id === undefined || id === null) {
             throw new Error('Quiz Not Found');
         }
@@ -36,6 +38,7 @@ class Dispatcher {
         }
     }
     static cache(quiz) {
+        console.log(quiz._id.toString());
         quiz.targetEmails.forEach(email => {
             this.stu_email_qid_map.set(email, quiz._id.toString());
         });
