@@ -5,6 +5,7 @@ import * as account from '../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb
 import { Log } from './logger';
 import { IQuiz } from '../Models/quiz.model';
 
+// #TODO remove topic specific code
 class Firebase {
 
   private static url = 'https://qapp-firebase.firebaseio.com';

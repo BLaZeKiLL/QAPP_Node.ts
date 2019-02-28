@@ -5,6 +5,7 @@ import { Student } from '../../Models/student.model';
 import { Quiz } from '../../Models/quiz.model';
 import { Log } from '../../Modules/logger';
 
+// #TODO implement resolvers
 const Query = {
   getStudentResults: async (args: any, req: any) => {
 

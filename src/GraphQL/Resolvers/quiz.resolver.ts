@@ -4,7 +4,6 @@ import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
 
 const Query = {
-  // logic change
   getQuiz: (args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);

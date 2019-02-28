@@ -5,6 +5,8 @@ import { Student } from '../../Models/student.model';
 import { Teacher } from '../../Models/teacher.model';
 import { Log } from '../../Modules/logger';
 
+// #TODO Remove Admin
+
 const Query = {
 
 };
