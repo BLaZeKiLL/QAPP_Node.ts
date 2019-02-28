@@ -161,4 +161,19 @@ class Mongo {
     }
 }
 exports.Mongo = Mongo;
+class MongoUtils {
+    static bsonConverterArray(docs) {
+        const docObjs = [];
+        docs.forEach((doc) => {
+            docObjs.push(this.bsonConverter(doc));
+        });
+        return docObjs;
+    }
+    static bsonConverter(doc) {
+        const docObj = doc.toObject();
+        transform_props_1.default(docObj, castToString, '_id');
+        return docObj;
+    }
+}
+exports.MongoUtils = MongoUtils;
 //# sourceMappingURL=mongo.js.map

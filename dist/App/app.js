@@ -162,15 +162,11 @@ class App {
             yield teacher_model_1.Teacher.add({
                 name: 'Admin',
                 email: 'admin@gmail.com',
-                admin: true,
                 password: 'admin'
             });
             yield student_model_1.Student.add({
-                name: 'Admin',
                 email: 'admin@gmail.com',
                 password: 'admin',
-                rollno: '169105077',
-                target: 'CS5B'
             });
             logger_1.Log.main.info('ACCOUNTS SEEDED');
         });
@@ -186,7 +182,6 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             yield question_model_1.Question.addMany([
                 {
-                    courseCode: 'CS1501',
                     statement: 'What is the essentials of dynamic programing ?',
                     type: question_model_1.QuestionType.MCQ_MULTIPLE,
                     options: [
@@ -208,7 +203,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'In a max-heap, element with the greatest key is always in the which node ?',
                     type: question_model_1.QuestionType.MCQ_SINGLE,
                     options: [
@@ -230,7 +224,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'Which of the follwing have N complexity ?',
                     type: question_model_1.QuestionType.MCQ_MULTIPLE,
                     options: [
@@ -252,7 +245,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'Which of the following problems can be solved using recursion ?',
                     type: question_model_1.QuestionType.MCQ_SINGLE,
                     options: [
@@ -274,7 +266,6 @@ class App {
                         }
                     ]
                 }, {
-                    courseCode: 'CS1501',
                     statement: 'What are the types of complexity analysis ?',
                     type: question_model_1.QuestionType.MCQ_MULTIPLE,
                     options: [

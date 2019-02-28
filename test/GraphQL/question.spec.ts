@@ -15,13 +15,13 @@ describe('Question', () => {
     expect(result.data.addQuestions.status.code).to.equal(0, `Status Code: ${result.data.addQuestions.status.code}: ${result.data.addQuestions.status.message}`);
 
     for (let i = 0; i < result.data.addQuestions.questions.length; i++) {
-      expect(result.data.addQuestions.questions[i], 'Invalid Question').to.contain.keys('_id', 'type', 'courseCode', 'statement', 'options');
+      expect(result.data.addQuestions.questions[i], 'Invalid Question').to.contain.keys('_id', 'type', 'statement', 'options');
     }
   });
 
   // Initial seeds required
-  it('Get questions for a course code', async () => {
-    const result = await GraphQLTest.Schema.execute(getQuestionsQuery, {courseCode: 'CS1501'});
+  it('Get questions for search query of \'complexity\'', async () => {
+    const result = await GraphQLTest.Schema.execute(getQuestionsQuery, {searchQuery: 'complexity'});
 
     expect(result, 'Result null').to.not.equal(undefined);
     expect(result, 'Error occured').to.not.contain.keys('errors');
@@ -31,7 +31,7 @@ describe('Question', () => {
     expect(result.data.getQuestions.status.code).to.equal(0, `Status Code: ${result.data.getQuestions.status.code}: ${result.data.getQuestions.status.message}`);
 
     for (let i = 0; i < result.data.addQuestions.questions.length; i++) {
-      expect(result.data.addQuestions.questions[i], 'Invalid Question').to.contain.keys('_id', 'type', 'courseCode', 'statement', 'options');
+      expect(result.data.addQuestions.questions[i], 'Invalid Question').to.contain.keys('_id', 'type', 'statement', 'options');
     }
   });
 
@@ -43,7 +43,6 @@ const addQuestionsMutation = `
       questions {
         _id
         type
-        courseCode
         statement
         options {
           statement
@@ -59,8 +58,8 @@ const addQuestionsMutation = `
 `;
 
 const getQuestionsQuery = `
-  query GetQuestionsQuery($courseCode: String!) {
-    getQuestions(courseCode: $courseCode) {
+  query GetQuestionsQuery($searchQuery: String!) {
+    getQuestions(searchQuery: $searchQuery) {
       questions {
         _id
         type
@@ -80,7 +79,6 @@ const getQuestionsQuery = `
 
 const questions = [
   {
-    courseCode: 'CS1501',
     statement: 'What is the essentials of dynamic programing ?',
     type: QuestionType.MCQ_MULTIPLE,
     options: [
@@ -102,7 +100,6 @@ const questions = [
       }
     ]
   }, {
-    courseCode: 'CS1501',
     statement: 'In a max-heap, element with the greatest key is always in the which node ?',
     type: QuestionType.MCQ_SINGLE,
     options: [
@@ -124,7 +121,6 @@ const questions = [
       }
     ]
   }, {
-    courseCode: 'CS1501',
     statement: 'Which of the follwing have N complexity ?',
     type: QuestionType.MCQ_MULTIPLE,
     options: [
@@ -146,7 +142,6 @@ const questions = [
       }
     ]
   }, {
-    courseCode: 'CS1501',
     statement: 'Which of the following problems can be solved using recursion ?',
     type: QuestionType.MCQ_SINGLE,
     options: [
@@ -168,7 +163,6 @@ const questions = [
       }
     ]
   }, {
-    courseCode: 'CS1501',
     statement: 'What are the types of complexity analysis ?',
     type: QuestionType.MCQ_MULTIPLE,
     options: [

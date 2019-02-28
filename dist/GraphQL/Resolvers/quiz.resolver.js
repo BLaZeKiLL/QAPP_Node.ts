@@ -13,11 +13,12 @@ const authentication_1 = require("../../Modules/authentication");
 const dispatcher_1 = require("../../Modules/dispatcher");
 const logger_1 = require("../../Modules/logger");
 const Query = {
+    // logic change
     getQuiz: (args, req) => {
         try {
             authentication_1.isStudent(req);
-            logger_1.Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
-            const quizData = dispatcher_1.Dispatcher.get(args.target);
+            logger_1.Log.main.info(`QUIZ REQUESTED FOR ${args.email}`);
+            const quizData = dispatcher_1.Dispatcher.getFromCache(args.email);
             return {
                 _id: quizData._id,
                 JSON: quizData.JSON,

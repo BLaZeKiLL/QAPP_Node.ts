@@ -16,9 +16,9 @@ const Query = {
     getQuestions: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
             authentication_1.isTeacher(req);
-            logger_1.Log.main.info(`QUERY FOR QUESTION: ${args.courseCode}`);
+            logger_1.Log.main.info(`QUERY FOR QUESTION: ${args.searchQuery}`);
             return {
-                questions: yield question_model_1.Question.get(args),
+                questions: yield question_model_1.Question.get(args.searchQuery),
                 status: {
                     code: 0,
                     message: 'OK'
@@ -72,8 +72,8 @@ const Mutation = {
         try {
             authentication_1.isTeacher(req);
             const question = {};
-            if (args.question.courseCode !== undefined) {
-                question.courseCode = args.question.courseCode;
+            if (args.question.tags !== undefined) {
+                question.tags = args.question.tags;
             }
             if (args.question.type !== undefined) {
                 question.type = args.question.type;

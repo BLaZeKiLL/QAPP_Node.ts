@@ -26,11 +26,10 @@ const Query = {
           id: teacher._id,
           name: teacher.name,
           email: teacher.email,
-          admin: teacher.admin,
           token: jwt.sign(<IToken>{
               id: teacher._id,
               email: teacher.email,
-              power: teacher.admin ? Power.ADMIN : Power.TEACHER
+              power: Power.TEACHER
             }, APP_SECRET, {
               expiresIn: '365 days'
             }),
@@ -56,7 +55,6 @@ const Mutation = {
       if (args.teacher.name !== undefined) teacher.name = args.teacher.name;
       if (args.teacher.email !== undefined) teacher.email = args.teacher.email;
       if (args.teacher.password !== undefined) teacher.password = args.teacher.password;
-      if (args.teacher.admin !== undefined) teacher.admin = args.teacher.admin;
       return await Teacher.update(
         teacher,
         args.teacher._id

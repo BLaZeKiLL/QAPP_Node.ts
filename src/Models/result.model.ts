@@ -11,7 +11,6 @@ interface IResult {
 
 interface IQuizResult {
   score: string;
-  name: string;
   rollno: string;
   _id?: Schema.Types.ObjectId;
 }

@@ -17,7 +17,6 @@ type QuizResult {
   _id: ID
   score: String!
   name: String!
-  rollno: String!
 }
 
 type AddResultResponse {

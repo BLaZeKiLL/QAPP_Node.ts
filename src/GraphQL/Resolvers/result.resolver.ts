@@ -9,39 +9,40 @@ const Query = {
   getStudentResults: async (args: any, req: any) => {
 
   },
-  getQuizResults: async (args: any, req: any): Promise<IQuizResultsResponse> => {
-    try {
-      const quiz = await Quiz.getOne({
-        No: args.number,
-        courseCode: args.courseCode
-      });
-      const results: IQuizResult[] = [];
-      quiz.results.forEach(async result => {
-        const student = await Student.getOne(undefined, result.studentID);
-        results.push({
-          score: result.score,
-          name: student.name,
-          rollno: student.rollno
-        });
-      });
-      return {
-        result: results,
-        status: {
-          code: 0,
-          message: 'OK'
-        }
-      };
-    } catch (error) {
-      Log.main.error('RESULT ERROR');
-      Log.main.error(error);
-      return {
-        status: {
-          code: 2,
-          message: 'ERROR'
-        }
-      };
-    }
-  }
+  // do by id
+  // getQuizResults: async (args: any, req: any): Promise<IQuizResultsResponse> => {
+  //   try {
+  //     const quiz = await Quiz.getOne({
+  //       No: args.number,
+  //       courseCode: args.courseCode
+  //     });
+  //     const results: IQuizResult[] = [];
+  //     quiz.results.forEach(async result => {
+  //       const student = await Student.getOne(undefined, result.studentID);
+  //       results.push({
+  //         score: result.score,
+  //         name: student.name,
+  //         rollno: student.rollno
+  //       });
+  //     });
+  //     return {
+  //       result: results,
+  //       status: {
+  //         code: 0,
+  //         message: 'OK'
+  //       }
+  //     };
+  //   } catch (error) {
+  //     Log.main.error('RESULT ERROR');
+  //     Log.main.error(error);
+  //     return {
+  //       status: {
+  //         code: 2,
+  //         message: 'ERROR'
+  //       }
+  //     };
+  //   }
+  // }
 };
 
 const Mutation = {

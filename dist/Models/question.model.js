@@ -46,10 +46,13 @@ class Question {
             }
         });
     }
-    static get(filter) {
+    static get(searchQuery) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield mongo_1.Mongo.get(Question.DBmodel, filter);
+                return mongo_1.MongoUtils.bsonConverterArray(yield this.DBmodel.find({ $text: { $search: searchQuery } })
+                    // .skip(20) // pagination controls
+                    // .limit(10)
+                    .exec());
             }
             catch (error) {
                 throw error;
@@ -95,10 +98,6 @@ class Question {
  * @property {option[]} options Array of options of the question
  */
 Question.schema = new mongo_1.Schema({
-    courseCode: {
-        type: String,
-        required: true
-    },
     type: {
         type: String,
         enum: ['MCQ_SINGLE', 'MCQ_MULTIPLE'],
@@ -119,7 +118,10 @@ Question.schema = new mongo_1.Schema({
                 required: true
             }
         }],
-}).index({ courseCode: 1, type: 1, statement: 1 }, { unique: true }).plugin(mongoose_unique_validator_1.default);
+})
+    .index({ statement: 'text' })
+    .index({ type: 1, statement: 1 }, { unique: true })
+    .plugin(mongoose_unique_validator_1.default);
 /**
  * Mongoose Model
  */

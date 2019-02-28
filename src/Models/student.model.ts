@@ -1,46 +1,35 @@
 import * as bcrypt from 'bcryptjs';
 
 import { Mongo, Schema, model } from '../Modules/mongo';
+import { Model, Document } from 'mongoose';
 import { IStatus } from './misc.model';
 import { IResult } from './result.model';
 
 interface IStudent {
   _id?: Schema.Types.ObjectId;
-  name: string;
   email: string;
-  password?: string;
   deviceID?: string;
-  rollno: string;
-  target: string;
+  password?: string;
   resluts?: IResult[];
 }
 
 interface IStudentFilter {
   _id?: Schema.Types.ObjectId;
-  name?: string;
   email?: string;
   deviceID?: string;
-  rollno?: string;
-  target?: string;
   password?: boolean;
   resluts?: IResult[];
 }
 
 interface IStudentInput {
-  name: string;
   email: string;
   password: string;
-  rollno: string;
-  target: string;
 }
 
 interface IStudentAuthResponse {
   auth?: {
     id: Schema.Types.ObjectId;
-    name: string;
     email: string;
-    rollno: string;
-    target: string;
     token: string;
   };
   status: IStatus;
@@ -50,33 +39,18 @@ class Student {
 
   /**
    * Student profile schema
-   * @property {String} name name of teacher
-   * @property {String} username username credential
+   * @property {String} email username credential
    * @property {String} password password credential stored as HASH
    * @property {String} deviceID Firebase device ID
-   * @property {Number} rollNo University Roll number
-   * @property {string} target brancg/sem/section of the student
    * @property {ref[]} result references to results of the student
    */
   private static schema = new Schema({
-    name: {
-      type: String,
-      required: true
-    },
     email: {
       type: String,
       required: true
     },
-    password: {
-      type: String,
-      required: true
-    },
     deviceID: String,
-    rollno: {
-      type: String,
-      required: true
-    },
-    target: {
+    password: {
       type: String,
       required: true
     },
@@ -87,6 +61,10 @@ class Student {
   });
 
   private static DBmodel = model('Student', Student.schema);
+
+  public static get Model(): Model<Document> {
+    return this.DBmodel;
+  }
 
   public static async add(student: IStudentInput): Promise<boolean> {
     try {

@@ -20,7 +20,7 @@ function authenticate(req, res, next) {
         req.isTeacher = false;
         req.isAdmin = false;
         next();
-        return;
+        return; // REMOVE
     }
     if (!token) {
         logger_1.Log.main.info('NO TOKEN');
@@ -28,7 +28,7 @@ function authenticate(req, res, next) {
         req.isTeacher = false;
         req.isAdmin = false;
         next();
-        return;
+        return; // REMOVE
     }
     const decodedToken = jwt.verify(token, APP_SECRET);
     if (!decodedToken) {
@@ -37,7 +37,7 @@ function authenticate(req, res, next) {
         req.isTeacher = false;
         req.isAdmin = false;
         next();
-        return;
+        return; // REMOVE
     }
     logger_1.Log.main.info(`DECODED TOKEN ${JSON.stringify(decodedToken)}`);
     switch (decodedToken.power) {
@@ -54,14 +54,6 @@ function authenticate(req, res, next) {
             req.isTeacher = true;
             req.isAdmin = false;
             logger_1.Log.main.info('TEACHER REQUEST');
-            next();
-            return;
-        }
-        case misc_model_1.Power.ADMIN: {
-            req.isStudent = false;
-            req.isTeacher = true;
-            req.isAdmin = true;
-            logger_1.Log.main.info('ADMIN REQUEST');
             next();
             return;
         }
@@ -84,12 +76,4 @@ function isTeacher(req) {
     }
 }
 exports.isTeacher = isTeacher;
-function isAdmin(req) {
-    if (process.env.NODE_ENV === 'test')
-        return;
-    if (!req.isAdmin) {
-        throw new Error('Not Enough Power');
-    }
-}
-exports.isAdmin = isAdmin;
 //# sourceMappingURL=authentication.js.map

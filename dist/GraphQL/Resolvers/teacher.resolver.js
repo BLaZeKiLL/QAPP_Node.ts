@@ -37,11 +37,10 @@ const Query = {
                     id: teacher._id,
                     name: teacher.name,
                     email: teacher.email,
-                    admin: teacher.admin,
                     token: jsonwebtoken_1.default.sign({
                         id: teacher._id,
                         email: teacher.email,
-                        power: teacher.admin ? misc_model_1.Power.ADMIN : misc_model_1.Power.TEACHER
+                        power: misc_model_1.Power.TEACHER
                     }, authentication_1.APP_SECRET, {
                         expiresIn: '365 days'
                     }),
@@ -71,8 +70,6 @@ const Mutation = {
                 teacher.email = args.teacher.email;
             if (args.teacher.password !== undefined)
                 teacher.password = args.teacher.password;
-            if (args.teacher.admin !== undefined)
-                teacher.admin = args.teacher.admin;
             return yield teacher_model_1.Teacher.update(teacher, args.teacher._id);
         }
         catch (error) {

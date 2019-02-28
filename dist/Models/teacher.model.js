@@ -69,10 +69,6 @@ Teacher.schema = new mongo_1.Schema({
         type: String,
         required: true
     },
-    admin: {
-        type: Boolean,
-        required: true
-    },
     password: {
         type: String,
         required: true

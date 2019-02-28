@@ -1,6 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("./logger");
+/**
+ * Logic needs to be changed
+ *
+ * @class Dispatcher
+ */
 class Dispatcher {
     static distribute(target, quiz) {
         logger_1.Log.main.info('QUIZ READY FOR DISPATCHING: ' + target);
@@ -16,10 +21,38 @@ class Dispatcher {
             return quiz;
         }
     }
+    static getFromCache(email) {
+        const id = this.stu_email_qid_map.get(email);
+        const json = this.qid_qjson_map.get(id);
+        console.log(email);
+        console.log(id);
+        if (json === undefined || json === null || id === undefined || id === null) {
+            throw new Error('Quiz Not Found');
+        }
+        else {
+            logger_1.Log.main.info('QUIZ DISPATCHED');
+            return {
+                _id: id,
+                JSON: json
+            };
+        }
+    }
+    static cache(quiz) {
+        console.log(quiz._id.toString());
+        quiz.targetEmails.forEach(email => {
+            this.stu_email_qid_map.set(email, quiz._id.toString());
+        });
+        quiz.results = undefined;
+        quiz.targetEmails = undefined;
+        logger_1.Log.main.info(`QUIZ: ${JSON.stringify(quiz)}`);
+        this.qid_qjson_map.set(quiz._id.toString(), JSON.stringify(quiz));
+    }
     static clear() {
         this.quizes.clear();
     }
 }
 Dispatcher.quizes = new Map();
+Dispatcher.stu_email_qid_map = new Map();
+Dispatcher.qid_qjson_map = new Map();
 exports.Dispatcher = Dispatcher;
 //# sourceMappingURL=dispatcher.js.map

@@ -168,16 +168,12 @@ export class App {
     await Teacher.add({
       name: 'Admin',
       email: 'admin@gmail.com',
-      admin: true,
       password: 'admin'
     });
 
     await Student.add({
-      name: 'Admin',
       email: 'admin@gmail.com',
       password: 'admin',
-      rollno: '169105077',
-      target: 'CS5B'
     });
     Log.main.info('ACCOUNTS SEEDED');
   }
@@ -192,7 +188,6 @@ export class App {
   private async iniQuestions(): Promise<void> {
     await Question.addMany([
       {
-        courseCode: 'CS1501',
         statement: 'What is the essentials of dynamic programing ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
@@ -214,7 +209,6 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
         statement: 'In a max-heap, element with the greatest key is always in the which node ?',
         type: QuestionType.MCQ_SINGLE,
         options: [
@@ -236,7 +230,6 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
         statement: 'Which of the follwing have N complexity ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [
@@ -258,7 +251,6 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
         statement: 'Which of the following problems can be solved using recursion ?',
         type: QuestionType.MCQ_SINGLE,
         options: [
@@ -280,7 +272,6 @@ export class App {
           }
         ]
       }, {
-        courseCode: 'CS1501',
         statement: 'What are the types of complexity analysis ?',
         type: QuestionType.MCQ_MULTIPLE,
         options: [

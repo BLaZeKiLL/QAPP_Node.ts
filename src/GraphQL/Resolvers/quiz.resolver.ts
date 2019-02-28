@@ -1,14 +1,15 @@
-import { Quiz, IQuizResponse } from '../../Models/quiz.model';
+import { Quiz, IQuizResponse, IQuiz } from '../../Models/quiz.model';
 import { isTeacher, isStudent } from '../../Modules/authentication';
 import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
 
 const Query = {
+  // logic change
   getQuiz: (args: any, req: any): IQuizResponse => {
     try {
       isStudent(req);
-      Log.main.info(`QUIZ REQUESTED FOR ${args.target}`);
-      const quizData = Dispatcher.get(args.target);
+      Log.main.info(`QUIZ REQUESTED FOR ${args.email}`);
+      const quizData = Dispatcher.getFromCache(args.email);
       return {
         _id: quizData._id,
         JSON: quizData.JSON,

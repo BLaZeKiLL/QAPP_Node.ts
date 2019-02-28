@@ -18,7 +18,6 @@ const student_model_1 = require("../../Models/student.model");
 const authentication_1 = require("../../Modules/authentication");
 const errorHandler_1 = require("../../Modules/errorHandler");
 const logger_1 = require("../../Modules/logger");
-const firebase_1 = require("../../Modules/firebase");
 const Query = {
     studentLogin: (args) => __awaiter(this, void 0, void 0, function* () {
         try {
@@ -33,16 +32,12 @@ const Query = {
             logger_1.Log.main.info('AUTH OK');
             if (!student.deviceID || student.deviceID !== args.deviceID) {
                 student_model_1.Student.update({ deviceID: args.deviceID }, student._id);
-                firebase_1.Firebase.subscribe(student.target, args.deviceID);
                 logger_1.Log.main.info('DEVICE ID UPDATED');
             }
             return {
                 auth: {
                     id: student._id,
-                    name: student.name,
                     email: student.email,
-                    rollno: student.rollno,
-                    target: student.target,
                     token: jsonwebtoken_1.default.sign({
                         id: student._id,
                         email: student.email,
@@ -76,10 +71,6 @@ const Mutation = {
                 student.email = args.student.email;
             if (args.student.password !== undefined)
                 student.password = args.student.password;
-            if (args.student.rollno !== undefined)
-                student.rollno = args.student.rollno;
-            if (args.student.target !== undefined)
-                student.target = args.student.target;
             return yield student_model_1.Student.update(student, args.student._id);
         }
         catch (error) {

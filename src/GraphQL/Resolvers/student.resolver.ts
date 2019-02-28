@@ -6,7 +6,6 @@ import { Student, IStudentAuthResponse } from '../../Models/student.model';
 import { APP_SECRET, isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Log } from '../../Modules/logger';
-import { Firebase } from '../../Modules/firebase';
 
 const Query = {
   studentLogin: async (args: any): Promise<IStudentAuthResponse> => {
@@ -22,16 +21,12 @@ const Query = {
       Log.main.info('AUTH OK');
       if (!student.deviceID || student.deviceID !== args.deviceID) {
         Student.update({deviceID: args.deviceID}, student._id);
-        Firebase.subscribe(student.target, args.deviceID);
         Log.main.info('DEVICE ID UPDATED');
       }
       return {
         auth: {
           id: student._id,
-          name: student.name,
           email: student.email,
-          rollno: student.rollno,
-          target: student.target,
           token: jwt.sign(<IToken>{
               id: student._id,
               email: student.email,
@@ -61,8 +56,6 @@ const Mutation = {
       if (args.student.name !== undefined) student.name = args.student.name;
       if (args.student.email !== undefined) student.email = args.student.email;
       if (args.student.password !== undefined) student.password = args.student.password;
-      if (args.student.rollno !== undefined) student.rollno = args.student.rollno;
-      if (args.student.target !== undefined) student.target = args.student.target;
       return await Student.update(
         student,
         args.student._id

@@ -154,8 +154,26 @@ class Mongo {
 
 }
 
+class MongoUtils {
+  public static bsonConverterArray(docs: any) {
+    const docObjs: any[] = [];
+    docs.forEach((doc: any) => {
+      docObjs.push(this.bsonConverter(doc));
+    });
+    return docObjs;
+  }
+
+  public static bsonConverter(doc: any) {
+    const docObj = doc.toObject();
+    transformProps(docObj, castToString, '_id');
+    return docObj;
+  }
+}
+
+
 export {
   Mongo,
+  MongoUtils,
   Schema,
   model
 };

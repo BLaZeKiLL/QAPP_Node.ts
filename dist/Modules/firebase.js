@@ -103,6 +103,17 @@ class Firebase {
             }
         });
     }
+    static reminder_id(deviceIDs) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.dataload_id(deviceIDs, { request: 'true' });
+                logger_1.Log.main.info('QUIZ REMINDER SENT');
+            }
+            catch (error) {
+                logger_1.Log.main.error(error);
+            }
+        });
+    }
     static broadcast(topic, payload, message, title) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -124,6 +135,19 @@ class Firebase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield admin.messaging().sendToTopic(topic, {
+                    data: payload,
+                });
+            }
+            catch (error) {
+                logger_1.Log.main.error('FIREBASE');
+                logger_1.Log.main.error(error);
+            }
+        });
+    }
+    static dataload_id(deviceIDs, payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield admin.messaging().sendToDevice(deviceIDs, {
                     data: payload,
                 });
             }
