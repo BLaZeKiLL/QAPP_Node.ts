@@ -7,7 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const moment_1 = __importDefault(require("moment"));
 const quiz_model_1 = require("../Models/quiz.model");
 const logger_1 = require("./logger");
 /**
@@ -49,6 +53,8 @@ class Dispatcher {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const quiz = yield quiz_model_1.Quiz.getOne(undefined, id, true);
+                const date = moment_1.default.utc(quiz.date.toUTCString()).local();
+                quiz.date = date.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
                 quiz.targetEmails.forEach(email => {
                     this.stu_email_qid_map.set(email, quiz._id.toString());
                 });

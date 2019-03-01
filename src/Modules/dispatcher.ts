@@ -1,4 +1,6 @@
 import { Schema } from '../Modules/mongo';
+import moment from 'moment';
+
 import { IQuiz, Quiz } from '../Models/quiz.model';
 import { Log } from './logger';
 
@@ -49,6 +51,10 @@ class Dispatcher {
   public static async cache(id: Schema.Types.ObjectId): Promise<void> {
     try {
       const quiz = await Quiz.getOne(undefined, id, true);
+
+      const date = moment.utc(quiz.date.toUTCString()).local();
+      quiz.date = <any>date.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+
       quiz.targetEmails.forEach(email => {
         this.stu_email_qid_map.set(email, quiz._id.toString());
       });
