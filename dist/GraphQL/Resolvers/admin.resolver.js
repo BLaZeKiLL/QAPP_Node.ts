@@ -20,6 +20,7 @@ const postman_1 = require("../../Modules/postman");
 const student_model_1 = require("../../Models/student.model");
 const teacher_model_1 = require("../../Models/teacher.model");
 const logger_1 = require("../../Modules/logger");
+// #TODO Remove Admin
 const Query = {};
 exports.Query = Query;
 const Mutation = {

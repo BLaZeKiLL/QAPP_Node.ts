@@ -131,7 +131,7 @@ class Quiz {
         const emails = doc.targetEmails
 
         Scheduler.process(emails);
-        Dispatcher.cache(doc);
+        Dispatcher.cache(id);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);
         return true;

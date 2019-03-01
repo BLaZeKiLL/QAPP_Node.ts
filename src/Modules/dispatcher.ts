@@ -1,4 +1,5 @@
-import { IQuiz } from '../Models/quiz.model';
+import { Schema } from '../Modules/mongo';
+import { IQuiz, Quiz } from '../Models/quiz.model';
 import { Log } from './logger';
 
 /**
@@ -45,16 +46,20 @@ class Dispatcher {
     }
   }
 
-  public static cache(quiz: IQuiz): void {
-    console.log(quiz._id.toString());
-    quiz.targetEmails.forEach(email => {
-      this.stu_email_qid_map.set(email, quiz._id.toString());
-    });
+  public static async cache(id: Schema.Types.ObjectId): Promise<void> {
+    try {
+      const quiz = await Quiz.getOne(undefined, id, true);
+      quiz.targetEmails.forEach(email => {
+        this.stu_email_qid_map.set(email, quiz._id.toString());
+      });
 
-    quiz.results = undefined;
-    quiz.targetEmails = undefined;
-    Log.main.info(`QUIZ: ${JSON.stringify(quiz)}`);
-    this.qid_qjson_map.set(quiz._id.toString(), JSON.stringify(quiz));
+      quiz.results = undefined;
+      quiz.targetEmails = undefined;
+      Log.main.info(`QUIZ: ${JSON.stringify(quiz)}`);
+      this.qid_qjson_map.set(quiz._id.toString(), JSON.stringify(quiz));
+    } catch (error) {
+      Log.main.info('CACHE ERROR');
+    }
   }
 
   public static clear(): void {

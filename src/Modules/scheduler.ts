@@ -38,7 +38,9 @@ class Scheduler {
           $in: emails
         }
       });
-      Firebase.reminder_id(<string[]>stu_accounts.map(student => (<any>student).deviceID));
+      const deviceIDs = <string[]>stu_accounts.map(student => (<any>student).deviceID);
+      console.log(deviceIDs.filter(deviceID => deviceID !== undefined));
+      Firebase.reminder_id(deviceIDs.filter(deviceID => deviceID !== undefined));
       const stu_emails = <string[]>stu_accounts.map(student => (<any>student).email);
       Log.main.info(`OLD ACCOUNTS: ${JSON.stringify(stu_emails)}`);
 

@@ -14,6 +14,7 @@ const errorHandler_1 = require("../../Modules/errorHandler");
 const student_model_1 = require("../../Models/student.model");
 const quiz_model_1 = require("../../Models/quiz.model");
 const logger_1 = require("../../Modules/logger");
+// #TODO implement resolvers
 const Query = {
     getStudentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
     }),

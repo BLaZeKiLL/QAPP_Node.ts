@@ -14,38 +14,30 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const cron = __importStar(require("cron"));
 const passwordGenerator = __importStar(require("randomstring"));
-const quiz_model_1 = require("../Models/quiz.model");
-const moment_1 = __importDefault(require("moment"));
-const dispatcher_1 = require("./dispatcher");
 const logger_1 = require("./logger");
 const firebase_1 = require("./firebase");
-const JSON_1 = require("./JSON");
 const student_model_1 = require("../Models/student.model");
 const postman_1 = require("./postman");
 class Scheduler {
-    static schedule(quizID, date) {
-        const istdate = moment_1.default.utc(date.toUTCString()).local();
-        logger_1.Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
-        new cron.CronJob(istdate.toDate(), () => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const quiz = yield quiz_model_1.Quiz.getOne(undefined, quizID, true);
-                JSON_1.JSONHandler.saveData('quiz.json', quiz);
-                quiz.targetEmails.forEach((target) => {
-                    firebase_1.Firebase.reminder(target);
-                    dispatcher_1.Dispatcher.distribute(target, quiz);
-                });
-            }
-            catch (error) {
-                logger_1.Log.main.error(error);
-            }
-        }), undefined, true, 'Asia/Kolkata');
-    }
+    // #TODO remove cron code
+    // public static schedule(quizID: Schema.Types.ObjectId, date: Date): void {
+    //   const istdate = moment.utc(date.toUTCString()).local();
+    //   Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
+    //   new cron.CronJob(istdate.toDate(), async () => {
+    //     try {
+    //       const quiz = await Quiz.getOne(undefined, quizID, true);
+    //       JSONHandler.saveData('quiz.json', quiz);
+    //       quiz.targetEmails.forEach((target: string) => {
+    //         Firebase.reminder(target);
+    //         Dispatcher.distribute(target, quiz);
+    //       });
+    //     } catch (error) {
+    //       Log.main.error(error);
+    //     }
+    //   }, undefined, true, 'Asia/Kolkata');
+    // }
     static process(emails) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -54,7 +46,9 @@ class Scheduler {
                         $in: emails
                     }
                 });
-                firebase_1.Firebase.reminder_id(stu_accounts.map(student => student.deviceID));
+                const deviceIDs = stu_accounts.map(student => student.deviceID);
+                console.log(deviceIDs.filter(deviceID => deviceID !== undefined));
+                firebase_1.Firebase.reminder_id(deviceIDs.filter(deviceID => deviceID !== undefined));
                 const stu_emails = stu_accounts.map(student => student.email);
                 logger_1.Log.main.info(`OLD ACCOUNTS: ${JSON.stringify(stu_emails)}`);
                 const new_emails = emails.filter(x => stu_emails.indexOf(x) === -1);

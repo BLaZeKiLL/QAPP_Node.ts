@@ -31,7 +31,7 @@ class Quiz {
                     const id = doc._id;
                     const emails = doc.targetEmails;
                     scheduler_1.Scheduler.process(emails);
-                    dispatcher_1.Dispatcher.cache(doc);
+                    dispatcher_1.Dispatcher.cache(id);
                     logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                     return true;
                 }

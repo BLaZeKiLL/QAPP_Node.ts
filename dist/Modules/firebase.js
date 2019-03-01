@@ -22,6 +22,7 @@ const admin = __importStar(require("firebase-admin"));
 const moment_1 = __importDefault(require("moment"));
 const account = __importStar(require("../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json"));
 const logger_1 = require("./logger");
+// #TODO remove topic specific code
 class Firebase {
     static connect() {
         admin.initializeApp({
