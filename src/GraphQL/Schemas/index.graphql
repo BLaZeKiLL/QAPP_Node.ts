@@ -24,10 +24,10 @@ type Mutation {
   addTeacher(teacher: TeacherInput!): Boolean! #
 
   # UPDATIONS
-  updateQuestion(question: QuestionUpdate!): Boolean!
+  updateQuestion(question: QuestionUpdate!): Boolean! #
   updateQuiz(quiz: QuizUpdate!): Boolean!
-  updateStudent(student: StudentUpdate!): Boolean!
-  updateTeacher(teacher: TeacherUpdate!): Boolean!
+  updateStudent(student: StudentUpdate!): Boolean! #
+  updateTeacher(teacher: TeacherUpdate!): Boolean! #
 
   # DELETIONS
   deleteQuestion(id: ID!): Boolean! #

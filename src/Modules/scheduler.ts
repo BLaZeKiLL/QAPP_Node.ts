@@ -1,35 +1,10 @@
-import * as cron from 'cron';
 import * as passwordGenerator from 'randomstring';
-import { Quiz, IQuiz } from '../Models/quiz.model';
-import moment from 'moment';
-import { Schema } from './mongo';
-import { Dispatcher } from './dispatcher';
 import { Log } from './logger';
 import { Firebase } from './firebase';
-import { JSONHandler } from './JSON';
 import { Student } from '../Models/student.model';
 import { Postman } from './postman';
 
 class Scheduler {
-
-  // #TODO remove cron code
-  // public static schedule(quizID: Schema.Types.ObjectId, date: Date): void {
-  //   const istdate = moment.utc(date.toUTCString()).local();
-
-  //   Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
-  //   new cron.CronJob(istdate.toDate(), async () => {
-  //     try {
-  //       const quiz = await Quiz.getOne(undefined, quizID, true);
-  //       JSONHandler.saveData('quiz.json', quiz);
-  //       quiz.targetEmails.forEach((target: string) => {
-  //         Firebase.reminder(target);
-  //         Dispatcher.distribute(target, quiz);
-  //       });
-  //     } catch (error) {
-  //       Log.main.error(error);
-  //     }
-  //   }, undefined, true, 'Asia/Kolkata');
-  // }
 
   public static async process(emails: string[]): Promise<void> {
     try {
