@@ -18,16 +18,12 @@ function authenticate(req, res, next) {
         logger_1.Log.main.info('NO TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
-        req.isAdmin = false;
-        next();
         return; // REMOVE
     }
     if (!token) {
         logger_1.Log.main.info('NO TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
-        req.isAdmin = false;
-        next();
         return; // REMOVE
     }
     const decodedToken = jwt.verify(token, APP_SECRET);
@@ -35,8 +31,6 @@ function authenticate(req, res, next) {
         logger_1.Log.main.info('INVALID TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
-        req.isAdmin = false;
-        next();
         return; // REMOVE
     }
     logger_1.Log.main.info(`DECODED TOKEN ${JSON.stringify(decodedToken)}`);
@@ -44,7 +38,6 @@ function authenticate(req, res, next) {
         case misc_model_1.Power.STUDENT: {
             req.isStudent = true;
             req.isTeacher = false;
-            req.isAdmin = false;
             logger_1.Log.main.info('STUDENT REQUEST');
             next();
             return;
@@ -52,7 +45,6 @@ function authenticate(req, res, next) {
         case misc_model_1.Power.TEACHER: {
             req.isStudent = false;
             req.isTeacher = true;
-            req.isAdmin = false;
             logger_1.Log.main.info('TEACHER REQUEST');
             next();
             return;

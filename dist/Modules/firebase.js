@@ -14,12 +14,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = __importStar(require("firebase-admin"));
-const moment_1 = __importDefault(require("moment"));
 const account = __importStar(require("../Static/qapp-firebase-firebase-adminsdk-moh1o-22bcdb968c.json"));
 const logger_1 = require("./logger");
 // #TODO remove topic specific code
@@ -30,80 +26,6 @@ class Firebase {
             databaseURL: Firebase.url
         });
     }
-    /**
-     * subscribe a token to a topic
-     * @param {Object} target target object
-     * @param {string} token device ID
-     */
-    static subscribe(target, token) {
-        return __awaiter(this, void 0, void 0, function* () {
-            logger_1.Log.main.info('SUBSCRIBING');
-            try {
-                const response = yield admin.messaging().subscribeToTopic(token, target);
-                logger_1.Log.main.info('SUCCESSFULLY SUBSCRIBED TO TOPIC : ' + response.successCount);
-                return true;
-            }
-            catch (error) {
-                logger_1.Log.main.error('FIREBASE');
-                logger_1.Log.main.error(error);
-            }
-        });
-    }
-    /**
-     * unsubscribe a token to a topic
-     * @param {Object} target target object
-     * @param {string} token device ID
-     */
-    static unsubscribe(target, token) {
-        return __awaiter(this, void 0, void 0, function* () {
-            logger_1.Log.main.info('UNSUBSCRIBING');
-            try {
-                const response = yield admin.messaging().unsubscribeFromTopic(token, target);
-                logger_1.Log.main.info('SUCCESSFULLY UNSUBSCRIBED FROM TOPIC : ' + response.successCount);
-                return true;
-            }
-            catch (error) {
-                logger_1.Log.main.error('FIREBASE');
-                logger_1.Log.main.error(error);
-            }
-        });
-    }
-    static quizCard(id, quiz) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const targets = quiz.targets;
-                const date = moment_1.default.utc(quiz.date.toUTCString()).local();
-                // date.setTime(date.getTime() + date.getTimezoneOffset());
-                quiz.date = date.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
-                quiz._id = id;
-                quiz.targets = undefined;
-                quiz.questions = undefined;
-                quiz.results = undefined;
-                quiz.setQuestions = undefined;
-                // const message = `${quiz.courseCode} Quiz Scheduled At ${quiz.date}`;
-                const payload = JSON.stringify(quiz);
-                targets.forEach((target) => __awaiter(this, void 0, void 0, function* () {
-                    yield this.dataload(target, { quizData: payload });
-                }));
-                logger_1.Log.main.info(`QUIZ CARD DATA SENT: ${JSON.stringify(quiz)}`);
-                return true;
-            }
-            catch (error) {
-                logger_1.Log.main.error(error);
-            }
-        });
-    }
-    static reminder(target) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.dataload(target, { request: 'true' });
-                logger_1.Log.main.info('QUIZ REMINDER SENT');
-            }
-            catch (error) {
-                logger_1.Log.main.error(error);
-            }
-        });
-    }
     static reminder_id(deviceIDs) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -111,36 +33,6 @@ class Firebase {
                 logger_1.Log.main.info('QUIZ REMINDER SENT');
             }
             catch (error) {
-                logger_1.Log.main.error(error);
-            }
-        });
-    }
-    static broadcast(topic, payload, message, title) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield admin.messaging().sendToTopic(topic, {
-                    data: payload,
-                    notification: {
-                        title: title,
-                        body: message
-                    },
-                });
-            }
-            catch (error) {
-                logger_1.Log.main.error('FIREBASE');
-                logger_1.Log.main.error(error);
-            }
-        });
-    }
-    static dataload(topic, payload) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield admin.messaging().sendToTopic(topic, {
-                    data: payload,
-                });
-            }
-            catch (error) {
-                logger_1.Log.main.error('FIREBASE');
                 logger_1.Log.main.error(error);
             }
         });

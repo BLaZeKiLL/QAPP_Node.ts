@@ -21,23 +21,6 @@ const firebase_1 = require("./firebase");
 const student_model_1 = require("../Models/student.model");
 const postman_1 = require("./postman");
 class Scheduler {
-    // #TODO remove cron code
-    // public static schedule(quizID: Schema.Types.ObjectId, date: Date): void {
-    //   const istdate = moment.utc(date.toUTCString()).local();
-    //   Log.main.info(`QUIZ ${quizID} SCHEDULED FOR ${istdate.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss')}`);
-    //   new cron.CronJob(istdate.toDate(), async () => {
-    //     try {
-    //       const quiz = await Quiz.getOne(undefined, quizID, true);
-    //       JSONHandler.saveData('quiz.json', quiz);
-    //       quiz.targetEmails.forEach((target: string) => {
-    //         Firebase.reminder(target);
-    //         Dispatcher.distribute(target, quiz);
-    //       });
-    //     } catch (error) {
-    //       Log.main.error(error);
-    //     }
-    //   }, undefined, true, 'Asia/Kolkata');
-    // }
     static process(emails) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
