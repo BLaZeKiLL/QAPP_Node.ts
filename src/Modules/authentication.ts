@@ -11,12 +11,14 @@ function authenticate(req: any, res: Response, next: NextFunction) {
     Log.main.info('NO TOKEN');
     req.isStudent = false;
     req.isTeacher = false;
+    next();
     return; // REMOVE
   }
   if (!token) {
     Log.main.info('NO TOKEN');
     req.isStudent = false;
     req.isTeacher = false;
+    next();
     return; // REMOVE
   }
   const decodedToken = <IToken>jwt.verify(token, APP_SECRET);
@@ -24,6 +26,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
     Log.main.info('INVALID TOKEN');
     req.isStudent = false;
     req.isTeacher = false;
+    next();
     return; // REMOVE
   }
   Log.main.info(`DECODED TOKEN ${JSON.stringify(decodedToken)}`);

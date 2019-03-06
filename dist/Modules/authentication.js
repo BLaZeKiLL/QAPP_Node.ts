@@ -18,12 +18,14 @@ function authenticate(req, res, next) {
         logger_1.Log.main.info('NO TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
+        next();
         return; // REMOVE
     }
     if (!token) {
         logger_1.Log.main.info('NO TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
+        next();
         return; // REMOVE
     }
     const decodedToken = jwt.verify(token, APP_SECRET);
@@ -31,6 +33,7 @@ function authenticate(req, res, next) {
         logger_1.Log.main.info('INVALID TOKEN');
         req.isStudent = false;
         req.isTeacher = false;
+        next();
         return; // REMOVE
     }
     logger_1.Log.main.info(`DECODED TOKEN ${JSON.stringify(decodedToken)}`);
