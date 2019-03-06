@@ -41,6 +41,7 @@ function authenticate(req, res, next) {
         case misc_model_1.Power.STUDENT: {
             req.isStudent = true;
             req.isTeacher = false;
+            req.mongoID = decodedToken.id;
             logger_1.Log.main.info('STUDENT REQUEST');
             next();
             return;
@@ -48,6 +49,7 @@ function authenticate(req, res, next) {
         case misc_model_1.Power.TEACHER: {
             req.isStudent = false;
             req.isTeacher = true;
+            req.mongoID = decodedToken.id;
             logger_1.Log.main.info('TEACHER REQUEST');
             next();
             return;
