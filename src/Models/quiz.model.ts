@@ -132,6 +132,7 @@ class Quiz {
 
         Scheduler.process(emails);
         Dispatcher.cache(id);
+        Teacher.addQuiz({quizies: id}, )
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);
         return true;

@@ -53,7 +53,11 @@ class Teacher {
     password: {
       type: String,
       required: true
-    }
+    },
+    quizies: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Quiz'
+    }]
   });
 
   private static DBmodel = model('Teacher', Teacher.schema);
@@ -71,6 +75,15 @@ class Teacher {
   public static async getOne(filter?: ITeacherFilter, id?: Schema.Types.ObjectId): Promise<ITeacher> {
     try {
       return await Mongo.getOne(Teacher.DBmodel, filter, id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static async addQuiz(update: any, id: Schema.Types.ObjectId): Promise<boolean> {
+    try {
+      await Mongo.addToArray<ITeacher>(this.DBmodel, update, id);
+      return true;
     } catch (error) {
       throw error;
     }

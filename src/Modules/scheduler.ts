@@ -3,6 +3,7 @@ import { Log } from './logger';
 import { Firebase } from './firebase';
 import { Student } from '../Models/student.model';
 import { Postman } from './postman';
+import { Teacher } from 'Models/teacher.model';
 
 class Scheduler {
 
