@@ -12,7 +12,11 @@ const mongo_1 = require("../Modules/mongo");
 const scheduler_1 = require("../Modules/scheduler");
 const logger_1 = require("../Modules/logger");
 const dispatcher_1 = require("../Modules/dispatcher");
+const teacher_model_1 = require("./teacher.model");
 class Quiz {
+    static get Model() {
+        return this.DBmodel;
+    }
     /**
      * Adds a quiz to DB
      * should publish to subscribtion
@@ -23,7 +27,7 @@ class Quiz {
      * @returns {Promise<boolean>}
      * @memberof Quiz
      */
-    static add(quiz) {
+    static add(quiz, tid) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const doc = yield mongo_1.Mongo.add(Quiz.DBmodel, quiz);
@@ -32,6 +36,7 @@ class Quiz {
                     const emails = doc.targetEmails;
                     scheduler_1.Scheduler.process(emails);
                     dispatcher_1.Dispatcher.cache(id);
+                    teacher_model_1.Teacher.addQuiz({ quizies: id }, tid);
                     logger_1.Log.main.info(`QUIZ ${id} ADDED TO DB`);
                     return true;
                 }

@@ -7,6 +7,7 @@ interface ITeacher {
   name: string;
   email: string;
   password?: string;
+  quizies?: Schema.Types.ObjectId[];
   _id?: Schema.Types.ObjectId;
 }
 

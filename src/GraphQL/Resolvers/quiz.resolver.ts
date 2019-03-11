@@ -1,7 +1,8 @@
-import { Quiz, IQuizResponse, IQuiz } from '../../Models/quiz.model';
+import { Quiz, IQuizResponse, IQuizSumaryResponse } from '../../Models/quiz.model';
 import { isTeacher, isStudent } from '../../Modules/authentication';
 import { Dispatcher } from '../../Modules/dispatcher';
 import { Log } from '../../Modules/logger';
+import { Teacher } from '../../Models/teacher.model';
 
 const Query = {
   getQuiz: (args: any, req: any): IQuizResponse => {
@@ -28,9 +29,33 @@ const Query = {
       };
     }
   },
-  getQuizSummary: (args: any, req: any) => {
+  getQuizSummary: async (args: any, req: any): Promise<IQuizSumaryResponse> => {
     try {
       isStudent(req);
+      const teacher = await Teacher.getOne(undefined, args.tid);
+      const quizes = await Quiz.Model.find({
+        '_id': {
+          $in: teacher.quizies
+        }
+      });
+      const summary = quizes.map((quiz: any) => {
+        return {
+          _id: quiz.id,
+          subject: quiz.subject,
+          No: quiz.No,
+          totalQuestions: quiz.totalQuestions,
+          setQuestions: quiz.setQuestions,
+          date: quiz.date,
+          duration: quiz.duration
+        }
+      });
+      return {
+        summary: summary,
+        status: {
+          code: 0,
+          message: 'OK'
+        }
+      }
     } catch (error) {
       Log.main.error('QUIZ ERROR');
       Log.main.error(error);

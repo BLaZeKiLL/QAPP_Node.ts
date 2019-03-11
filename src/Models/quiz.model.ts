@@ -6,6 +6,7 @@ import { Scheduler } from '../Modules/scheduler';
 import { Log } from '../Modules/logger';
 import { Dispatcher } from '../Modules/dispatcher';
 import { Teacher } from './teacher.model';
+import { Model, Document } from 'mongoose';
 
 interface IQuizInput {
   subject: string;
@@ -46,9 +47,24 @@ interface IQuiz {
   results?: IResult[];
 }
 
+interface IQuizSumary {
+  _id: Schema.Types.ObjectId;
+  subject: string;
+  No: number;
+  totalQuestions: number;
+  setQuestions: number;
+  date: Date;
+  duration: number;
+}
+
 interface IQuizResponse {
   _id?: string;
   JSON?: string;
+  status: IStatus;
+}
+
+interface IQuizSumaryResponse {
+  summary?: IQuizSumary[];
   status: IStatus;
 }
 
@@ -113,6 +129,10 @@ class Quiz {
 
   private static DBmodel = model('Quiz', Quiz.schema);
 
+  public static get Model(): Model<Document> {
+    return this.DBmodel;
+  }
+
   /**
    * Adds a quiz to DB
    * should publish to subscribtion
@@ -167,6 +187,8 @@ export {
   IQuizInput,
   IQuizFilter,
   IQuizResponse,
+  IQuizSumary,
+  IQuizSumaryResponse,
   IQuiz,
   Quiz
 };

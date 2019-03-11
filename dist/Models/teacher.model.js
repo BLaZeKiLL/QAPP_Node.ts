@@ -40,6 +40,17 @@ class Teacher {
             }
         });
     }
+    static addQuiz(update, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield mongo_1.Mongo.addToArray(this.DBmodel, update, id);
+                return true;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
     static update(update, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -72,7 +83,11 @@ Teacher.schema = new mongo_1.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    quizies: [{
+            type: mongo_1.Schema.Types.ObjectId,
+            ref: 'Quiz'
+        }]
 });
 Teacher.DBmodel = mongo_1.model('Teacher', Teacher.schema);
 exports.Teacher = Teacher;

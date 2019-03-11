@@ -12,6 +12,7 @@ const quiz_model_1 = require("../../Models/quiz.model");
 const authentication_1 = require("../../Modules/authentication");
 const dispatcher_1 = require("../../Modules/dispatcher");
 const logger_1 = require("../../Modules/logger");
+const teacher_model_1 = require("../../Models/teacher.model");
 const Query = {
     getQuiz: (args, req) => {
         try {
@@ -37,13 +38,52 @@ const Query = {
                 }
             };
         }
-    }
+    },
+    getQuizSummary: (args, req) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            authentication_1.isStudent(req);
+            const teacher = yield teacher_model_1.Teacher.getOne(undefined, args.tid);
+            const quizes = yield quiz_model_1.Quiz.Model.find({
+                '_id': {
+                    $in: teacher.quizies
+                }
+            });
+            const summary = quizes.map((quiz) => {
+                return {
+                    _id: quiz.id,
+                    subject: quiz.subject,
+                    No: quiz.No,
+                    totalQuestions: quiz.totalQuestions,
+                    setQuestions: quiz.setQuestions,
+                    date: quiz.date,
+                    duration: quiz.duration
+                };
+            });
+            return {
+                summary: summary,
+                status: {
+                    code: 0,
+                    message: 'OK'
+                }
+            };
+        }
+        catch (error) {
+            logger_1.Log.main.error('QUIZ ERROR');
+            logger_1.Log.main.error(error);
+            return {
+                status: {
+                    code: 2,
+                    message: 'ERROR'
+                }
+            };
+        }
+    })
 };
 exports.Query = Query;
 const Mutation = {
     addQuiz: (args, req) => __awaiter(this, void 0, void 0, function* () {
         authentication_1.isTeacher(req);
-        return quiz_model_1.Quiz.add(args.quiz);
+        return quiz_model_1.Quiz.add(args.quiz, req.mongoID);
     })
 };
 exports.Mutation = Mutation;
