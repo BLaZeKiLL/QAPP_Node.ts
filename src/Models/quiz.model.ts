@@ -5,6 +5,7 @@ import { IStatus } from './misc.model';
 import { Scheduler } from '../Modules/scheduler';
 import { Log } from '../Modules/logger';
 import { Dispatcher } from '../Modules/dispatcher';
+import { Teacher } from './teacher.model';
 
 interface IQuizInput {
   subject: string;
@@ -122,7 +123,7 @@ class Quiz {
    * @returns {Promise<boolean>}
    * @memberof Quiz
    */
-  public static async add(quiz: IQuizInput): Promise<boolean> {
+  public static async add(quiz: IQuizInput, tid: Schema.Types.ObjectId): Promise<boolean> {
     try {
       const doc = await Mongo.add<IQuiz>(Quiz.DBmodel, quiz);
 
@@ -132,7 +133,7 @@ class Quiz {
 
         Scheduler.process(emails);
         Dispatcher.cache(id);
-        Teacher.addQuiz({quizies: id}, )
+        Teacher.addQuiz({quizies: id}, tid);
 
         Log.main.info(`QUIZ ${id} ADDED TO DB`);
         return true;

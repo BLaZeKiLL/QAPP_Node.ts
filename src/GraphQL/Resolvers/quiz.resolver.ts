@@ -27,6 +27,20 @@ const Query = {
         }
       };
     }
+  },
+  getQuizSummary: (args: any, req: any) => {
+    try {
+      isStudent(req);
+    } catch (error) {
+      Log.main.error('QUIZ ERROR');
+      Log.main.error(error);
+      return {
+        status: {
+          code: 2,
+          message: 'ERROR'
+        }
+      };
+    }
   }
 };
 
@@ -34,7 +48,7 @@ const Mutation = {
   addQuiz: async (args: any, req: any): Promise<boolean> => {
     isTeacher(req);
 
-    return Quiz.add(args.quiz);
+    return Quiz.add(args.quiz, req.mongoID);
   }
 };
 

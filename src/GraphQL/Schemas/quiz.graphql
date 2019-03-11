@@ -41,8 +41,23 @@ type Quiz {
   results: [Result!]
 }
 
+type QuizSumary {
+  _id: ID!
+  subject: String!
+  No: Int!
+  totalQuestions: Int!
+  setQuestions: Int!
+  date: String!
+  duration: Int!
+}
+
 type QuizResponse {
   _id: ID!
   JSON: String
+  status: Status!
+}
+
+type QuizSumaryResponse {
+  summary: [QuizSumary!]!
   status: Status!
 }
