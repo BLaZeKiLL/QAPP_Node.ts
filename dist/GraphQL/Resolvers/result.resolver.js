@@ -18,6 +18,34 @@ const logger_1 = require("../../Modules/logger");
 const Query = {
     getStudentResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
     }),
+    getQuizResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            const quiz = yield quiz_model_1.Quiz.getOne(undefined, args.quizID);
+            const results = [];
+            quiz.results.forEach((result) => __awaiter(this, void 0, void 0, function* () {
+                results.push({
+                    score: result.score
+                });
+            }));
+            return {
+                result: results,
+                status: {
+                    code: 0,
+                    message: 'OK'
+                }
+            };
+        }
+        catch (error) {
+            logger_1.Log.main.error('RESULT ERROR');
+            logger_1.Log.main.error(error);
+            return {
+                status: {
+                    code: 2,
+                    message: 'ERROR'
+                }
+            };
+        }
+    })
 };
 exports.Query = Query;
 const Mutation = {
