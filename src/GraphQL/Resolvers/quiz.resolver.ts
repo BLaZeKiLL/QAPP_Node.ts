@@ -47,7 +47,7 @@ const Query = {
           setQuestions: quiz.setQuestions,
           date: quiz.date,
           duration: quiz.duration
-        }
+        };
       });
       return {
         summary: summary,
@@ -55,7 +55,7 @@ const Query = {
           code: 0,
           message: 'OK'
         }
-      }
+      };
     } catch (error) {
       Log.main.error('QUIZ ERROR');
       Log.main.error(error);
