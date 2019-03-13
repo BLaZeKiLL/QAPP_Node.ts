@@ -1,6 +1,5 @@
 import { Mongo, Schema, model } from '../Modules/mongo';
 import { IStatus } from './misc.model';
-import { Log } from '../Modules/logger';
 
 interface IResult {
   score: string;
@@ -11,6 +10,7 @@ interface IResult {
 
 interface IQuizResult {
   score: string;
+  email: string;
   _id?: Schema.Types.ObjectId;
 }
 

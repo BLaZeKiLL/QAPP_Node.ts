@@ -23,8 +23,10 @@ const Query = {
             const quiz = yield quiz_model_1.Quiz.getOne(undefined, args.quizID);
             const results = [];
             quiz.results.forEach((result) => __awaiter(this, void 0, void 0, function* () {
+                const student = yield student_model_1.Student.getOne(undefined, result.studentID);
                 results.push({
-                    score: result.score
+                    score: result.score,
+                    email: student.email
                 });
             }));
             return {

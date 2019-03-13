@@ -15,8 +15,10 @@ const Query = {
       const quiz = await Quiz.getOne(undefined, args.quizID);
       const results: IQuizResult[] = [];
       quiz.results.forEach(async result => {
+        const student = await Student.getOne(undefined, result.studentID);
         results.push({
-          score: result.score
+          score: result.score,
+          email: student.email
         });
       });
       return {
