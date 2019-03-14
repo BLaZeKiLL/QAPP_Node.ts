@@ -17,6 +17,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = __importStar(require("bcryptjs"));
 const mongo_1 = require("../Modules/mongo");
+const logger_1 = require("../Modules/logger");
 class Teacher {
     static add(teacher) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -33,6 +34,7 @@ class Teacher {
     static getOne(filter, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                logger_1.Log.main.info(id);
                 return yield mongo_1.Mongo.getOne(Teacher.DBmodel, filter, id);
             }
             catch (error) {
