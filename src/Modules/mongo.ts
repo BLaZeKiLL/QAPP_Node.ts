@@ -56,13 +56,15 @@ class Mongo {
       });
       return rdocs;
     } catch (error) {
-      const errorData = JSON.parse(error);
-      const ids = errorData.result.insertedIds.map((a: any) => a._id);
+      const ids: any[] = error.result.insertedIds.map((a: any) => a._id);
+      ids.pop();
       model.find({ _id: { $in: ids } }, (err, docs) => {
         if (err) {
+          Log.main.error('MUL ADD ERROR');
           Log.main.error(err);
           throw new Error('MONGODB');
         } else {
+          Log.main.error('DUPLICATES FOUND');
           return docs;
         }
       });
