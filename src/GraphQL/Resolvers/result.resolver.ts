@@ -21,6 +21,7 @@ const Query = {
           email: student.email
         });
       });
+      Log.main.info(`RESULT ${JSON.stringify(results)}`);
       return {
         result: results,
         status: {
