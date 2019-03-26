@@ -52,7 +52,7 @@ type QuizSumary {
 }
 
 type QuizResponse {
-  _id: ID!
+  _id: ID
   JSON: String
   status: Status!
 }
