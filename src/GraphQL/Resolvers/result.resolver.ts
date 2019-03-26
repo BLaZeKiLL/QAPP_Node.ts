@@ -15,6 +15,7 @@ const Query = {
       const quiz = await Quiz.getOneFlat(undefined, args.quizID);
       const results: IQuizResult[] = [];
       const result_docs = await Result.get(<any>quiz.results);
+      Log.main.info(`DOCS ${JSON.stringify(result_docs)}`);
       for (let i = 0; i < quiz.results.length; i++) {
         const result = result_docs[i];
         const student = await Student.getOne(undefined, result.studentID);
