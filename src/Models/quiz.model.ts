@@ -172,6 +172,15 @@ class Quiz {
     }
   }
 
+  public static async getOneFlat(filter?: IQuizFilter, id?: Schema.Types.ObjectId, populate: boolean = false): Promise<IQuiz> {
+    try {
+      return await Mongo.getOne(Quiz.DBmodel, filter, id);
+    } catch (error) {
+      Log.main.error('MONGO ERROR');
+      throw error;
+    }
+  }
+
   public static async addResult(update: any, id: Schema.Types.ObjectId): Promise<boolean> {
     try {
       await Mongo.addToArray(this.DBmodel, update, id);

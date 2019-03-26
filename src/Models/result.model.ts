@@ -63,6 +63,14 @@ class Result {
     }
   }
 
+  public static async get(ids: string[]): Promise<IResult[]> {
+    try {
+      return await Mongo.get(this.DBmodel, ids);
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export {

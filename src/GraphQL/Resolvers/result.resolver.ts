@@ -12,15 +12,18 @@ const Query = {
   },
   getQuizResults: async (args: any, req: any): Promise<IQuizResultsResponse> => {
     try {
-      const quiz = await Quiz.getOne(undefined, args.quizID);
+      const quiz = await Quiz.getOneFlat(undefined, args.quizID);
       const results: IQuizResult[] = [];
-      quiz.results.forEach(async result => {
+      const result_docs = await Result.get(<any>quiz.results);
+      Log.main.info(`DOCS ${JSON.stringify(result_docs)}`);
+      for (let i = 0; i < quiz.results.length; i++) {
+        const result = result_docs[i];
         const student = await Student.getOne(undefined, result.studentID);
         results.push({
           score: result.score,
           email: student.email
         });
-      });
+      }
       Log.main.info(`RESULT ${JSON.stringify(results)}`);
       return {
         result: results,

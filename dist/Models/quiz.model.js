@@ -57,6 +57,17 @@ class Quiz {
             }
         });
     }
+    static getOneFlat(filter, id, populate = false) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield mongo_1.Mongo.getOne(Quiz.DBmodel, filter, id);
+            }
+            catch (error) {
+                logger_1.Log.main.error('MONGO ERROR');
+                throw error;
+            }
+        });
+    }
     static addResult(update, id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -20,15 +20,19 @@ const Query = {
     }),
     getQuizResults: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
-            const quiz = yield quiz_model_1.Quiz.getOne(undefined, args.quizID);
+            const quiz = yield quiz_model_1.Quiz.getOneFlat(undefined, args.quizID);
             const results = [];
-            quiz.results.forEach((result) => __awaiter(this, void 0, void 0, function* () {
+            const result_docs = yield result_model_1.Result.get(quiz.results);
+            logger_1.Log.main.info(`DOCS ${JSON.stringify(result_docs)}`);
+            for (let i = 0; i < quiz.results.length; i++) {
+                const result = result_docs[i];
                 const student = yield student_model_1.Student.getOne(undefined, result.studentID);
                 results.push({
                     score: result.score,
                     email: student.email
                 });
-            }));
+            }
+            logger_1.Log.main.info(`RESULT ${JSON.stringify(results)}`);
             return {
                 result: results,
                 status: {
