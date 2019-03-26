@@ -52,14 +52,16 @@ class Mongo {
                 return rdocs;
             }
             catch (error) {
-                const errorData = JSON.parse(error);
-                const ids = errorData.result.insertedIds.map((a) => a._id);
+                const ids = error.result.insertedIds.map((a) => a._id);
+                ids.pop();
                 model.find({ _id: { $in: ids } }, (err, docs) => {
                     if (err) {
+                        logger_1.Log.main.error('MUL ADD ERROR');
                         logger_1.Log.main.error(err);
                         throw new mongoose_1.Error('MONGODB');
                     }
                     else {
+                        logger_1.Log.main.error('DUPLICATES FOUND');
                         return docs;
                     }
                 });
