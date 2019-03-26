@@ -31,7 +31,7 @@ const Query = {
   },
   getQuizSummary: async (args: any, req: any): Promise<IQuizSumaryResponse> => {
     try {
-      isStudent(req);
+      isTeacher(req);
       const teacher = await Teacher.getOne(undefined, args.tid);
       const quizes = await Quiz.Model.find({
         '_id': {
@@ -47,7 +47,7 @@ const Query = {
           setQuestions: quiz.setQuestions,
           date: quiz.date,
           duration: quiz.duration
-        }
+        };
       });
       return {
         summary: summary,
@@ -55,9 +55,9 @@ const Query = {
           code: 0,
           message: 'OK'
         }
-      }
+      };
     } catch (error) {
-      Log.main.error('QUIZ ERROR');
+      Log.main.error('SUMMARY ERROR');
       Log.main.error(error);
       return {
         status: {

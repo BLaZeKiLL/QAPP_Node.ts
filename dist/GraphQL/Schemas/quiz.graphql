@@ -58,6 +58,6 @@ type QuizResponse {
 }
 
 type QuizSumaryResponse {
-  summary: [QuizSumary!]!
+  summary: [QuizSumary!]
   status: Status!
 }

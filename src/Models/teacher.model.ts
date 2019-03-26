@@ -2,6 +2,7 @@ import * as bcrypt from 'bcryptjs';
 
 import { Mongo, Schema, model } from '../Modules/mongo';
 import { IStatus } from './misc.model';
+import { Log } from '../Modules/logger';
 
 interface ITeacher {
   name: string;
@@ -75,6 +76,7 @@ class Teacher {
 
   public static async getOne(filter?: ITeacherFilter, id?: Schema.Types.ObjectId): Promise<ITeacher> {
     try {
+      Log.main.info(id);
       return await Mongo.getOne(Teacher.DBmodel, filter, id);
     } catch (error) {
       throw error;

@@ -149,7 +149,7 @@ class Quiz {
 
       if (doc) {
         const id = doc._id;
-        const emails = doc.targetEmails
+        const emails = doc.targetEmails;
 
         Scheduler.process(emails);
         Dispatcher.cache(id);
