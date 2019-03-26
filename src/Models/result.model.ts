@@ -53,19 +53,11 @@ class Result {
     }
   });
 
-  private static DBmodel = model('Result', Result.schema);
+  public static DBmodel = model('Result', Result.schema);
 
   public static async addResult(result: IResultInput): Promise<IResult> {
     try {
       return await Mongo.add(this.DBmodel, result);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  public static async get(ids: string[]): Promise<IResult[]> {
-    try {
-      return await Mongo.get(this.DBmodel, ids);
     } catch (error) {
       throw error;
     }

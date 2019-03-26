@@ -1,4 +1,4 @@
-import { IAddResultResponse, Result, IQuizResultsResponse, IQuizResult } from '../../Models/result.model';
+import { IAddResultResponse, Result, IQuizResultsResponse, IQuizResult, IResult } from '../../Models/result.model';
 import { isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Student } from '../../Models/student.model';
@@ -14,7 +14,11 @@ const Query = {
     try {
       const quiz = await Quiz.getOneFlat(undefined, args.quizID);
       const results: IQuizResult[] = [];
-      const result_docs = await Result.get(<any>quiz.results);
+      const result_docs = <IResult[]>await <any>Result.DBmodel.find({
+        '_id': {
+          $in: quiz.results
+        }
+      });
       Log.main.info(`DOCS ${JSON.stringify(result_docs)}`);
       for (let i = 0; i < quiz.results.length; i++) {
         const result = result_docs[i];

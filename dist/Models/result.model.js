@@ -20,16 +20,6 @@ class Result {
             }
         });
     }
-    static get(ids) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield mongo_1.Mongo.get(this.DBmodel, ids);
-            }
-            catch (error) {
-                throw error;
-            }
-        });
-    }
 }
 /**
  * Result Schema

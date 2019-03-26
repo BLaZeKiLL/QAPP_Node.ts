@@ -22,7 +22,11 @@ const Query = {
         try {
             const quiz = yield quiz_model_1.Quiz.getOneFlat(undefined, args.quizID);
             const results = [];
-            const result_docs = yield result_model_1.Result.get(quiz.results);
+            const result_docs = yield result_model_1.Result.DBmodel.find({
+                '_id': {
+                    $in: quiz.results
+                }
+            });
             logger_1.Log.main.info(`DOCS ${JSON.stringify(result_docs)}`);
             for (let i = 0; i < quiz.results.length; i++) {
                 const result = result_docs[i];
