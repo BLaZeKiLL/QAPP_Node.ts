@@ -24,6 +24,7 @@ class Mongo {
   public static connectDB(url: string): void {
     connect(url, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false})
     .catch((error) => {
+      Log.main.error(error);
       throw new Error('MONGODB');
     });
   }
