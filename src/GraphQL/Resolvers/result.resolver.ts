@@ -1,4 +1,4 @@
-import { IAddResultResponse, Result, IQuizResultsResponse, IQuizResult } from '../../Models/result.model';
+import { IAddResultResponse, Result, IQuizResultsResponse, IQuizResult, IResult } from '../../Models/result.model';
 import { isStudent } from '../../Modules/authentication';
 import { Handle } from '../../Modules/errorHandler';
 import { Student } from '../../Models/student.model';
@@ -12,13 +12,23 @@ const Query = {
   },
   getQuizResults: async (args: any, req: any): Promise<IQuizResultsResponse> => {
     try {
-      const quiz = await Quiz.getOne(undefined, args.quizID);
+      const quiz = await Quiz.getOneFlat(undefined, args.quizID);
       const results: IQuizResult[] = [];
-      quiz.results.forEach(async result => {
-        results.push({
-          score: result.score
-        });
+      const result_docs = <IResult[]>await <any>Result.DBmodel.find({
+        '_id': {
+          $in: quiz.results
+        }
       });
+      Log.main.info(`DOCS ${JSON.stringify(result_docs)}`);
+      for (let i = 0; i < quiz.results.length; i++) {
+        const result = result_docs[i];
+        const student = await Student.getOne(undefined, result.studentID);
+        results.push({
+          score: result.score,
+          email: student.email
+        });
+      }
+      Log.main.info(`RESULT ${JSON.stringify(results)}`);
       return {
         result: results,
         status: {

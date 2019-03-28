@@ -41,7 +41,7 @@ const Query = {
     },
     getQuizSummary: (args, req) => __awaiter(this, void 0, void 0, function* () {
         try {
-            authentication_1.isStudent(req);
+            authentication_1.isTeacher(req);
             const teacher = yield teacher_model_1.Teacher.getOne(undefined, args.tid);
             const quizes = yield quiz_model_1.Quiz.Model.find({
                 '_id': {
@@ -68,7 +68,7 @@ const Query = {
             };
         }
         catch (error) {
-            logger_1.Log.main.error('QUIZ ERROR');
+            logger_1.Log.main.error('SUMMARY ERROR');
             logger_1.Log.main.error(error);
             return {
                 status: {

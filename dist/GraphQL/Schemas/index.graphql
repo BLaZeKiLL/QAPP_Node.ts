@@ -1,4 +1,4 @@
-# import Question, QuestionInput, QuestionUpdate, QuestionsResponse from 'question.graphql'
+# import Question, QuestionInput, QuestionUpdate, QuestionsResponse, QuizSumaryResponse from 'question.graphql'
 # import Quiz, QuizInput, QuizResponse from 'quiz.graphql'
 # import ResultInput, AddResultResponse, QuizResultsResponse from 'result.graphql'
 # import StudentInput, StudentUpdate, StudentAuthResponse from 'student.graphql'
@@ -8,7 +8,7 @@
 type Query {
   getQuestions(searchQuery: String!): QuestionsResponse! #
   getQuiz(email: String!): QuizResponse! #
-  getQuizSummary(tid: String): String! #
+  getQuizSummary(tid: String): QuizSumaryResponse! #
   getQuizResults(quizID: ID!): QuizResultsResponse!
   getStudentResults(studentID: ID!): QuizResultsResponse!
   studentLogin(email: String!, password: String!, deviceID: String!): StudentAuthResponse! #

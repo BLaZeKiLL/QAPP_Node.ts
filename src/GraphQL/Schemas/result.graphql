@@ -14,9 +14,8 @@ type Result {
 }
 
 type QuizResult {
-  _id: ID
   score: String!
-  name: String!
+  email: String!
 }
 
 type AddResultResponse {

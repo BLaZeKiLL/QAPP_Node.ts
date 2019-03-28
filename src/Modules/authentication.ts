@@ -14,7 +14,7 @@ function authenticate(req: any, res: Response, next: NextFunction) {
     next();
     return; // REMOVE
   }
-  if (!token) {
+  if (!token || token === 'NaN') {
     Log.main.info('NO TOKEN');
     req.isStudent = false;
     req.isTeacher = false;

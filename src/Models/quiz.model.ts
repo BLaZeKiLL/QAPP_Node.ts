@@ -149,7 +149,7 @@ class Quiz {
 
       if (doc) {
         const id = doc._id;
-        const emails = doc.targetEmails
+        const emails = doc.targetEmails;
 
         Scheduler.process(emails);
         Dispatcher.cache(id);
@@ -168,6 +168,15 @@ class Quiz {
       return await Mongo.getOneQuiz(Quiz.DBmodel, filter, id);
     } catch (error) {
       Log.main.error('POPULATION ERROR');
+      throw error;
+    }
+  }
+
+  public static async getOneFlat(filter?: IQuizFilter, id?: Schema.Types.ObjectId, populate: boolean = false): Promise<IQuiz> {
+    try {
+      return await Mongo.getOne(Quiz.DBmodel, filter, id);
+    } catch (error) {
+      Log.main.error('MONGO ERROR');
       throw error;
     }
   }
