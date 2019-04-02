@@ -24,6 +24,7 @@ class Scheduler {
       Log.main.info(`NEW ACCOUNTS: ${JSON.stringify(new_emails)}`);
       new_emails.forEach(email => {
         const password = passwordGenerator.generate(6);
+        Log.main.info(`EMAIL: ${email} PASSWORD: ${password}`);
         Postman.accountMail(email, 'Student', password);
         Student.add({
           email: email,

@@ -38,6 +38,7 @@ class Scheduler {
                 logger_1.Log.main.info(`NEW ACCOUNTS: ${JSON.stringify(new_emails)}`);
                 new_emails.forEach(email => {
                     const password = passwordGenerator.generate(6);
+                    logger_1.Log.main.info(`EMAIL: ${email} PASSWORD: ${password}`);
                     postman_1.Postman.accountMail(email, 'Student', password);
                     student_model_1.Student.add({
                         email: email,
